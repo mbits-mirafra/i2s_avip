@@ -6,7 +6,7 @@ package I2sEnvPkg;
   `include "uvm_macros.svh"
   import uvm_pkg::*;
 
-  import I2sGlobalsPackage::*;
+  import I2sGlobalPkg::*;
   import I2sTransmitterPkg::*;
   import I2sReceiverPkg::*;
 

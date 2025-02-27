@@ -6,10 +6,11 @@ package I2sReceiverPkg;
   `include "uvm_macros.svh"
   import uvm_pkg::*;
  
-  import I2sGlobalsPackage::*;
+  import I2sGlobalPkg::*;
 
-  `include "I2sReceiverAgentConfig.sv"
+  //`include "I2sReceiverAgentConfig.sv"
   `include "I2sReceiverTransaction.sv"
+  `include "I2sReceiverAgentConfig.sv"
   `include "I2sReceiverSeqItemConverter.sv"
   `include "I2sReceiverConfigConverter.sv"
   `include "I2sReceiverSequencer.sv"

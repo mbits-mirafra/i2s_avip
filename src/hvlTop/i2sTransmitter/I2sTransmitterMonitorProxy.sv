@@ -4,12 +4,12 @@
 class I2sTransmitterMonitorProxy extends uvm_component;
   `uvm_component_utils(I2sTransmitterMonitorProxy)
 
-  I2sTransmitterTransaction i2sTransmitterTransaction;
-  I2sTransmitterAgentConfig i2sTransmitterAgentConfig;
+   I2sTransmitterTransaction i2sTransmitterTransaction;
+   I2sTransmitterAgentConfig i2sTransmitterAgentConfig;
 
   virtual I2sTransmitterMonitorBFM i2sTransmitterMonitorBFM;
 
-  uvm_analysis_port #(I2sTransmitterTransaction)i2sTransmitterAnalysisPort;
+  uvm_analysis_port #(I2sTransmitterTransaction) i2sTransmitterAnalysisPort;
 
   extern function new(string name = "I2sTransmitterMonitorProxy", uvm_component parent = null);
   extern virtual function void build_phase(uvm_phase phase);
@@ -20,16 +20,17 @@ class I2sTransmitterMonitorProxy extends uvm_component;
 
 endclass : I2sTransmitterMonitorProxy
 
-function I2sTransmitterMonitorProxy::new(string name = "I2sTransmitterMonitorProxy", uvm_component parent = null);
+function I2sTransmitterMonitorProxy::new(string name = "I2sTransmitterMonitorProxy",
+                                                  uvm_component parent = null);
   super.new(name, parent);
   i2sTransmitterAnalysisPort = new("i2sTransmitterAnalysisPort",this);
-   i2sTransmitterTransaction = new();
 endfunction : new
 
 function void I2sTransmitterMonitorProxy::build_phase(uvm_phase phase);
   super.build_phase(phase);
+i2sTransmitterTransaction=I2sTransmitterTransaction::type_id::create("i2sTransmitterTransaction"); 
   if(!uvm_config_db #(virtual I2sTransmitterMonitorBFM)::get(this,"","I2sTransmitterMonitorBFM",i2sTransmitterMonitorBFM))begin
-  `uvm_fatal("FATAL_MDP_CANNOT_GET_MASTER_MONITOR_BFM","cannot get () I2sTransmitterMonitorBFM from uvm_config_db")
+  `uvm_fatal("FATAL_MDP_CANNOT_GET_TRANSMITTER_MONITOR_BFM","cannot get () i2sTransmitterMonitorBFM from uvm_config_db")
   end
 endfunction : build_phase
 
@@ -48,31 +49,34 @@ endfunction : start_of_simulation_phase
 
 task I2sTransmitterMonitorProxy::run_phase(uvm_phase phase);
 
-  I2sTransmitterTransaction transmitterTxn;
+  I2sTransmitterTransaction i2sTransmittertxn;
 
-  `uvm_info(get_type_name(),"Running the Monitor Proxy", UVM_HIGH)
+  `uvm_info(get_type_name(),"IN MONITOR- Running the Monitor Proxy", UVM_NONE)
 
- /* `uvm_info(get_type_name(), "Waiting for reset", UVM_HIGH);
-  i2sTransmitterMonitorBFM.wait_for_reset();
- 
+  `uvm_info(get_type_name(), "IN MONITOR- Waiting for reset", UVM_NONE);
+    i2sTransmitterMonitorBFM.waitForReset();
+  `uvm_info(get_type_name(), "IN MONITOR- I2S :: Reset detected", UVM_NONE);
+
   forever begin
-    i2sTransferPacketStruct packetStruct;
+     i2sTransferPacketStruct packetStruct;
     i2sTransferCfgStruct configStruct;
 
+
+   I2sTransmitterConfigConverter::fromTransmitterClass(i2sTransmitterAgentConfig, configStruct);
+
+   `uvm_info(get_type_name(), $sformatf("IN MONITOR- Converted cfg struct\n%p",configStruct), UVM_NONE)
    
-    i2sTransmitterConfigConverter::from_class(i2sTransmitterAgentConfig, configStruct);
-    `uvm_info(get_type_name(), $sformatf("Converted cfg struct\n%p",configStruct), UVM_HIGH)
+     i2sTransmitterMonitorBFM.sampleData(packetStruct,configStruct);
 
-    i2sTransmitterMonitorBFM.sample_data(packetStruct,configStruct);
+     I2sTransmitterSeqItemConverter::toTransmitterClass(packetStruct,i2sTransmitterTransaction);
+         
 
-    I2sTransmitterSeqItemConverter::to_class(packetStruct,i2sTransmitterTransaction);    
-
-    $cast(transmitterTxn, i2sTransmitterTransaction.clone());
-    `uvm_info(get_type_name(),$sformatf("Packet received from sample_data clone packet is \n %s",transmitterTxn.sprint()),UVM_HIGH)   
+    $cast(i2sTransmittertxn, i2sTransmitterTransaction.clone());
+    `uvm_info(get_type_name(),$sformatf("IN MONITOR- Packet received from sample_data clone packet is \n %s",i2sTransmittertxn.sprint()),UVM_NONE)   
  
-    i2sTransmitterAnalysisPort.write(transmitterTxn); 
+    i2sTransmitterAnalysisPort.write(i2sTransmittertxn); 
    
- end */
+ end 
 
 
 endtask : run_phase  

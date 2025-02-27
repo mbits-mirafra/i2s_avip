@@ -1,84 +1,87 @@
 `ifndef I2SRECEIVERSEQITEMCONVERTER_INCLUDED_
 `define I2SRECEIVERSEQITEMCONVERTER_INCLUDED_
 
-
 class I2sReceiverSeqItemConverter extends uvm_object;
-  
   extern function new(string name = "I2sReceiverSeqItemConverter");
-//  extern static function void from_class(input i2s_slave_tx input_conv_h,
-                                       //  output i3c_transfer_bits_s output_conv);
-
-//  extern static function void to_class(input i3c_transfer_bits_s input_conv_h,     
-                                      // output i2s_slave_tx output_conv);
- // extern function void do_print(uvm_printer printer);
-
+  extern static function void fromReceiverClass(input I2sReceiverTransaction inputConv,
+                                                 output i2sTransferPacketStruct outputConv);
+ 
+  extern static function void toReceiverClass(input i2sTransferPacketStruct inputConv,     
+                                               output I2sReceiverTransaction outputConv);
+  extern function void do_print(uvm_printer printer);  
 endclass : I2sReceiverSeqItemConverter
-
-
+ 
 function I2sReceiverSeqItemConverter::new(string name = "I2sReceiverSeqItemConverter");
   super.new(name);
 endfunction : new
+ 
+ 
+function void I2sReceiverSeqItemConverter::fromReceiverClass(input I2sReceiverTransaction inputConv,
+                                                              output i2sTransferPacketStruct outputConv);
+ 
+  `uvm_info("I2sReceiverSeqItemConverter",$sformatf("----------------------------------------------------------------------"),UVM_HIGH);
+ 
+    outputConv.ws = inputConv.rxWs;
+    `uvm_info("I2sReceiverSeqItemConverter",$sformatf("After converting fromReceiverClass ws =  %0h",outputConv.ws),UVM_HIGH);
+ 
+    outputConv.sclk = inputConv.rxSclk;
+    `uvm_info("I2sReceiverSeqItemConverter",$sformatf("After converting fromReceiverClass sclk =  %0h",outputConv.sclk),UVM_HIGH);
+
+    outputConv.numOfBitsTransfer = numOfBitsTransferEnum'(inputConv.rxNumOfBitsTransfer);
+    `uvm_info("I2sReceiverSeqItemConverter",$sformatf("After converting fromReceiverClass numOfBitsTransfer =  %0d",outputConv.numOfBitsTransfer),UVM_HIGH);
+
+    outputConv.wordSelectPeriod = wordSelectPeriodEnum'(inputConv.rxWordSelectPeriod);
+    `uvm_info("I2sReceiverSeqItemConverter",$sformatf("After converting fromReceiverClass wordSelectPeriod =  %0d",outputConv.wordSelectPeriod),UVM_HIGH);
+
+    outputConv.clockratefrequency = clockrateFrequencyEnum'(inputConv.clockrateFrequency);
+    `uvm_info("I2sTransmitterSeqItemConverter",$sformatf("After converting fromReceiverClass clockrateFrequency =  %0d",outputConv.clockratefrequency),UVM_HIGH);
+
+  for(int i=0; i<inputConv.rxSd.size();i++) begin
+    outputConv.sd[i] = inputConv.rxSd[i];   
+    `uvm_info("I2sReceiverSeqItemConverter",$sformatf(" After converting fromReceiverClass Serial Data= %0b",outputConv.sd[i]),UVM_LOW)
+  end
+ 
+endfunction: fromReceiverClass
+ 
+ 
+function void I2sReceiverSeqItemConverter::toReceiverClass(input i2sTransferPacketStruct inputConv,
+       output I2sReceiverTransaction outputConv);
+  outputConv = new();
+ 
+   outputConv.rxWs = inputConv.ws;
+    `uvm_info("I2sReceiverSeqItemConverter",$sformatf("After converting toReceiverClass ws =%0d",outputConv.rxWs),UVM_HIGH);
+ 
+     outputConv.rxSclk = inputConv.sclk;
+    `uvm_info("I2sReceiverSeqItemConverter",$sformatf("After converting toReceiverClass sclk =%0d",outputConv.rxSclk),UVM_HIGH);
+
+     outputConv.rxNumOfBitsTransfer = numOfBitsTransferEnum'(inputConv.numOfBitsTransfer);
+    `uvm_info("I2sReceiverSeqItemConverter",$sformatf("After converting toReceiverClassnumOfBitsTransfer =  %0d",outputConv.rxNumOfBitsTransfer),UVM_HIGH);
+     outputConv.clockrateFrequency = clockrateFrequencyEnum'(inputConv.clockratefrequency);
+    `uvm_info("I2sTransmitterSeqItemConverter",$sformatf("After converting toReceiverClass clockrateFrequency =  %0d",outputConv.clockrateFrequency),UVM_NONE);
 
 
-/*function void i2s_slave_seq_item_converter::from_class(input i2s_slave_tx input_conv_h,
-     output i3c_transfer_bits_s output_conv);
+      outputConv.rxWordSelectPeriod = wordSelectPeriodEnum'(inputConv.wordSelectPeriod);
+    `uvm_info("I2sReceiverSeqItemConverter",$sformatf("After converting toReceiverClasswordSelectPeriod =  %0d",outputConv.rxWordSelectPeriod),UVM_HIGH);
+
+     outputConv.rxSd = inputConv.sd;   
+    `uvm_info("I2sTransmitterSeqItemConverter",$sformatf(" After converting to_TransmitterClass Serial Data= %p",outputConv.rxSd),UVM_NONE) 
+     
   
-  output_conv.targetAddressStatus = acknowledge_e'(input_conv_h.targetAddressStatus);
-
-  for(int i=0; i<input_conv_h.readData.size();i++)  begin
-    output_conv.readData[i]= input_conv_h.readData[i]; 
-  end
-  for(int i=0; i<input_conv_h.writeDataStatus.size();i++) begin
-    output_conv.writeDataStatus[i] = input_conv_h.writeDataStatus[i];    
-  end
-endfunction: from_class 
-
-
-function void i2s_slave_seq_item_converter::to_class(input i3c_transfer_bits_s input_conv_h,
-                                                      output i2s_slave_tx output_conv);
-  output_conv = new();
-
-  output_conv.targetAddress = input_conv_h.targetAddress;    
-  `uvm_info("target_seq_item_conv_class",
-  $sformatf("To class targetAddress = \n %p",output_conv.targetAddress),UVM_LOW)
-  output_conv.targetAddressStatus = acknowledge_e'(input_conv_h.targetAddressStatus);
-  output_conv.operation = operationType_e'(input_conv_h.operation);
-  output_conv.readData = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
-  output_conv.readDataStatus = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
-  
-  for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
-    output_conv.readData[i] = input_conv_h.readData[i][DATA_WIDTH-1:0];
-    `uvm_info("target_seq_item_conv_class",
-    $sformatf("To class readData = \n %p",output_conv.readData[i]),UVM_LOW)
-  end
-
-  for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
-    output_conv.readDataStatus[i] = acknowledge_e'(input_conv_h.readDataStatus[i]);
-  end
-
-  output_conv.writeData = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
-  output_conv.writeDataStatus = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
-  for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
-    output_conv.writeData[i] = input_conv_h.writeData[i];
-    `uvm_info("target_seq_item_conv_class",
-    $sformatf("To class writeData =  %0b",output_conv.writeData[i]),UVM_LOW)
-  end
-
-  for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
-    output_conv.writeDataStatus[i] = acknowledge_e'(input_conv_h.writeDataStatus[i]);
-  end
-endfunction: to_class*/
-
-/*function void i2s_slave_seq_item_converter::do_print(uvm_printer printer);
-  i3c_transfer_bits_s i3c_st;
+endfunction: toReceiverClass
+ 
+ 
+function void I2sReceiverSeqItemConverter::do_print(uvm_printer printer);
+  i2sTransferPacketStruct ReceiverPacketStruct;
   super.do_print(printer);
-
-  if(i3c_st.targetAddress) begin
-    printer.print_field($sformatf("targetAddress"),i3c_st.targetAddress,8,UVM_HEX);
-  end
-  foreach(i3c_st.writeData[i]) begin
-  printer.print_field($sformatf("writeData[%0d]",i),i3c_st.writeData[i],8,UVM_HEX);
-  end
-endfunction : do_print*/
-
+ 
+  printer.print_field("ws",ReceiverPacketStruct.ws,$bits(ReceiverPacketStruct.ws),UVM_DEC);
+  printer.print_field("sclk",ReceiverPacketStruct.sclk,$bits(ReceiverPacketStruct.sclk),UVM_DEC);
+  printer.print_field("wordSelectPeriod",ReceiverPacketStruct.wordSelectPeriod,$bits(ReceiverPacketStruct.wordSelectPeriod),UVM_DEC);
+  printer.print_field("clockratefrequency",ReceiverPacketStruct.clockratefrequency,$bits(ReceiverPacketStruct.clockratefrequency),UVM_DEC);
+  printer.print_field("numOfBitsTransfer",ReceiverPacketStruct.numOfBitsTransfer,$bits(ReceiverPacketStruct.numOfBitsTransfer),UVM_DEC);
+  foreach(ReceiverPacketStruct.sd[i]) begin
+    printer.print_field($sformatf("serial_data[%0d]=%b",i,ReceiverPacketStruct.sd[i]),$bits(ReceiverPacketStruct.sd),UVM_DEC);
+  end  
+  endfunction : do_print
+ 
 `endif
