@@ -61,7 +61,7 @@ usage:
 	echo "make regression testlist_name=<regression_testlist_name.list>";
 	echo "";
 	echo "Example:":
-	echo "make regression testlist_name=i2s_standard_mode_regression.list";
+	echo "make regression testlist_name=I2s_standard_mode_regression.list";
 	echo "";
 	echo "-----------------------------------------------------------------";
 	echo "-----------------------------------------------------------------";
@@ -92,7 +92,7 @@ compile:
 
 # Setting a default test as base_test
 ifndef test
-override test = base_test
+override test = I2sBaseTest
 endif
 
 # Setting the default seed value to random 
@@ -117,14 +117,14 @@ simulate:
 	# Use -novopt for no optimization - Makes the simulation slower
 	# vsim -pli finesim.so -coverage top
 	vsim -vopt \
-	work.HvlTop \
-	work.HdlTop \
+	work.hvlTop \
+	work.hdlTop \
 	-voptargs=+acc=npr \
 	-sv_seed $(seed) \
 	-assertdebug \
 	+UVM_TESTNAME=$(test) \
 	+UVM_VERBOSITY=$(uvm_verbosity) \
-	+define+$(i2s_type) \
+	+define+$(I2s_type) \
 	-l $(test_folder)/$(test).log \
 	-sva \
   -coverage \
@@ -151,7 +151,7 @@ simulate:
 	# vsim -view waveform.wlf &
 	#
 	# To open the wavefrom with saved signals
-	# vsim -view waveform.wlf -do i2s_waves.do &
+	# vsim -view waveform.wlf -do I2s_waves.do &
 
 clean_simulate:
 	rm -rf *_test*
@@ -172,7 +172,7 @@ regression:
 	#Run simualtion - regression 
 	python regression_handling.py $(testlist_name)
 	#	# Get the tests from regression list
-	#	grep "_test" ../../src/hvl_top/testlists/i2s_standard_mode_regression.list | grep -v "\#" > reg_list
+	#	grep "_test" ../../src/hvl_top/testlists/I2s_standard_mode_regression.list | grep -v "\#" > reg_list
 	#	make simulate test=value #Get the name from regression list
 	#	Merge coverage
 	make merge_cov_report
@@ -198,11 +198,11 @@ compile_war_err:
 	echo "-----------------------------------------------------------------";
 	echo "------------------- Compilation Report --------------------------";
 	echo "";
-	grep "^** " i2s_compile.log;
+	grep "^** " I2sCompile.log;
 	echo "";
-	grep "^Error" i2s_compile.log;
+	grep "^Error" I2sCompile.log;
 	echo "";
-	echo "Log file path: i2s_compile.log"
+	echo "Log file path: I2sCompile.log"
 	echo "";
 	echo "-----------------------------------------------------------------";
 	echo "-----------------------------------------------------------------";

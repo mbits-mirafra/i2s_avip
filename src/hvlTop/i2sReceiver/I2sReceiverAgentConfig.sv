@@ -4,11 +4,13 @@
 class I2sReceiverAgentConfig extends uvm_object;
   `uvm_object_utils(I2sReceiverAgentConfig)
 
-  /*uvm_active_passive_enum isActive = UVM_ACTIVE;
-  hasCoverage_e hasCoverage = TRUE;
-  dataTransferDirection_e dataTransferDirection;
-  bit [TARGET_ADDRESS_WIDTH-1:0] targetAddress;
-  bit [DATA_WIDTH-1:0]defaultReadData = 'hFF;*/
+  uvm_active_passive_enum isActive; 
+  hasCoverageEnum hasCoverage = TRUE;
+  modeTypeEnum mode;
+  int clockPeriod;
+  int sclkFrequency;
+  int delayFortxSd;
+  int delayFortxWs;
  
   extern function new(string name = "I2sReceiverAgentConfig");
   extern function void do_print(uvm_printer printer);
@@ -22,10 +24,14 @@ endfunction : new
 
 function void I2sReceiverAgentConfig::do_print(uvm_printer printer);
   super.do_print(printer);
- // printer.print_string ("isActive",isActive.name());
- // printer.print_string ("dataTransferDirection",dataTransferDirection.name());
- // printer.print_string("hasCoverage",hasCoverage.name());
- // printer.print_field("targetAddress",targetAddress,$bits(targetAddress),UVM_HEX);
-endfunction : do_print
+  printer.print_string ("isActive",isActive.name());
+  printer.print_string ("mode",mode.name());
+  printer.print_string("hasCoverage",hasCoverage.name());
+  printer.print_field ("clockPeriod",clockPeriod, $bits(clockPeriod), UVM_DEC);
+  printer.print_field ("sclkFrequency",sclkFrequency, $bits(sclkFrequency), UVM_DEC);
+  printer.print_field ("delayFortxSd", delayFortxSd, 32, UVM_DEC);
+  printer.print_field ("delayFortxWs", delayFortxWs, 32, UVM_DEC);
+
+ endfunction : do_print
 
 `endif

@@ -5,33 +5,35 @@ module I2sTransmitterAgentBFM(I2sInterface i2sInterface);
  
   import uvm_pkg::*;
 `include "uvm_macros.svh"
-  import I2sGlobalsPackage::*;
+  import I2sGlobalPkg::*;
  
-//-------------------------------------------------------
-//controller driver bfm instantiation
-//-------------------------------------------------------
-I2sTransmitterDriverBFM i2sTransmitterDriverBFM();  
- 
-//-------------------------------------------------------
-//controller monitor bfm instatiation
-//-------------------------------------------------------
-I2sTransmitterMonitorBFM i2sTransmitterMonitorBFM();
- 
-//-------------------------------------------------------
-// Setting the virtual handle of BMFs into config_db
-//-------------------------------------------------------
-initial begin
-  uvm_config_db#(virtual I2sTransmitterDriverBFM)::set(null,"*","I2sTransmitterDriverBFM",
+I2sTransmitterDriverBFM i2sTransmitterDriverBFM(.clk(i2sInterface.clk),
+						.rst(i2sInterface.rst),
+						.wsInput(i2sInterface.ws),
+            .wsOutput(i2sInterface.wsOutput),
+            .sclkInput(i2sInterface.sclk),
+            .sclkOutput(i2sInterface.sclkOutput),
+            .sd(i2sInterface.sd));  
+
+I2sTransmitterMonitorBFM i2sTransmitterMonitorBFM(.clk(i2sInterface.clk),
+						.rst(i2sInterface.rst),
+						.ws(i2sInterface.ws),
+            .wsOutput(i2sInterface.wsOutput),
+            .sclk(i2sInterface.sclk),
+            .sclkOutput(i2sInterface.sclkOutput),
+            .sd(i2sInterface.sd));  
+            
+  initial begin
+  uvm_config_db#(virtual I2sTransmitterDriverBFM )::set(null,"*","I2sTransmitterDriverBFM",
                                                               i2sTransmitterDriverBFM);
  
   uvm_config_db#(virtual I2sTransmitterMonitorBFM)::set(null,"*","I2sTransmitterMonitorBFM",
-                                                              i2sTransmitterMonitorBFM);
+                                                             i2sTransmitterMonitorBFM);
   end
  
 initial begin
-   $display("controller Agent BFM");
+   $display("Transmitter Agent BFM");
 end
  
-endmodule : I2sTransmitterAgentBFM
- 
+endmodule : I2sTransmitterAgentBFM 
 `endif

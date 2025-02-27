@@ -13,6 +13,8 @@ package I2sVirtualSeqPkg;
   import I2sEnvPkg::*;
 
  `include "I2sVirtualBaseSeq.sv"
+ `include "I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq.sv"
+ `include "I2sVirtual8bitWriteOperationRxMasterTxSlaveSeq.sv"
  
 endpackage : I2sVirtualSeqPkg
 

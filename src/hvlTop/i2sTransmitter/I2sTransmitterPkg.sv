@@ -6,7 +6,7 @@ package I2sTransmitterPkg;
   `include "uvm_macros.svh"
   import uvm_pkg::*;
  
-  import I2sGlobalsPackage::*;
+  import I2sGlobalPkg::*;
 
   `include "I2sTransmitterAgentConfig.sv"
   `include "I2sTransmitterTransaction.sv"

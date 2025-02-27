@@ -1,15 +1,11 @@
 `ifndef I2SVIRTUALBASESEQ_INCLUDED_
 `define I2SVIRTUALBASESEQ_INCLUDED_
 
-// This class contains the handle of actual sequencer pointing towards them
 class I2sVirtualBaseSeq extends uvm_sequence#(uvm_sequence_item);
   `uvm_object_utils(I2sVirtualBaseSeq)
 
    `uvm_declare_p_sequencer(I2sVirtualSequencer)
         
-   //declaring virtual sequencer handle
-   //virtual_sequencer  virtual_seqr_h;
-
    I2sTransmitterSequencer  i2sTransmitterSequencer;
    I2sReceiverSequencer   i2sReceiverSequencer;
    I2sEnvConfig i2sEnvConfig;
@@ -27,15 +23,12 @@ task I2sVirtualBaseSeq::body();
   `uvm_fatal("CONFIG","cannot get() env_cfg from uvm_config_db.Have you set() it?")
   end
 
-  //dynamic casting of p_sequncer and m_sequencer
   if(!$cast(p_sequencer,m_sequencer))begin
   `uvm_error(get_full_name(),"Virtual sequencer pointer cast failed")
   end
                                              
-  //connecting controller sequencer and target sequencer present in p_sequencer to
-  // local controller sequencer and target sequencer 
-  i2sTransmitterSequencer=p_sequencer.i2sTransmitterSequencer;
-  i2sTransmitterSequencer=p_sequencer.i2sTransmitterSequencer;
+  i2sTransmitterSequencer = p_sequencer.i2sTransmitterSequencer;
+  i2sReceiverSequencer    = p_sequencer.i2sReceiverSequencer;
 
 endtask:body
 
