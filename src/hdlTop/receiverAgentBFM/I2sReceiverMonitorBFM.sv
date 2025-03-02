@@ -40,6 +40,7 @@ interface I2sReceiverMonitorBFM(input clk,
   task SampleSdFromLeftChannel(inout i2sTransferPacketStruct packetStruct,input int i);
     bit [DATA_WIDTH-1:0] serialdata;
     $display("IN RECEIVER MONITOR- Monitor sample SD from left channel task");
+   // packetStruct.numOfBitsTransfer=0;
     for(int k=DATA_WIDTH-1; k>=0; k--) begin 
       serialdata[k] = sd; 
 	    packetStruct.numOfBitsTransfer++;
@@ -58,6 +59,7 @@ interface I2sReceiverMonitorBFM(input clk,
 task SampleSdFromRightChannel(inout i2sTransferPacketStruct packetStruct,input int i);
     bit [DATA_WIDTH-1:0] serialdata;
     $display("IN RECEIVER MONITOR- Monitor sample SD from right channel task");
+
     for(int k=DATA_WIDTH-1; k>=0; k--) begin 
         packetStruct.numOfBitsTransfer++;       
            serialdata[k] = sd;     
@@ -97,8 +99,8 @@ task detectWs(inout i2sTransferPacketStruct packetStruct);
     if(ws == 1) begin
       wsLocal = 2'b11;
      do begin
-        @(negedge sclk);
-     
+      @(negedge sclk);
+     packetStruct.numOfBitsTransfer=0;
        for(int i=0;i<MAXIMUM_SIZE;i++) begin
          packetStruct.ws=ws;
          SampleSdFromLeftChannel(packetStruct,i);
@@ -113,6 +115,7 @@ task detectWs(inout i2sTransferPacketStruct packetStruct);
     else  
 	begin
         wsLocal = 2'b00;
+	packetStruct.numOfBitsTransfer=0;
       do begin
          @(negedge sclk);
 	 for(int i=0;i<MAXIMUM_SIZE;i++) begin

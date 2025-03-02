@@ -18,6 +18,7 @@ endfunction : new
 
 task I2sReceiverBaseSeq::body();
   req = I2sReceiverTransaction::type_id::create("I2sReceiverTransaction");
+  //dynamic casting of p_sequencer and m_sequencer
   if(!$cast(p_sequencer,m_sequencer))begin
     `uvm_error(get_full_name(),"Virtual sequencer pointer cast failed")
   end

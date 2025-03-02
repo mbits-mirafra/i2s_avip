@@ -11,8 +11,11 @@ class I2sTransmitterWrite8bitTransferSeq extends I2sTransmitterBaseSeq;
   rand wordSelectPeriodEnum txWordSelectPeriodSeq;
   rand clockrateFrequencyEnum clockrateFrequencySeq;
 
+  I2sTransmitterTransaction i2sTransmitterTransaction;
+
+
   constraint txSdSeq_c{soft txSdSeq.size() == txNumOfBitsTransferSeq/DATA_WIDTH; }
-  constraint txNumOfBitsTransferSeq_c{soft txNumOfBitsTransferSeq <= txWordSelectPeriodSeq/2;}
+  constraint txNumOfBitsTransferSeq_c{ txNumOfBitsTransferSeq == txWordSelectPeriodSeq/2;}
 
   extern function new(string name = "I2sTransmitterWrite8bitTransferSeq");
   extern task body();
@@ -24,6 +27,8 @@ endfunction : new
 
 task I2sTransmitterWrite8bitTransferSeq::body();
   super.body();
+  i2sTransmitterTransaction=I2sTransmitterTransaction::type_id::create("i2sTransmitterTransaction");
+
 
   start_item(i2sTransmitterTransaction);
   if(!i2sTransmitterTransaction.randomize() with {
@@ -49,3 +54,5 @@ endtask:body
   
 `endif
 
+
+ 

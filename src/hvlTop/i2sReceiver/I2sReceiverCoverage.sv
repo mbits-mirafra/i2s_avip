@@ -5,56 +5,31 @@ class I2sReceiverCoverage extends uvm_subscriber#(I2sReceiverTransaction);
   I2sReceiverTransaction i2sReceiverTransaction;
  
  
-   covergroup i2sReceiverTransactionCovergroup with function sample (I2sReceiverTransaction packet);
+   covergroup i2sReceiverTransactionCovergroup with function sample (I2sReceiverTransaction i2sReceiverTransaction);
   option.per_instance = 1;
  
-   WORDSELECT_CP : coverpoint packet.rxWs {
+   WORDSELECT_RX_CP : coverpoint i2sReceiverTransaction.rxWs {
    option.comment = "Word Select";
    bins WORDSELECT_LEFT                              = {1}; 
    bins WORDSELECT_RIGHT                             = {0};
    }
- 
-   SERIALCLOCK_CP : coverpoint packet.rxSclk {
+
+   SERIALCLOCK_RX_CP : coverpoint i2sReceiverTransaction.rxSclk {
    option.comment = "serial clock";
-   bins POSEDGE                             = {1}; 
-   bins NEGEDGE                             = {0};
-   }
+   bins SCLK_CHANGE                             = {0,1}; 
+     }
  
-  
-   SERIALDATA_CP : coverpoint packet.rxSd.size()*DATA_WIDTH {
-   option.comment = "Serial Data size of the packet transfer";
-   bins DATA_WIDTH_1 = {8};
-   bins DATA_WIDTH_2 = {16};
-   bins DATA_WIDTH_3 = {24};
-   bins DATA_WIDTH_4 = {32};
-}
  
-WORDSELECTPERIOD_CP : coverpoint packet.rxWordSelectPeriod {
-  option.comment = "word select period ";
-  bins WS_PERIOD_16 = {16};
-  bins WS_PERIOD_32 = {32};
-  bins WS_PERIOD_48 = {48};
-  bins WS_PERIOD_64 = {64};
-}
- 
-SERIALDATARANGE_CP : coverpoint packet.rxSd {
-  option.comment = "serial data value range ";
-  bins SD_LOW_VALID_RANGE = {[0:50]};
-  bins SD_MID_VALID_RANGE = {[51:200]};
-  bins SD_HIGH_VALID_RANGE = {[201:255]};
-  illegal_bins INVALID_DATA_RANGE = {[256:$]};
-}
- 
-NUMOFBITSTRANSFER_CP : coverpoint packet.rxNumOfBitsTransfer {
+  NUMOFBITSTRANSFER_RX_CP : coverpoint i2sReceiverTransaction.rxNumOfBitsTransfer {
   option.comment = "num of bits transfer";
   bins BITS_8  = {8};
   bins BITS_16 = {16};
   bins BITS_24 = {24};
   bins BITS_32 = {32};
-}
+  }
  
  
-SERIAL_DATA_X_WORD_SELECT_PERIOD_CP:cross SERIALDATA_CP,WORDSELECTPERIOD_CP;
+ NUMOFBITSTRANSFER_RX_X_WORD_SELECT_RX_CP:cross NUMOFBITSTRANSFER_RX_CP,WORDSELECT_RX_CP;
 endgroup
  
  

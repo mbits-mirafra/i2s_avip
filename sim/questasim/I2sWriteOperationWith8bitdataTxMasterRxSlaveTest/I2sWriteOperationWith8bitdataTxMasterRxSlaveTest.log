@@ -1,0 +1,1535 @@
+# vsim -vopt work.hvlTop work.hdlTop -voptargs="+acc=npr" -sv_seed random -assertdebug "+UVM_TESTNAME=I2sWriteOperationWith8bitdataTxMasterRxSlaveTest" "+UVM_VERBOSITY=UVM_HIGH" "+define+" -l I2sWriteOperationWith8bitdataTxMasterRxSlaveTest/I2sWriteOperationWith8bitdataTxMasterRxSlaveTest.log -sva -coverage -c -do "log -r /*; add wave -r /*; coverage save -onexit -assert -directive -cvg -codeAll I2sWriteOperationWith8bitdataTxMasterRxSlaveTest/I2sWriteOperationWith8bitdataTxMasterRxSlaveTest_coverage.ucdb; run -all; exit" -wlf I2sWriteOperationWith8bitdataTxMasterRxSlaveTest/waveform.wlf 
+# Start time: 16:23:29 on Mar 02,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim
+# //  Version 10.6c linux Jul 25 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.I2sReceiverDriverBFM(fast)
+# Loading work.I2sReceiverMonitorBFM(fast)
+# Loading work.I2sGlobalPkg(fast)
+# Loading mtiUvm.uvm_pkg
+# Loading work.I2sReceiverPkg(fast)
+# Loading work.I2sTransmitterDriverBFM(fast)
+# Loading work.I2sTransmitterMonitorBFM(fast)
+# Loading work.I2sTransmitterPkg(fast)
+# Loading work.I2sEnvPkg(fast)
+# Loading work.I2sReceiverSequencePkg(fast)
+# Loading work.I2sTransmitterSequencePkg(fast)
+# Loading work.I2sVirtualSeqPkg(fast)
+# Loading work.I2sTestPkg(fast)
+# Loading work.hvlTop(fast)
+# Loading work.hdlTop(fast)
+# Loading work.I2sInterface_sv_unit(fast)
+# Loading work.I2sInterface(fast)
+# Loading work.I2sTransmitterAgentBFM(fast)
+# Loading work.I2sTransmitterDriverBFM_sv_unit(fast)
+# Loading work.I2sTransmitterDriverBFM(fast)
+# Loading work.I2sTransmitterMonitorBFM_sv_unit(fast)
+# Loading work.I2sTransmitterMonitorBFM(fast)
+# Loading work.I2sReceiverAgentBFM(fast)
+# Loading work.I2sReceiverDriverBFM_sv_unit(fast)
+# Loading work.I2sReceiverDriverBFM(fast)
+# Loading work.I2sReceiverMonitorBFM_sv_unit(fast)
+# Loading work.I2sReceiverMonitorBFM(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# ** Warning: (vsim-3839) ../../src/hdlTop/receiverAgentBFM/I2sReceiverAgentBFM.sv(10): Variable '/hdlTop/i2sIntf/sclkOutput', driven via a port connection, is multiply driven. See ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterAgentBFM.sv(10).
+#    Time: 0 ns  Iteration: 0  Instance: /hdlTop/i2sReceiverAgentBFM/i2sReceiverDriverBFM File: ../../src/hdlTop/receiverAgentBFM/I2sReceiverDriverBFM.sv
+# ** Warning: (vsim-3839) ../../src/hdlTop/receiverAgentBFM/I2sReceiverAgentBFM.sv(10): Variable '/hdlTop/i2sIntf/wsOutput', driven via a port connection, is multiply driven. See ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterAgentBFM.sv(10).
+#    Time: 0 ns  Iteration: 0  Instance: /hdlTop/i2sReceiverAgentBFM/i2sReceiverDriverBFM File: ../../src/hdlTop/receiverAgentBFM/I2sReceiverDriverBFM.sv
+# ** Warning: (vsim-3839) ../../src/hdlTop/receiverAgentBFM/I2sReceiverAgentBFM.sv(10): Variable '/hdlTop/i2sIntf/sd', driven via a port connection, is multiply driven. See ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterAgentBFM.sv(10).
+#    Time: 0 ns  Iteration: 0  Instance: /hdlTop/i2sReceiverAgentBFM/i2sReceiverDriverBFM File: ../../src/hdlTop/receiverAgentBFM/I2sReceiverDriverBFM.sv
+# Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
+# Sv_Seed = 2531743407
+# log -r /*
+#  add wave -r /*
+#  coverage save -onexit -assert -directive -cvg -codeAll I2sWriteOperationWith8bitdataTxMasterRxSlaveTest/I2sWriteOperationWith8bitdataTxMasterRxSlaveTest_coverage.ucdb
+#  run -all
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(215) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(217) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
+# UVM_INFO @ 0: reporter [RNTST] Running test I2sWriteOperationWith8bitdataTxMasterRxSlaveTest...
+# HDL TOP
+# I2sTransmitterDriverBFM
+# I2sTransmitterMonitorBFM
+# Transmitter Agent BFM
+# I2sTransmitterDriverBFM
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sEnvConfig.sv(22) @ 0: reporter [i2sEnvConfig] inside i2s env config do print function
+# UVM_INFO ../../src/hvlTop/tb/test/I2sBaseTest.sv(36) @ 0: uvm_test_top [I2sWriteOperationWith8bitdataTxMasterRxSlaveTest] i2sEnvConfig = 
+#  ------------------------------------------------
+# Name                   Type          Size  Value
+# ------------------------------------------------
+# i2sEnvConfig           I2sEnvConfig  -     @496 
+#   hasScoreboard        integral      1     1    
+#   hasVirtualSequencer  integral      1     1    
+# ------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sEnv.sv(25) @ 0: uvm_test_top.i2sEnv [uvm_test_top.i2sEnv] Inside I2S Env build phase
+# Nitish has virtual seqr
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverAgent.sv(45) @ 0: uvm_test_top.i2sEnv.i2sReceiverAgent [I2sReceiverAgent] 
+# I2S_RECEIVER_AGENT_CONFIG
+# -----------------------------------------------------------------
+# Name                    Type                    Size  Value      
+# -----------------------------------------------------------------
+# I2sReceiverAgentConfig  I2sReceiverAgentConfig  -     @513       
+#   isActive              string                  11    UVM_PASSIVE
+#   mode                  string                  8     RX_SLAVE   
+#   hasCoverage           string                  4     TRUE       
+#   clockPeriod           integral                32    'd0        
+#   sclkFrequency         integral                32    'd0        
+#   delayFortxSd          integral                32    'd0        
+#   delayFortxWs          integral                32    'd0        
+# -----------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(39) @ 0: uvm_test_top.i2sEnv.i2sScoreboard [uvm_test_top.i2sEnv.i2sScoreboard] Inside i2s sb build phase
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterAgent.sv(45) @ 0: uvm_test_top.i2sEnv.i2sTransmitterAgent [I2sTransmitterAgent] 
+# I2S_TRANSMITTER_AGENT_CONFIG
+# ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterAgentConfig  I2sTransmitterAgentConfig  -     @508      
+#   isActive                 string                     10    UVM_ACTIVE
+#   mode                     string                     9     TX_MASTER 
+#   hasCoverage              string                     4     TRUE      
+#   clockPeriod              integral                   32    'd0       
+#   sclkFrequency            integral                   32    'd0       
+#   delayFortxSd             integral                   32    'd0       
+#   delayForWs               integral                   32    'd0       
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(45) @ 0: uvm_test_top.i2sEnv.i2sScoreboard [uvm_test_top.i2sEnv.i2sScoreboard] Inside i2s sb connect phase
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sEnv.sv(46) @ 0: uvm_test_top.i2sEnv [uvm_test_top.i2sEnv] Inside I2S Env Connect phase
+# UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+# -------------------------------------------------------------------------------------------------
+# Name                                Type                                              Size  Value
+# -------------------------------------------------------------------------------------------------
+# uvm_test_top                        I2sWriteOperationWith8bitdataTxMasterRxSlaveTest  -     @473 
+#   i2sEnv                            I2sEnv                                            -     @497 
+#     i2sReceiverAgent                I2sReceiverAgent                                  -     @529 
+#       i2sReceiverCoverage           I2sReceiverCoverage                               -     @673 
+#         analysis_imp                uvm_analysis_imp                                  -     @680 
+#       i2sReceiverMonitorProxy       I2sReceiverMonitorProxy                           -     @654 
+#         i2sReceiverAnalysisPort     uvm_analysis_port                                 -     @661 
+#     i2sScoreboard                   I2sScoreboard                                     -     @646 
+#       i2sReceiverAnalysisFIFO       uvm_tlm_analysis_fifo #(T)                        -     @738 
+#         analysis_export             uvm_analysis_imp                                  -     @777 
+#         get_ap                      uvm_analysis_port                                 -     @769 
+#         get_peek_export             uvm_get_peek_imp                                  -     @753 
+#         put_ap                      uvm_analysis_port                                 -     @761 
+#         put_export                  uvm_put_imp                                       -     @745 
+#       i2sTransmitterAnalysisFIFO    uvm_tlm_analysis_fifo #(T)                        -     @691 
+#         analysis_export             uvm_analysis_imp                                  -     @730 
+#         get_ap                      uvm_analysis_port                                 -     @722 
+#         get_peek_export             uvm_get_peek_imp                                  -     @706 
+#         put_ap                      uvm_analysis_port                                 -     @714 
+#         put_export                  uvm_put_imp                                       -     @698 
+#     i2sTransmitterAgent             I2sTransmitterAgent                               -     @522 
+#       i2sTransmitterCoverage        I2sTransmitterCoverage                            -     @934 
+#         analysis_imp                uvm_analysis_imp                                  -     @941 
+#       i2sTransmitterDriverProxy     I2sTransmitterDriverProxy                         -     @802 
+#         rsp_port                    uvm_analysis_port                                 -     @817 
+#         seq_item_port               uvm_seq_item_pull_port                            -     @809 
+#       i2sTransmitterMonitorProxy    I2sTransmitterMonitorProxy                        -     @787 
+#         i2sTransmitterAnalysisPort  uvm_analysis_port                                 -     @794 
+#       i2sTransmitterSequencer       I2sTransmitterSequencer                           -     @825 
+#         rsp_export                  uvm_analysis_export                               -     @832 
+#         seq_item_export             uvm_seq_item_pull_imp                             -     @926 
+#         arbitration_queue           array                                             0     -    
+#         lock_queue                  array                                             0     -    
+#         num_last_reqs               integral                                          32    'd1  
+#         num_last_rsps               integral                                          32    'd1  
+#     i2sVirtualSequencer             I2sVirtualSequencer                               -     @537 
+#       i2sReceiverSequencer          I2sReceiverSequencer                              -     @1081
+#         rsp_export                  uvm_analysis_export                               -     @1088
+#         seq_item_export             uvm_seq_item_pull_imp                             -     @1182
+#         arbitration_queue           array                                             0     -    
+#         lock_queue                  array                                             0     -    
+#         num_last_reqs               integral                                          32    'd1  
+#         num_last_rsps               integral                                          32    'd1  
+#       i2sTransmitterSequencer       I2sTransmitterSequencer                           -     @972 
+#         rsp_export                  uvm_analysis_export                               -     @979 
+#         seq_item_export             uvm_seq_item_pull_imp                             -     @1073
+#         arbitration_queue           array                                             0     -    
+#         lock_queue                  array                                             0     -    
+#         num_last_reqs               integral                                          32    'd1  
+#         num_last_rsps               integral                                          32    'd1  
+#       rsp_export                    uvm_analysis_export                               -     @544 
+#       seq_item_export               uvm_seq_item_pull_imp                             -     @638 
+#       arbitration_queue             array                                             0     -    
+#       lock_queue                    array                                             0     -    
+#       num_last_reqs                 integral                                          32    'd1  
+#       num_last_rsps                 integral                                          32    'd1  
+# -------------------------------------------------------------------------------------------------
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] End Of Elaboration
+# UVM_INFO ../../src/hvlTop/tb/test/I2sWriteOperationWith8bitdataTxMasterRxSlaveTest.sv(34) @ 0: uvm_test_top [I2sWriteOperationWith8bitdataTxMasterRxSlaveTest] Inside run_phase I2sWriteOperationWith8bitdataTxMasterRxSlaveTest
+# start seqr run phase
+# start seqr run phase
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(54) @ 0: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Running the Monitor Proxy
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(56) @ 0: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Waiting for reset
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(49) @ 0: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] Running the transmitter Driver
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(54) @ 0: uvm_test_top.i2sEnv.i2sScoreboard [uvm_test_top.i2sEnv.i2sScoreboard] Inside i2s sb run phase
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(53) @ 0: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Running the Monitor Proxy
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(55) @ 0: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Waiting for reset
+# UVM_INFO ../../src/hvlTop/tb/virtualSequences//I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq.sv(22) @ 0: uvm_test_top.i2sEnv.i2sVirtualSequencer@@i2sVirtual8bitWriteOperationTxMasterRxSlaveSeq [I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq] Inside Body Seq start I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq
+# UVM_INFO ../../src/hvlTop/tb/virtualSequences//I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq.sv(35) @ 0: uvm_test_top.i2sEnv.i2sVirtualSequencer@@i2sVirtual8bitWriteOperationTxMasterRxSlaveSeq [I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq] Attempting to start the virtual sequence
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(24) @ 10: reporter [IN RECEIVER MONITOR- FROM Receiver MON BFM] SYSTEM RESET ACTIVATED
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(28) @ 10: reporter [IN MONITOR- FROM TRANSMITTER MON BFM] SYSTEM RESET ACTIVATED
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(33) @ 10: reporter [I2sTransmitterDriverBFM] SYSTEM RESET ACTIVATED
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(26) @ 30: reporter [IN RECEIVER MONITOR- FROM Receiver MON BFM] SYSTEM RESET DEACTIVATED
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(22) @ 30: reporter [I2sReceiverSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(25) @ 30: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass ws =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(28) @ 30: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(31) @ 30: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass numOfBitsTransfer =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(34) @ 30: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(37) @ 30: reporter [I2sTransmitterSeqItemConverter] After converting fromReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(62) @ 30: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted req struct
+# '{sd:'{0, 0, 0, 0}, ws:0, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:0, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverConfigConverter.sv(15) @ 30: reporter [I2sReceiverConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(66) @ 30: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted cfg struct
+# '{mode:3, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(32) @ 30: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Starting the Monitor Data method
+# ................IN RECEIVER MONITOR- In detect WS task before WS change from unknown............., WS= x at 30
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(30) @ 30: reporter [IN MONITOR- FROM TRANSMITTER MON BFM] SYSTEM RESET DEACTIVATED
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(58) @ 30: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- I2S :: Reset detected
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 30: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 30: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 30: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 30: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 30: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 30: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(65) @ 30: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted i2sTransmitterTransaction to struct
+# '{sd:'{0, 0, 0, 0}, ws:0, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:0, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 30: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(70) @ 30: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(36) @ 30: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Starting the Monitor Data method
+# IN MONITOR- INITIAL detection of  WS: x at 30
+# ................In detect WS task before WS change from unknown............., WS= x at 30
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(35) @ 30: reporter [I2sTransmitterDriverBFM] SYSTEM RESET DEACTIVATED
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(52) @ 30: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] I2S :: Reset detected
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(59) @ 30: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [DEBUG] IN DRIVER-Inside I2sTransmitterDriverProxy
+# sd=10000100
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Name                           Type                       Size  Value                                                                                             
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# i2sTransmitterTransaction      I2sTransmitterTransaction  -     @1224                                                                                             
+#   begin_time                   time                       64    30                                                                                                
+#   depth                        int                        32    'd2                                                                                               
+#   parent sequence (name)       string                     34    i2sTransmitterWrite8bitTransferSeq                                                                
+#   parent sequence (full name)  string                     98    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer.i2sTransmitterWrite8bitTransferSeq
+#   sequencer                    string                     63    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer                                   
+#   WORD SELECT                  integral                   1     1                                                                                                 
+#   SERIALDATA[0]                integral                   8     'b10000100                                                                                        
+#   SERIAL_CLK                   integral                   1     1                                                                                                 
+#   WORD_SELECT_PERIOD           integral                   32    'd16                                                                                              
+#   NO_OF_BITS_TRANSFER          integral                   32    'd8                                                                                               
+#   clock rate Frequency         integral                   32    'd48000                                                                                           
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(64) @ 30: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- Received i2sTransmitterTransaction
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Name                           Type                       Size  Value                                                                                             
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# i2sTransmitterTransaction      I2sTransmitterTransaction  -     @1224                                                                                             
+#   begin_time                   time                       64    30                                                                                                
+#   depth                        int                        32    'd2                                                                                               
+#   parent sequence (name)       string                     34    i2sTransmitterWrite8bitTransferSeq                                                                
+#   parent sequence (full name)  string                     98    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer.i2sTransmitterWrite8bitTransferSeq
+#   sequencer                    string                     63    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer                                   
+#   WORD SELECT                  integral                   1     1                                                                                                 
+#   SERIALDATA[0]                integral                   8     'b10000100                                                                                        
+#   SERIAL_CLK                   integral                   1     1                                                                                                 
+#   WORD_SELECT_PERIOD           integral                   32    'd16                                                                                              
+#   NO_OF_BITS_TRANSFER          integral                   32    'd8                                                                                               
+#   clock rate Frequency         integral                   32    'd48000                                                                                           
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 30: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 30: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 30: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  48000
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 30: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 30: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 30: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  16
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 30: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[0]= 132
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(69) @ 30: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- Converted i2sTransmitterTransaction to struct
+# '{sd:'{132, 0, 0, 0}, ws:1, sclk:1, wordSelectPeriod:16, numOfBitsTransfer:8, clockratefrequency:48000}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 30: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(73) @ 30: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(87) @ 30: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [DEBUG] IN DRIVER- Inside drive to bfm
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(44) @ 30: reporter [I2sTransmitterDriverBFM] IN DRIVER- Starting the drive data method mode=0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(197) @ 30: reporter [I2sTransmitterDriverBFM] IN DRIVER-Generating the Serial clock
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(160) @ 30: reporter [I2sTransmitterDriverBFM] clockperiod=1302 ns
+# IN DRIVER-inside gen sclk task clockPeriod=1302
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(168) @ 30: reporter [I2sTransmitterDriverBFM] IN DRIVER-Generating the WS
+# wsp=16
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(59) @ 30: reporter [I2sTransmitterDriverBFM] IN DRIVER- Driving data from left channel
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(225) @ 30: reporter [DEBUG] IN DRIVER- Driving SerialData = 10000100
+# ................IN RECEIVER MONITOR-In detect WS task after WS change from unknown............., WS= 1 at 50
+# IN RECEIVER MONITOR- Monitor detect WS start 1 at 50
+# ................In detect WS task after WS change from unknown............., WS= 1 at 50
+# IN RECEIVER MONITOR- Monitor sample SD from left channel task
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN MONITOR- Monitor sample SD from left channel task
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(234) @ 9250: reporter [I2sTransmitterDriverBFM] IN DRIVER- Generating serial data end
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(59) @ 9250: reporter [I2sTransmitterDriverBFM] IN DRIVER- Driving data from left channel
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(225) @ 9250: reporter [DEBUG] IN DRIVER- Driving SerialData = 10000100
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=0
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(132) @ 10590: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(52) @ 10590: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass ws =1
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(55) @ 10590: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass sclk =0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(58) @ 10590: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(60) @ 10590: reporter [I2sTransmitterSeqItemConverter] After converting toReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(64) @ 10590: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClasswordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(67) @ 10590: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{132, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(74) @ 10590: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Packet received from sample_data clone packet is  ----------------------------------------------------------------
+# Name                    Type                    Size  Value     
+# ----------------------------------------------------------------
+# I2sReceiverTransaction  I2sReceiverTransaction  -     @1328     
+#   WORD SELECT           integral                1     'h1       
+#   SERIALDATA[0]         integral                8     'b10000100
+#   SERIALDATA[1]         integral                8     'b0       
+#   SERIALDATA[2]         integral                8     'b0       
+#   SERIALDATA[3]         integral                8     'b0       
+#   SERIAL_CLK            integral                1     'h0       
+#   WORD_SELECT_PERIOD    integral                32    'h0       
+#   NO_OF_BITS_TRANSFER   integral                32    'h8       
+#   Serial clock rate     integral                32    'd0       
+# ----------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(56) @ 10590: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(58) @ 10590: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(22) @ 10590: reporter [I2sReceiverSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(25) @ 10590: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass ws =  1
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(28) @ 10590: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(31) @ 10590: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(34) @ 10590: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(37) @ 10590: reporter [I2sTransmitterSeqItemConverter] After converting fromReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 10590: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 10000100
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 10590: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 10590: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 10590: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(62) @ 10590: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted req struct
+# '{sd:'{132, 0, 0, 0}, ws:1, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverConfigConverter.sv(15) @ 10590: reporter [I2sReceiverConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(66) @ 10590: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted cfg struct
+# '{mode:3, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(32) @ 10590: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Starting the Monitor Data method
+# ................IN RECEIVER MONITOR-In detect WS task after WS change from unknown............., WS= 0 at 10590
+# IN RECEIVER MONITOR- Monitor detect WS start 0 at 10590
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(143) @ 10590: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(56) @ 10590: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass ws=  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(59) @ 10590: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass sclk=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(63) @ 10590: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(67) @ 10590: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass  clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(71) @ 10590: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(75) @ 10590: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{132, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(78) @ 10590: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Packet received from sample_data clone packet is 
+#  ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterTransaction  I2sTransmitterTransaction  -     @1336     
+#   WORD SELECT              integral                   1     1         
+#   SERIALDATA[0]            integral                   8     'b10000100
+#   SERIALDATA[1]            integral                   8     'b0       
+#   SERIALDATA[2]            integral                   8     'b0       
+#   SERIALDATA[3]            integral                   8     'b0       
+#   SERIAL_CLK               integral                   1     'd0       
+#   WORD_SELECT_PERIOD       integral                   32    'd0       
+#   NO_OF_BITS_TRANSFER      integral                   32    'd8       
+#   clock rate Frequency     integral                   32    'd0       
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(89) @ 10590: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(91) @ 10590: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 10590: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 10590: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 10590: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 10590: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 10590: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 10590: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 10590: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[0]= 132
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 10590: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[1]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 10590: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[2]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 10590: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[3]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(65) @ 10590: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted i2sTransmitterTransaction to struct
+# '{sd:'{132, 0, 0, 0}, ws:1, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 10590: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(70) @ 10590: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(36) @ 10590: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Starting the Monitor Data method
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 10590: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 10590: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 84 and Receiver SerialData = 84
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 10590: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 10590: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 10590: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 10590: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 10590: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 10590: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# IN RECEIVER MONITOR- Monitor sample SD from right channel task
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN MONITOR- Monitor sample SD from right channel task
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(234) @ 19810: reporter [I2sTransmitterDriverBFM] IN DRIVER- Generating serial data end
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(190) @ 21130: reporter [I2sTransmitterDriverBFM] IN DRIVER-Generating the WS ended
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(132) @ 21150: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(52) @ 21150: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass ws =0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(55) @ 21150: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass sclk =0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(58) @ 21150: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(60) @ 21150: reporter [I2sTransmitterSeqItemConverter] After converting toReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(64) @ 21150: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClasswordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(67) @ 21150: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{132, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(74) @ 21150: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Packet received from sample_data clone packet is  ----------------------------------------------------------------
+# Name                    Type                    Size  Value     
+# ----------------------------------------------------------------
+# I2sReceiverTransaction  I2sReceiverTransaction  -     @1344     
+#   WORD SELECT           integral                1     'h0       
+#   SERIALDATA[0]         integral                8     'b10000100
+#   SERIALDATA[1]         integral                8     'b0       
+#   SERIALDATA[2]         integral                8     'b0       
+#   SERIALDATA[3]         integral                8     'b0       
+#   SERIAL_CLK            integral                1     'h0       
+#   WORD_SELECT_PERIOD    integral                32    'h0       
+#   NO_OF_BITS_TRANSFER   integral                32    'h8       
+#   Serial clock rate     integral                32    'd0       
+# ----------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(56) @ 21150: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(58) @ 21150: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(22) @ 21150: reporter [I2sReceiverSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(25) @ 21150: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass ws =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(28) @ 21150: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(31) @ 21150: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(34) @ 21150: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(37) @ 21150: reporter [I2sTransmitterSeqItemConverter] After converting fromReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 21150: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 10000100
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 21150: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 21150: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 21150: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(62) @ 21150: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted req struct
+# '{sd:'{132, 0, 0, 0}, ws:0, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverConfigConverter.sv(15) @ 21150: reporter [I2sReceiverConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(66) @ 21150: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted cfg struct
+# '{mode:3, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(32) @ 21150: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Starting the Monitor Data method
+# ................IN RECEIVER MONITOR-In detect WS task after WS change from unknown............., WS= 1 at 21150
+# IN RECEIVER MONITOR- Monitor detect WS start 1 at 21150
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(143) @ 21150: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(56) @ 21150: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass ws=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(59) @ 21150: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass sclk=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(63) @ 21150: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(67) @ 21150: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass  clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(71) @ 21150: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(75) @ 21150: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{132, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(78) @ 21150: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Packet received from sample_data clone packet is 
+#  ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterTransaction  I2sTransmitterTransaction  -     @1352     
+#   WORD SELECT              integral                   1     'd0       
+#   SERIALDATA[0]            integral                   8     'b10000100
+#   SERIALDATA[1]            integral                   8     'b0       
+#   SERIALDATA[2]            integral                   8     'b0       
+#   SERIALDATA[3]            integral                   8     'b0       
+#   SERIAL_CLK               integral                   1     'd0       
+#   WORD_SELECT_PERIOD       integral                   32    'd0       
+#   NO_OF_BITS_TRANSFER      integral                   32    'd8       
+#   clock rate Frequency     integral                   32    'd0       
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(89) @ 21150: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(91) @ 21150: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 21150: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 21150: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 21150: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 21150: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 21150: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 21150: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 21150: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[0]= 132
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 21150: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[1]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 21150: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[2]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 21150: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[3]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(65) @ 21150: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted i2sTransmitterTransaction to struct
+# '{sd:'{132, 0, 0, 0}, ws:0, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 21150: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(70) @ 21150: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(36) @ 21150: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Starting the Monitor Data method
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 21150: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 21150: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 84 and Receiver SerialData = 84
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 21150: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 21150: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 21150: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 21150: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 21150: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 21150: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(221) @ 21790: reporter [I2sTransmitterDriverBFM] IN DRIVER- Generating the Serial clock end
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(89) @ 21790: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- AFTER STRUCT PACKET : , 
+#  '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(56) @ 21790: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass ws=  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(59) @ 21790: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass sclk=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(63) @ 21790: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(67) @ 21790: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass  clockrateFrequency =  bb80
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(71) @ 21790: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass wordSelectPeriod =  10
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(75) @ 21790: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{132, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(79) @ 21790: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER-After driving data to interface :: Received i2sTransmitterTransaction
+# ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterTransaction  I2sTransmitterTransaction  -     @1356     
+#   WORD SELECT              integral                   1     1         
+#   SERIALDATA[0]            integral                   8     'b10000100
+#   SERIALDATA[1]            integral                   8     'b0       
+#   SERIALDATA[2]            integral                   8     'b0       
+#   SERIALDATA[3]            integral                   8     'b0       
+#   SERIAL_CLK               integral                   1     'd0       
+#   WORD_SELECT_PERIOD       integral                   32    'd16      
+#   NO_OF_BITS_TRANSFER      integral                   32    'd8       
+#   clock rate Frequency     integral                   32    'd48000   
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(59) @ 21790: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [DEBUG] IN DRIVER-Inside I2sTransmitterDriverProxy
+# UVM_INFO ../../src/hvlTop/tb/virtualSequences//I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq.sv(22) @ 21790: uvm_test_top.i2sEnv.i2sVirtualSequencer@@i2sVirtual8bitWriteOperationTxMasterRxSlaveSeq [I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq] Inside Body Seq start I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq
+# UVM_INFO ../../src/hvlTop/tb/virtualSequences//I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq.sv(35) @ 21790: uvm_test_top.i2sEnv.i2sVirtualSequencer@@i2sVirtual8bitWriteOperationTxMasterRxSlaveSeq [I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq] Attempting to start the virtual sequence
+# sd=10011101
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Name                           Type                       Size  Value                                                                                             
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# i2sTransmitterTransaction      I2sTransmitterTransaction  -     @1369                                                                                             
+#   begin_time                   time                       64    21790                                                                                             
+#   depth                        int                        32    'd2                                                                                               
+#   parent sequence (name)       string                     34    i2sTransmitterWrite8bitTransferSeq                                                                
+#   parent sequence (full name)  string                     98    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer.i2sTransmitterWrite8bitTransferSeq
+#   sequencer                    string                     63    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer                                   
+#   WORD SELECT                  integral                   1     1                                                                                                 
+#   SERIALDATA[0]                integral                   8     'b10011101                                                                                        
+#   SERIAL_CLK                   integral                   1     1                                                                                                 
+#   WORD_SELECT_PERIOD           integral                   32    'd16                                                                                              
+#   NO_OF_BITS_TRANSFER          integral                   32    'd8                                                                                               
+#   clock rate Frequency         integral                   32    'd48000                                                                                           
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(64) @ 21790: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- Received i2sTransmitterTransaction
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Name                           Type                       Size  Value                                                                                             
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# i2sTransmitterTransaction      I2sTransmitterTransaction  -     @1369                                                                                             
+#   begin_time                   time                       64    21790                                                                                             
+#   depth                        int                        32    'd2                                                                                               
+#   parent sequence (name)       string                     34    i2sTransmitterWrite8bitTransferSeq                                                                
+#   parent sequence (full name)  string                     98    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer.i2sTransmitterWrite8bitTransferSeq
+#   sequencer                    string                     63    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer                                   
+#   WORD SELECT                  integral                   1     1                                                                                                 
+#   SERIALDATA[0]                integral                   8     'b10011101                                                                                        
+#   SERIAL_CLK                   integral                   1     1                                                                                                 
+#   WORD_SELECT_PERIOD           integral                   32    'd16                                                                                              
+#   NO_OF_BITS_TRANSFER          integral                   32    'd8                                                                                               
+#   clock rate Frequency         integral                   32    'd48000                                                                                           
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 21790: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 21790: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 21790: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  48000
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 21790: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 21790: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 21790: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  16
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 21790: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[0]= 157
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(69) @ 21790: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- Converted i2sTransmitterTransaction to struct
+# '{sd:'{157, 0, 0, 0}, ws:1, sclk:1, wordSelectPeriod:16, numOfBitsTransfer:8, clockratefrequency:48000}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 21790: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(73) @ 21790: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(87) @ 21790: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [DEBUG] IN DRIVER- Inside drive to bfm
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(44) @ 21790: reporter [I2sTransmitterDriverBFM] IN DRIVER- Starting the drive data method mode=0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(197) @ 21790: reporter [I2sTransmitterDriverBFM] IN DRIVER-Generating the Serial clock
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(160) @ 21790: reporter [I2sTransmitterDriverBFM] clockperiod=1302 ns
+# IN DRIVER-inside gen sclk task clockPeriod=1302
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(168) @ 21790: reporter [I2sTransmitterDriverBFM] IN DRIVER-Generating the WS
+# wsp=16
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(59) @ 21790: reporter [I2sTransmitterDriverBFM] IN DRIVER- Driving data from left channel
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(225) @ 21790: reporter [DEBUG] IN DRIVER- Driving SerialData = 10011101
+# IN RECEIVER MONITOR- Monitor sample SD from left channel task
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN MONITOR- Monitor sample SD from left channel task
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(234) @ 30390: reporter [I2sTransmitterDriverBFM] IN DRIVER- Generating serial data end
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(59) @ 30390: reporter [I2sTransmitterDriverBFM] IN DRIVER- Driving data from left channel
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(225) @ 30390: reporter [DEBUG] IN DRIVER- Driving SerialData = 10011101
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=1
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(132) @ 31730: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(52) @ 31730: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass ws =1
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(55) @ 31730: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass sclk =0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(58) @ 31730: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(60) @ 31730: reporter [I2sTransmitterSeqItemConverter] After converting toReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(64) @ 31730: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClasswordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(67) @ 31730: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{157, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(74) @ 31730: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Packet received from sample_data clone packet is  ----------------------------------------------------------------
+# Name                    Type                    Size  Value     
+# ----------------------------------------------------------------
+# I2sReceiverTransaction  I2sReceiverTransaction  -     @1377     
+#   WORD SELECT           integral                1     'h1       
+#   SERIALDATA[0]         integral                8     'b10011101
+#   SERIALDATA[1]         integral                8     'b0       
+#   SERIALDATA[2]         integral                8     'b0       
+#   SERIALDATA[3]         integral                8     'b0       
+#   SERIAL_CLK            integral                1     'h0       
+#   WORD_SELECT_PERIOD    integral                32    'h0       
+#   NO_OF_BITS_TRANSFER   integral                32    'h8       
+#   Serial clock rate     integral                32    'd0       
+# ----------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(56) @ 31730: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(58) @ 31730: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(22) @ 31730: reporter [I2sReceiverSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(25) @ 31730: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass ws =  1
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(28) @ 31730: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(31) @ 31730: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(34) @ 31730: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(37) @ 31730: reporter [I2sTransmitterSeqItemConverter] After converting fromReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 31730: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 10011101
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 31730: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 31730: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 31730: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(62) @ 31730: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted req struct
+# '{sd:'{157, 0, 0, 0}, ws:1, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverConfigConverter.sv(15) @ 31730: reporter [I2sReceiverConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(66) @ 31730: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted cfg struct
+# '{mode:3, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(32) @ 31730: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Starting the Monitor Data method
+# ................IN RECEIVER MONITOR-In detect WS task after WS change from unknown............., WS= 0 at 31730
+# IN RECEIVER MONITOR- Monitor detect WS start 0 at 31730
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(143) @ 31730: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(56) @ 31730: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass ws=  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(59) @ 31730: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass sclk=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(63) @ 31730: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(67) @ 31730: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass  clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(71) @ 31730: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(75) @ 31730: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{157, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(78) @ 31730: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Packet received from sample_data clone packet is 
+#  ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterTransaction  I2sTransmitterTransaction  -     @1385     
+#   WORD SELECT              integral                   1     1         
+#   SERIALDATA[0]            integral                   8     'b10011101
+#   SERIALDATA[1]            integral                   8     'b0       
+#   SERIALDATA[2]            integral                   8     'b0       
+#   SERIALDATA[3]            integral                   8     'b0       
+#   SERIAL_CLK               integral                   1     'd0       
+#   WORD_SELECT_PERIOD       integral                   32    'd0       
+#   NO_OF_BITS_TRANSFER      integral                   32    'd8       
+#   clock rate Frequency     integral                   32    'd0       
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(89) @ 31730: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(91) @ 31730: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 31730: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 31730: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 31730: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 31730: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 31730: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 31730: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 31730: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[0]= 157
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 31730: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[1]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 31730: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[2]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 31730: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[3]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(65) @ 31730: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted i2sTransmitterTransaction to struct
+# '{sd:'{157, 0, 0, 0}, ws:1, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 31730: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(70) @ 31730: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(36) @ 31730: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Starting the Monitor Data method
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 31730: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 31730: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 9d and Receiver SerialData = 9d
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 31730: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 31730: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 31730: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 31730: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 31730: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 31730: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# IN RECEIVER MONITOR- Monitor sample SD from right channel task
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN MONITOR- Monitor sample SD from right channel task
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(234) @ 40950: reporter [I2sTransmitterDriverBFM] IN DRIVER- Generating serial data end
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=1
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(190) @ 42270: reporter [I2sTransmitterDriverBFM] IN DRIVER-Generating the WS ended
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(132) @ 42290: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(52) @ 42290: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass ws =0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(55) @ 42290: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass sclk =0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(58) @ 42290: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(60) @ 42290: reporter [I2sTransmitterSeqItemConverter] After converting toReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(64) @ 42290: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClasswordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(67) @ 42290: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{157, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(74) @ 42290: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Packet received from sample_data clone packet is  ----------------------------------------------------------------
+# Name                    Type                    Size  Value     
+# ----------------------------------------------------------------
+# I2sReceiverTransaction  I2sReceiverTransaction  -     @1393     
+#   WORD SELECT           integral                1     'h0       
+#   SERIALDATA[0]         integral                8     'b10011101
+#   SERIALDATA[1]         integral                8     'b0       
+#   SERIALDATA[2]         integral                8     'b0       
+#   SERIALDATA[3]         integral                8     'b0       
+#   SERIAL_CLK            integral                1     'h0       
+#   WORD_SELECT_PERIOD    integral                32    'h0       
+#   NO_OF_BITS_TRANSFER   integral                32    'h8       
+#   Serial clock rate     integral                32    'd0       
+# ----------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(56) @ 42290: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(58) @ 42290: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(22) @ 42290: reporter [I2sReceiverSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(25) @ 42290: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass ws =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(28) @ 42290: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(31) @ 42290: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(34) @ 42290: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(37) @ 42290: reporter [I2sTransmitterSeqItemConverter] After converting fromReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 42290: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 10011101
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 42290: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 42290: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 42290: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(62) @ 42290: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted req struct
+# '{sd:'{157, 0, 0, 0}, ws:0, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverConfigConverter.sv(15) @ 42290: reporter [I2sReceiverConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(66) @ 42290: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted cfg struct
+# '{mode:3, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(32) @ 42290: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Starting the Monitor Data method
+# ................IN RECEIVER MONITOR-In detect WS task after WS change from unknown............., WS= 1 at 42290
+# IN RECEIVER MONITOR- Monitor detect WS start 1 at 42290
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(143) @ 42290: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(56) @ 42290: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass ws=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(59) @ 42290: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass sclk=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(63) @ 42290: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(67) @ 42290: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass  clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(71) @ 42290: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(75) @ 42290: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{157, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(78) @ 42290: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Packet received from sample_data clone packet is 
+#  ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterTransaction  I2sTransmitterTransaction  -     @1401     
+#   WORD SELECT              integral                   1     'd0       
+#   SERIALDATA[0]            integral                   8     'b10011101
+#   SERIALDATA[1]            integral                   8     'b0       
+#   SERIALDATA[2]            integral                   8     'b0       
+#   SERIALDATA[3]            integral                   8     'b0       
+#   SERIAL_CLK               integral                   1     'd0       
+#   WORD_SELECT_PERIOD       integral                   32    'd0       
+#   NO_OF_BITS_TRANSFER      integral                   32    'd8       
+#   clock rate Frequency     integral                   32    'd0       
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(89) @ 42290: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(91) @ 42290: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 42290: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 42290: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 42290: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 42290: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 42290: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 42290: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 42290: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[0]= 157
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 42290: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[1]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 42290: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[2]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 42290: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[3]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(65) @ 42290: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted i2sTransmitterTransaction to struct
+# '{sd:'{157, 0, 0, 0}, ws:0, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 42290: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(70) @ 42290: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(36) @ 42290: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Starting the Monitor Data method
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 42290: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 42290: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 9d and Receiver SerialData = 9d
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 42290: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 42290: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 42290: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 42290: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 42290: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 42290: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(221) @ 42930: reporter [I2sTransmitterDriverBFM] IN DRIVER- Generating the Serial clock end
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(89) @ 42930: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- AFTER STRUCT PACKET : , 
+#  '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(56) @ 42930: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass ws=  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(59) @ 42930: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass sclk=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(63) @ 42930: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(67) @ 42930: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass  clockrateFrequency =  bb80
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(71) @ 42930: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass wordSelectPeriod =  10
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(75) @ 42930: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{157, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(79) @ 42930: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER-After driving data to interface :: Received i2sTransmitterTransaction
+# ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterTransaction  I2sTransmitterTransaction  -     @1405     
+#   WORD SELECT              integral                   1     1         
+#   SERIALDATA[0]            integral                   8     'b10011101
+#   SERIALDATA[1]            integral                   8     'b0       
+#   SERIALDATA[2]            integral                   8     'b0       
+#   SERIALDATA[3]            integral                   8     'b0       
+#   SERIAL_CLK               integral                   1     'd0       
+#   WORD_SELECT_PERIOD       integral                   32    'd16      
+#   NO_OF_BITS_TRANSFER      integral                   32    'd8       
+#   clock rate Frequency     integral                   32    'd48000   
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(59) @ 42930: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [DEBUG] IN DRIVER-Inside I2sTransmitterDriverProxy
+# UVM_INFO ../../src/hvlTop/tb/virtualSequences//I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq.sv(22) @ 42930: uvm_test_top.i2sEnv.i2sVirtualSequencer@@i2sVirtual8bitWriteOperationTxMasterRxSlaveSeq [I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq] Inside Body Seq start I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq
+# UVM_INFO ../../src/hvlTop/tb/virtualSequences//I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq.sv(35) @ 42930: uvm_test_top.i2sEnv.i2sVirtualSequencer@@i2sVirtual8bitWriteOperationTxMasterRxSlaveSeq [I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq] Attempting to start the virtual sequence
+# sd=10000000
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Name                           Type                       Size  Value                                                                                             
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# i2sTransmitterTransaction      I2sTransmitterTransaction  -     @1417                                                                                             
+#   begin_time                   time                       64    42930                                                                                             
+#   depth                        int                        32    'd2                                                                                               
+#   parent sequence (name)       string                     34    i2sTransmitterWrite8bitTransferSeq                                                                
+#   parent sequence (full name)  string                     98    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer.i2sTransmitterWrite8bitTransferSeq
+#   sequencer                    string                     63    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer                                   
+#   WORD SELECT                  integral                   1     1                                                                                                 
+#   SERIALDATA[0]                integral                   8     'b10000000                                                                                        
+#   SERIAL_CLK                   integral                   1     1                                                                                                 
+#   WORD_SELECT_PERIOD           integral                   32    'd16                                                                                              
+#   NO_OF_BITS_TRANSFER          integral                   32    'd8                                                                                               
+#   clock rate Frequency         integral                   32    'd48000                                                                                           
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(64) @ 42930: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- Received i2sTransmitterTransaction
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Name                           Type                       Size  Value                                                                                             
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# i2sTransmitterTransaction      I2sTransmitterTransaction  -     @1417                                                                                             
+#   begin_time                   time                       64    42930                                                                                             
+#   depth                        int                        32    'd2                                                                                               
+#   parent sequence (name)       string                     34    i2sTransmitterWrite8bitTransferSeq                                                                
+#   parent sequence (full name)  string                     98    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer.i2sTransmitterWrite8bitTransferSeq
+#   sequencer                    string                     63    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer                                   
+#   WORD SELECT                  integral                   1     1                                                                                                 
+#   SERIALDATA[0]                integral                   8     'b10000000                                                                                        
+#   SERIAL_CLK                   integral                   1     1                                                                                                 
+#   WORD_SELECT_PERIOD           integral                   32    'd16                                                                                              
+#   NO_OF_BITS_TRANSFER          integral                   32    'd8                                                                                               
+#   clock rate Frequency         integral                   32    'd48000                                                                                           
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 42930: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 42930: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 42930: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  48000
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 42930: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 42930: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 42930: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  16
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 42930: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[0]= 128
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(69) @ 42930: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- Converted i2sTransmitterTransaction to struct
+# '{sd:'{128, 0, 0, 0}, ws:1, sclk:1, wordSelectPeriod:16, numOfBitsTransfer:8, clockratefrequency:48000}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 42930: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(73) @ 42930: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(87) @ 42930: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [DEBUG] IN DRIVER- Inside drive to bfm
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(44) @ 42930: reporter [I2sTransmitterDriverBFM] IN DRIVER- Starting the drive data method mode=0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(197) @ 42930: reporter [I2sTransmitterDriverBFM] IN DRIVER-Generating the Serial clock
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(160) @ 42930: reporter [I2sTransmitterDriverBFM] clockperiod=1302 ns
+# IN DRIVER-inside gen sclk task clockPeriod=1302
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(168) @ 42930: reporter [I2sTransmitterDriverBFM] IN DRIVER-Generating the WS
+# wsp=16
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(59) @ 42930: reporter [I2sTransmitterDriverBFM] IN DRIVER- Driving data from left channel
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(225) @ 42930: reporter [DEBUG] IN DRIVER- Driving SerialData = 10000000
+# IN RECEIVER MONITOR- Monitor sample SD from left channel task
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN MONITOR- Monitor sample SD from left channel task
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(234) @ 51530: reporter [I2sTransmitterDriverBFM] IN DRIVER- Generating serial data end
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(59) @ 51530: reporter [I2sTransmitterDriverBFM] IN DRIVER- Driving data from left channel
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(225) @ 51530: reporter [DEBUG] IN DRIVER- Driving SerialData = 10000000
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=0
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(132) @ 52870: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(52) @ 52870: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass ws =1
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(55) @ 52870: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass sclk =0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(58) @ 52870: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(60) @ 52870: reporter [I2sTransmitterSeqItemConverter] After converting toReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(64) @ 52870: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClasswordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(67) @ 52870: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{128, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(74) @ 52870: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Packet received from sample_data clone packet is  ----------------------------------------------------------------
+# Name                    Type                    Size  Value     
+# ----------------------------------------------------------------
+# I2sReceiverTransaction  I2sReceiverTransaction  -     @1425     
+#   WORD SELECT           integral                1     'h1       
+#   SERIALDATA[0]         integral                8     'b10000000
+#   SERIALDATA[1]         integral                8     'b0       
+#   SERIALDATA[2]         integral                8     'b0       
+#   SERIALDATA[3]         integral                8     'b0       
+#   SERIAL_CLK            integral                1     'h0       
+#   WORD_SELECT_PERIOD    integral                32    'h0       
+#   NO_OF_BITS_TRANSFER   integral                32    'h8       
+#   Serial clock rate     integral                32    'd0       
+# ----------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(56) @ 52870: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(58) @ 52870: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(22) @ 52870: reporter [I2sReceiverSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(25) @ 52870: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass ws =  1
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(28) @ 52870: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(31) @ 52870: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(34) @ 52870: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(37) @ 52870: reporter [I2sTransmitterSeqItemConverter] After converting fromReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 52870: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 10000000
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 52870: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 52870: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 52870: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(62) @ 52870: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted req struct
+# '{sd:'{128, 0, 0, 0}, ws:1, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverConfigConverter.sv(15) @ 52870: reporter [I2sReceiverConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(66) @ 52870: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted cfg struct
+# '{mode:3, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(32) @ 52870: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Starting the Monitor Data method
+# ................IN RECEIVER MONITOR-In detect WS task after WS change from unknown............., WS= 0 at 52870
+# IN RECEIVER MONITOR- Monitor detect WS start 0 at 52870
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(143) @ 52870: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(56) @ 52870: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass ws=  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(59) @ 52870: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass sclk=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(63) @ 52870: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(67) @ 52870: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass  clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(71) @ 52870: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(75) @ 52870: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{128, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(78) @ 52870: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Packet received from sample_data clone packet is 
+#  ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterTransaction  I2sTransmitterTransaction  -     @1433     
+#   WORD SELECT              integral                   1     1         
+#   SERIALDATA[0]            integral                   8     'b10000000
+#   SERIALDATA[1]            integral                   8     'b0       
+#   SERIALDATA[2]            integral                   8     'b0       
+#   SERIALDATA[3]            integral                   8     'b0       
+#   SERIAL_CLK               integral                   1     'd0       
+#   WORD_SELECT_PERIOD       integral                   32    'd0       
+#   NO_OF_BITS_TRANSFER      integral                   32    'd8       
+#   clock rate Frequency     integral                   32    'd0       
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(89) @ 52870: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(91) @ 52870: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 52870: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 52870: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 52870: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 52870: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 52870: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 52870: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 52870: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[0]= 128
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 52870: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[1]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 52870: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[2]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 52870: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[3]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(65) @ 52870: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted i2sTransmitterTransaction to struct
+# '{sd:'{128, 0, 0, 0}, ws:1, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 52870: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(70) @ 52870: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(36) @ 52870: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Starting the Monitor Data method
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 52870: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 52870: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 80 and Receiver SerialData = 80
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 52870: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 52870: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 52870: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 52870: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 52870: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 52870: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# IN RECEIVER MONITOR- Monitor sample SD from right channel task
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN MONITOR- Monitor sample SD from right channel task
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(234) @ 62090: reporter [I2sTransmitterDriverBFM] IN DRIVER- Generating serial data end
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(190) @ 63410: reporter [I2sTransmitterDriverBFM] IN DRIVER-Generating the WS ended
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(132) @ 63430: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(52) @ 63430: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass ws =0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(55) @ 63430: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass sclk =0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(58) @ 63430: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(60) @ 63430: reporter [I2sTransmitterSeqItemConverter] After converting toReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(64) @ 63430: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClasswordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(67) @ 63430: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{128, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(74) @ 63430: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Packet received from sample_data clone packet is  ----------------------------------------------------------------
+# Name                    Type                    Size  Value     
+# ----------------------------------------------------------------
+# I2sReceiverTransaction  I2sReceiverTransaction  -     @1441     
+#   WORD SELECT           integral                1     'h0       
+#   SERIALDATA[0]         integral                8     'b10000000
+#   SERIALDATA[1]         integral                8     'b0       
+#   SERIALDATA[2]         integral                8     'b0       
+#   SERIALDATA[3]         integral                8     'b0       
+#   SERIAL_CLK            integral                1     'h0       
+#   WORD_SELECT_PERIOD    integral                32    'h0       
+#   NO_OF_BITS_TRANSFER   integral                32    'h8       
+#   Serial clock rate     integral                32    'd0       
+# ----------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(56) @ 63430: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(58) @ 63430: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(22) @ 63430: reporter [I2sReceiverSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(25) @ 63430: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass ws =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(28) @ 63430: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(31) @ 63430: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(34) @ 63430: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(37) @ 63430: reporter [I2sTransmitterSeqItemConverter] After converting fromReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 63430: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 10000000
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 63430: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 63430: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 63430: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(62) @ 63430: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted req struct
+# '{sd:'{128, 0, 0, 0}, ws:0, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverConfigConverter.sv(15) @ 63430: reporter [I2sReceiverConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(66) @ 63430: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted cfg struct
+# '{mode:3, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(32) @ 63430: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Starting the Monitor Data method
+# ................IN RECEIVER MONITOR-In detect WS task after WS change from unknown............., WS= 1 at 63430
+# IN RECEIVER MONITOR- Monitor detect WS start 1 at 63430
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(143) @ 63430: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(56) @ 63430: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass ws=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(59) @ 63430: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass sclk=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(63) @ 63430: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(67) @ 63430: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass  clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(71) @ 63430: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(75) @ 63430: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{128, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(78) @ 63430: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Packet received from sample_data clone packet is 
+#  ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterTransaction  I2sTransmitterTransaction  -     @1449     
+#   WORD SELECT              integral                   1     'd0       
+#   SERIALDATA[0]            integral                   8     'b10000000
+#   SERIALDATA[1]            integral                   8     'b0       
+#   SERIALDATA[2]            integral                   8     'b0       
+#   SERIALDATA[3]            integral                   8     'b0       
+#   SERIAL_CLK               integral                   1     'd0       
+#   WORD_SELECT_PERIOD       integral                   32    'd0       
+#   NO_OF_BITS_TRANSFER      integral                   32    'd8       
+#   clock rate Frequency     integral                   32    'd0       
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(89) @ 63430: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(91) @ 63430: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 63430: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 63430: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 63430: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 63430: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 63430: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 63430: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 63430: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[0]= 128
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 63430: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[1]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 63430: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[2]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 63430: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[3]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(65) @ 63430: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted i2sTransmitterTransaction to struct
+# '{sd:'{128, 0, 0, 0}, ws:0, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 63430: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(70) @ 63430: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(36) @ 63430: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Starting the Monitor Data method
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 63430: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 63430: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 80 and Receiver SerialData = 80
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 63430: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 63430: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 63430: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 63430: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 63430: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 63430: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(221) @ 64070: reporter [I2sTransmitterDriverBFM] IN DRIVER- Generating the Serial clock end
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(89) @ 64070: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- AFTER STRUCT PACKET : , 
+#  '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(56) @ 64070: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass ws=  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(59) @ 64070: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass sclk=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(63) @ 64070: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(67) @ 64070: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass  clockrateFrequency =  bb80
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(71) @ 64070: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass wordSelectPeriod =  10
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(75) @ 64070: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{128, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(79) @ 64070: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER-After driving data to interface :: Received i2sTransmitterTransaction
+# ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterTransaction  I2sTransmitterTransaction  -     @1453     
+#   WORD SELECT              integral                   1     1         
+#   SERIALDATA[0]            integral                   8     'b10000000
+#   SERIALDATA[1]            integral                   8     'b0       
+#   SERIALDATA[2]            integral                   8     'b0       
+#   SERIALDATA[3]            integral                   8     'b0       
+#   SERIAL_CLK               integral                   1     'd0       
+#   WORD_SELECT_PERIOD       integral                   32    'd16      
+#   NO_OF_BITS_TRANSFER      integral                   32    'd8       
+#   clock rate Frequency     integral                   32    'd48000   
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(59) @ 64070: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [DEBUG] IN DRIVER-Inside I2sTransmitterDriverProxy
+# UVM_INFO ../../src/hvlTop/tb/virtualSequences//I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq.sv(22) @ 64070: uvm_test_top.i2sEnv.i2sVirtualSequencer@@i2sVirtual8bitWriteOperationTxMasterRxSlaveSeq [I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq] Inside Body Seq start I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq
+# UVM_INFO ../../src/hvlTop/tb/virtualSequences//I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq.sv(35) @ 64070: uvm_test_top.i2sEnv.i2sVirtualSequencer@@i2sVirtual8bitWriteOperationTxMasterRxSlaveSeq [I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq] Attempting to start the virtual sequence
+# sd=11011011
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Name                           Type                       Size  Value                                                                                             
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# i2sTransmitterTransaction      I2sTransmitterTransaction  -     @1465                                                                                             
+#   begin_time                   time                       64    64070                                                                                             
+#   depth                        int                        32    'd2                                                                                               
+#   parent sequence (name)       string                     34    i2sTransmitterWrite8bitTransferSeq                                                                
+#   parent sequence (full name)  string                     98    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer.i2sTransmitterWrite8bitTransferSeq
+#   sequencer                    string                     63    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer                                   
+#   WORD SELECT                  integral                   1     1                                                                                                 
+#   SERIALDATA[0]                integral                   8     'b11011011                                                                                        
+#   SERIAL_CLK                   integral                   1     1                                                                                                 
+#   WORD_SELECT_PERIOD           integral                   32    'd16                                                                                              
+#   NO_OF_BITS_TRANSFER          integral                   32    'd8                                                                                               
+#   clock rate Frequency         integral                   32    'd48000                                                                                           
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(64) @ 64070: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- Received i2sTransmitterTransaction
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Name                           Type                       Size  Value                                                                                             
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# i2sTransmitterTransaction      I2sTransmitterTransaction  -     @1465                                                                                             
+#   begin_time                   time                       64    64070                                                                                             
+#   depth                        int                        32    'd2                                                                                               
+#   parent sequence (name)       string                     34    i2sTransmitterWrite8bitTransferSeq                                                                
+#   parent sequence (full name)  string                     98    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer.i2sTransmitterWrite8bitTransferSeq
+#   sequencer                    string                     63    uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterSequencer                                   
+#   WORD SELECT                  integral                   1     1                                                                                                 
+#   SERIALDATA[0]                integral                   8     'b11011011                                                                                        
+#   SERIAL_CLK                   integral                   1     1                                                                                                 
+#   WORD_SELECT_PERIOD           integral                   32    'd16                                                                                              
+#   NO_OF_BITS_TRANSFER          integral                   32    'd8                                                                                               
+#   clock rate Frequency         integral                   32    'd48000                                                                                           
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 64070: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 64070: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 64070: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  48000
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 64070: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 64070: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 64070: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  16
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 64070: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[0]= 219
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(69) @ 64070: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- Converted i2sTransmitterTransaction to struct
+# '{sd:'{219, 0, 0, 0}, ws:1, sclk:1, wordSelectPeriod:16, numOfBitsTransfer:8, clockratefrequency:48000}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 64070: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(73) @ 64070: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(87) @ 64070: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [DEBUG] IN DRIVER- Inside drive to bfm
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(44) @ 64070: reporter [I2sTransmitterDriverBFM] IN DRIVER- Starting the drive data method mode=0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(197) @ 64070: reporter [I2sTransmitterDriverBFM] IN DRIVER-Generating the Serial clock
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(160) @ 64070: reporter [I2sTransmitterDriverBFM] clockperiod=1302 ns
+# IN DRIVER-inside gen sclk task clockPeriod=1302
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(168) @ 64070: reporter [I2sTransmitterDriverBFM] IN DRIVER-Generating the WS
+# wsp=16
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(59) @ 64070: reporter [I2sTransmitterDriverBFM] IN DRIVER- Driving data from left channel
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(225) @ 64070: reporter [DEBUG] IN DRIVER- Driving SerialData = 11011011
+# IN RECEIVER MONITOR- Monitor sample SD from left channel task
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN MONITOR- Monitor sample SD from left channel task
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=1
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(234) @ 72670: reporter [I2sTransmitterDriverBFM] IN DRIVER- Generating serial data end
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(59) @ 72670: reporter [I2sTransmitterDriverBFM] IN DRIVER- Driving data from left channel
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(225) @ 72670: reporter [DEBUG] IN DRIVER- Driving SerialData = 11011011
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=1
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(132) @ 74010: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(52) @ 74010: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass ws =1
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(55) @ 74010: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass sclk =0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(58) @ 74010: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(60) @ 74010: reporter [I2sTransmitterSeqItemConverter] After converting toReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(64) @ 74010: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClasswordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(67) @ 74010: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{219, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(74) @ 74010: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Packet received from sample_data clone packet is  ----------------------------------------------------------------
+# Name                    Type                    Size  Value     
+# ----------------------------------------------------------------
+# I2sReceiverTransaction  I2sReceiverTransaction  -     @1473     
+#   WORD SELECT           integral                1     'h1       
+#   SERIALDATA[0]         integral                8     'b11011011
+#   SERIALDATA[1]         integral                8     'b0       
+#   SERIALDATA[2]         integral                8     'b0       
+#   SERIALDATA[3]         integral                8     'b0       
+#   SERIAL_CLK            integral                1     'h0       
+#   WORD_SELECT_PERIOD    integral                32    'h0       
+#   NO_OF_BITS_TRANSFER   integral                32    'h8       
+#   Serial clock rate     integral                32    'd0       
+# ----------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(56) @ 74010: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(58) @ 74010: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(22) @ 74010: reporter [I2sReceiverSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(25) @ 74010: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass ws =  1
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(28) @ 74010: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(31) @ 74010: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(34) @ 74010: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(37) @ 74010: reporter [I2sTransmitterSeqItemConverter] After converting fromReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 74010: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 11011011
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 74010: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 74010: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 74010: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(62) @ 74010: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted req struct
+# '{sd:'{219, 0, 0, 0}, ws:1, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverConfigConverter.sv(15) @ 74010: reporter [I2sReceiverConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(66) @ 74010: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted cfg struct
+# '{mode:3, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(32) @ 74010: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Starting the Monitor Data method
+# ................IN RECEIVER MONITOR-In detect WS task after WS change from unknown............., WS= 0 at 74010
+# IN RECEIVER MONITOR- Monitor detect WS start 0 at 74010
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(143) @ 74010: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(56) @ 74010: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass ws=  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(59) @ 74010: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass sclk=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(63) @ 74010: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(67) @ 74010: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass  clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(71) @ 74010: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(75) @ 74010: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{219, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(78) @ 74010: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Packet received from sample_data clone packet is 
+#  ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterTransaction  I2sTransmitterTransaction  -     @1481     
+#   WORD SELECT              integral                   1     1         
+#   SERIALDATA[0]            integral                   8     'b11011011
+#   SERIALDATA[1]            integral                   8     'b0       
+#   SERIALDATA[2]            integral                   8     'b0       
+#   SERIALDATA[3]            integral                   8     'b0       
+#   SERIAL_CLK               integral                   1     'd0       
+#   WORD_SELECT_PERIOD       integral                   32    'd0       
+#   NO_OF_BITS_TRANSFER      integral                   32    'd8       
+#   clock rate Frequency     integral                   32    'd0       
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(89) @ 74010: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(91) @ 74010: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 74010: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 74010: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 74010: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 74010: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 74010: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 74010: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 74010: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[0]= 219
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 74010: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[1]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 74010: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[2]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 74010: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[3]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(65) @ 74010: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted i2sTransmitterTransaction to struct
+# '{sd:'{219, 0, 0, 0}, ws:1, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 74010: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(70) @ 74010: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(36) @ 74010: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Starting the Monitor Data method
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 74010: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 74010: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = db and Receiver SerialData = db
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 74010: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 74010: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 74010: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 74010: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 74010: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 74010: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# IN RECEIVER MONITOR- Monitor sample SD from right channel task
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN MONITOR- Monitor sample SD from right channel task
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[7]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[6]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[5]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[4]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[3]=1
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=0
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[2]=0
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[1]=1
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(234) @ 83230: reporter [I2sTransmitterDriverBFM] IN DRIVER- Generating serial data end
+# IN RECEIVER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=1
+# IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[0]=1
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(190) @ 84550: reporter [I2sTransmitterDriverBFM] IN DRIVER-Generating the WS ended
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(132) @ 84570: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(52) @ 84570: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass ws =0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(55) @ 84570: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClass sclk =0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(58) @ 84570: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(60) @ 84570: reporter [I2sTransmitterSeqItemConverter] After converting toReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(64) @ 84570: reporter [I2sReceiverSeqItemConverter] After converting toReceiverClasswordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(67) @ 84570: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{219, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(74) @ 84570: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Packet received from sample_data clone packet is  ----------------------------------------------------------------
+# Name                    Type                    Size  Value     
+# ----------------------------------------------------------------
+# I2sReceiverTransaction  I2sReceiverTransaction  -     @1489     
+#   WORD SELECT           integral                1     'h0       
+#   SERIALDATA[0]         integral                8     'b11011011
+#   SERIALDATA[1]         integral                8     'b0       
+#   SERIALDATA[2]         integral                8     'b0       
+#   SERIALDATA[3]         integral                8     'b0       
+#   SERIAL_CLK            integral                1     'h0       
+#   WORD_SELECT_PERIOD    integral                32    'h0       
+#   NO_OF_BITS_TRANSFER   integral                32    'h8       
+#   Serial clock rate     integral                32    'd0       
+# ----------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(56) @ 84570: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(58) @ 84570: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(22) @ 84570: reporter [I2sReceiverSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(25) @ 84570: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass ws =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(28) @ 84570: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(31) @ 84570: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(34) @ 84570: reporter [I2sReceiverSeqItemConverter] After converting fromReceiverClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(37) @ 84570: reporter [I2sTransmitterSeqItemConverter] After converting fromReceiverClass clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 84570: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 11011011
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 84570: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 84570: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverSeqItemConverter.sv(41) @ 84570: reporter [I2sReceiverSeqItemConverter]  After converting fromReceiverClass Serial Data= 0
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(62) @ 84570: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted req struct
+# '{sd:'{219, 0, 0, 0}, ws:0, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverConfigConverter.sv(15) @ 84570: reporter [I2sReceiverConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverMonitorProxy.sv(66) @ 84570: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverMonitorProxy [I2sReceiverMonitorProxy] Converted cfg struct
+# '{mode:3, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv(32) @ 84570: reporter [I2sReceiverMonitorBFM] IN RECEIVER MONITOR- Starting the Monitor Data method
+# ................IN RECEIVER MONITOR-In detect WS task after WS change from unknown............., WS= 1 at 84570
+# IN RECEIVER MONITOR- Monitor detect WS start 1 at 84570
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(143) @ 84570: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Monitor detect WS END
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(56) @ 84570: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass ws=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(59) @ 84570: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass sclk=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(63) @ 84570: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(67) @ 84570: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass  clockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(71) @ 84570: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(75) @ 84570: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{219, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(78) @ 84570: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Packet received from sample_data clone packet is 
+#  ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterTransaction  I2sTransmitterTransaction  -     @1497     
+#   WORD SELECT              integral                   1     'd0       
+#   SERIALDATA[0]            integral                   8     'b11011011
+#   SERIALDATA[1]            integral                   8     'b0       
+#   SERIALDATA[2]            integral                   8     'b0       
+#   SERIALDATA[3]            integral                   8     'b0       
+#   SERIAL_CLK               integral                   1     'd0       
+#   WORD_SELECT_PERIOD       integral                   32    'd0       
+#   NO_OF_BITS_TRANSFER      integral                   32    'd8       
+#   clock rate Frequency     integral                   32    'd0       
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(89) @ 84570: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] Before Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(91) @ 84570: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] After Calling the Sample Method
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(23) @ 84570: reporter [I2sTransmitterSeqItemConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(26) @ 84570: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass ws =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(29) @ 84570: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClassclockrateFrequency =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(33) @ 84570: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass sclk =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(37) @ 84570: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass numOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(41) @ 84570: reporter [I2sTransmitterSeqItemConverter] After converting from_TransmitterClass wordSelectPeriod =  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 84570: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[0]= 219
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 84570: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[1]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 84570: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[2]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(45) @ 84570: reporter [I2sTransmitterSeqItemConverter]  After converting from_TransmitterClass Serial Data[3]= 0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(65) @ 84570: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted i2sTransmitterTransaction to struct
+# '{sd:'{219, 0, 0, 0}, ws:0, sclk:0, wordSelectPeriod:0, numOfBitsTransfer:8, clockratefrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterConfigConverter.sv(17) @ 84570: reporter [I2sTransmitterConfigConverter] ----------------------------------------------------------------------
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterMonitorProxy.sv(70) @ 84570: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterMonitorProxy [I2sTransmitterMonitorProxy] IN MONITOR- Converted cfg struct
+# '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterMonitorBFM.sv(36) @ 84570: reporter [I2sTransmitterMonitorBFM] IN MONITOR- Starting the Monitor Data method
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 84570: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 84570: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = db and Receiver SerialData = db
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 84570: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 84570: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 84570: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 84570: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(73) @ 84570: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] i2s serial data from transmitter and receiver is equal
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(74) @ 84570: uvm_test_top.i2sEnv.i2sScoreboard [SB_serialData_MATCHED] Transmitter SerialData = 0 and Receiver SerialData = 0
+# UVM_INFO ../../src/hdlTop/transmitterAgentBFM/I2sTransmitterDriverBFM.sv(221) @ 85210: reporter [I2sTransmitterDriverBFM] IN DRIVER- Generating the Serial clock end
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(89) @ 85210: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER- AFTER STRUCT PACKET : , 
+#  '{mode:0, delayFortxSd:0, delayFortxWs:0, clockPeriod:0, sclkFrequency:0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(56) @ 85210: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass ws=  1
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(59) @ 85210: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass sclk=  0
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(63) @ 85210: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClassnumOfBitsTransfer =  8
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(67) @ 85210: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass  clockrateFrequency =  bb80
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(71) @ 85210: reporter [I2sTransmitterSeqItemConverter] After converting toTransmitterClass wordSelectPeriod =  10
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterSeqItemConverter.sv(75) @ 85210: reporter [I2sTransmitterSeqItemConverter]  After converting to_TransmitterClass Serial Data= '{219, 0, 0, 0}
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(79) @ 85210: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [I2sTransmitterDriverProxy] IN DRIVER-After driving data to interface :: Received i2sTransmitterTransaction
+# ----------------------------------------------------------------------
+# Name                       Type                       Size  Value     
+# ----------------------------------------------------------------------
+# I2sTransmitterTransaction  I2sTransmitterTransaction  -     @1501     
+#   WORD SELECT              integral                   1     1         
+#   SERIALDATA[0]            integral                   8     'b11011011
+#   SERIALDATA[1]            integral                   8     'b0       
+#   SERIALDATA[2]            integral                   8     'b0       
+#   SERIALDATA[3]            integral                   8     'b0       
+#   SERIAL_CLK               integral                   1     'd0       
+#   WORD_SELECT_PERIOD       integral                   32    'd16      
+#   NO_OF_BITS_TRANSFER      integral                   32    'd8       
+#   clock rate Frequency     integral                   32    'd48000   
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterDriverProxy.sv(59) @ 85210: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterDriverProxy [DEBUG] IN DRIVER-Inside I2sTransmitterDriverProxy
+# UVM_INFO ../../src/hvlTop/tb/test/I2sWriteOperationWith8bitdataTxMasterRxSlaveTest.sv(39) @ 85220: uvm_test_top [I2sWriteOperationWith8bitdataTxMasterRxSlaveTest] Test ended
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1268) @ 85220: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(126) @ 85220: uvm_test_top.i2sEnv.i2sScoreboard [uvm_test_top.i2sEnv.i2sScoreboard] Inside i2s sb check phase
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(127) @ 85220: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] --
+# --------SCOREBOARD CHECK PHASE----------------
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(129) @ 85220: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] Transmitter And Receiver serialData comparisions are equal = 32
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(141) @ 85220: uvm_test_top.i2sEnv.i2sScoreboard [SC_CheckPhase] I2s Transmitter analysis FIFO is empty
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(149) @ 85220: uvm_test_top.i2sEnv.i2sScoreboard [SC_CheckPhase] I2s Receiver analysis FIFO is empty
+# UVM_INFO ../../src/hvlTop/i2sEnv/I2sScoreboard.sv(156) @ 85220: uvm_test_top.i2sEnv.i2sScoreboard [I2sScoreboard] --
+# -----END OF SCOREBOARD CHECK PHASE-------
+# 
+# --------------------------------------
+#  COVERAGE
+# --------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sReceiver//I2sReceiverCoverage.sv(63) @ 85220: uvm_test_top.i2sEnv.i2sReceiverAgent.i2sReceiverCoverage [I2sReceiverCoverage] I2s Receiver Coverage  = 62.50 %
+# 
+# --------------------------------------
+#  COVERAGE
+# --------------------------------------
+# 
+# UVM_INFO ../../src/hvlTop/i2sTransmitter//I2sTransmitterCoverage.sv(97) @ 85220: uvm_test_top.i2sEnv.i2sTransmitterAgent.i2sTransmitterCoverage [I2sTransmitterCoverage] I2s Transmitter Coverage  = 52.08 %
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :  647
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [DEBUG]    17
+# [I2sReceiverAgent]     1
+# [I2sReceiverConfigConverter]     9
+# [I2sReceiverCoverage]    17
+# [I2sReceiverMonitorBFM]    17
+# [I2sReceiverMonitorProxy]    28
+# [I2sReceiverSeqItemConverter]   109
+# [I2sScoreboard]    35
+# [I2sTransmitterAgent]     1
+# [I2sTransmitterConfigConverter]    13
+# [I2sTransmitterCoverage]    17
+# [I2sTransmitterDriverBFM]    42
+# [I2sTransmitterDriverProxy]    22
+# [I2sTransmitterMonitorBFM]    17
+# [I2sTransmitterMonitorProxy]    29
+# [I2sTransmitterSeqItemConverter]   211
+# [I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq]     8
+# [I2sWriteOperationWith8bitdataTxMasterRxSlaveTest]     3
+# [IN MONITOR- FROM TRANSMITTER MON BFM]     2
+# [IN RECEIVER MONITOR- FROM Receiver MON BFM]     2
+# [Questa UVM]     3
+# [RNTST]     1
+# [SB_serialData_MATCHED]    32
+# [SC_CheckPhase]     2
+# [TEST_DONE]     1
+# [UVMTOP]     1
+# [i2sEnvConfig]     1
+# [uvm_test_top.i2sEnv]     2
+# [uvm_test_top.i2sEnv.i2sScoreboard]     4
+# ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 85220 ns  Iteration: 54  Instance: /hvlTop
+# Saving coverage database on exit...
+# End time: 16:23:36 on Mar 02,2025, Elapsed time: 0:00:07
+# Errors: 0, Warnings: 3

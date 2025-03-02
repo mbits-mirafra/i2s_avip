@@ -54,7 +54,7 @@ task drivePacket(inout i2sTransferPacketStruct dataPacketStruct,
   end
 endtask: drivePacket
 
- function sclkPeriod(inout i2sTransferPacketStruct dataStr, input i2sTransferCfgStruct cfgStr );
+ function void sclkPeriod(inout i2sTransferPacketStruct dataStr, input i2sTransferCfgStruct cfgStr );
 
     cfgStr.sclkFrequency = dataStr.clockratefrequency * dataStr.numOfBitsTransfer * NUM_OF_CHANNEL;
     $display("------------------------Clockfreq=%0d, No_of_bits_Transfer:%0d, No_of_channels:%0d--------------",dataStr.clockratefrequency,dataStr.numOfBitsTransfer,NUM_OF_CHANNEL);

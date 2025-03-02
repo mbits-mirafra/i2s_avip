@@ -7,47 +7,49 @@ class I2sTransmitterCoverage extends uvm_subscriber#(I2sTransmitterTransaction);
   I2sTransmitterTransaction i2sTransmitterTransaction;
 
 
-   covergroup i2sTransmitterTransactionCovergroup with function sample (I2sTransmitterTransaction packet);
+   covergroup i2sTransmitterTransactionCovergroup with function sample (I2sTransmitterTransaction i2sTransmitterTransaction);
   option.per_instance = 1;
 
-   WORDSELECT_CP : coverpoint packet.txWs {
+   WORDSELECT_TX_CP : coverpoint i2sTransmitterTransaction.txWs {
    option.comment = "Word Select";
    bins WORDSELECT_LEFT                              = {1}; 
    bins WORDSELECT_RIGHT                             = {0};
    }
 
-   SERIALCLOCK_CP : coverpoint packet.txSclk {
+   SERIALCLOCK_TX_CP : coverpoint i2sTransmitterTransaction.txSclk {
    option.comment = "serial clock";
-   bins POSEDGE                             = {1}; 
-   bins NEGEDGE                             = {0};
-   }
+   bins SCLK_CHANGE                             = {0,1}; 
+     }
 
   
-   SERIALDATA_CP : coverpoint packet.txSd.size()*DATA_WIDTH {
-   option.comment = "Serial Data size of the packet transfer";
-   bins DATA_WIDTH_1 = {8};
-   bins DATA_WIDTH_2 = {16};
-   bins DATA_WIDTH_3 = {24};
-   bins DATA_WIDTH_4 = {32};
+SERIALDATARANGE_0_CP : coverpoint i2sTransmitterTransaction.txSd[0] {
+  option.comment = "serial data value range ";
+  bins SD_0_LOW_VALID_RANGE = {[0:50]};
+  bins SD_0_MID_VALID_RANGE = {[51:200]};
+  bins SD_0_HIGH_VALID_RANGE = {[201:255]}; 
+ }
+SERIALDATARANGE_1_CP : coverpoint i2sTransmitterTransaction.txSd[1] {
+  option.comment = "serial data value range ";
+  bins SD_1_LOW_VALID_RANGE = {[0:50]};
+  bins SD_1_MID_VALID_RANGE = {[51:200]};
+  bins SD_1_HIGH_VALID_RANGE = {[201:255]};
  }
 
- WORDSELECTPERIOD_CP : coverpoint packet.txWordSelectPeriod {
-  option.comment = "word select period ";
-  bins WS_PERIOD_16 = {16};
-  bins WS_PERIOD_32 = {32};
-  bins WS_PERIOD_48 = {48};
-  bins WS_PERIOD_64 = {64};
-}
-
-SERIALDATARANGE_CP : coverpoint packet.txSd {
+SERIALDATARANGE_2_CP : coverpoint i2sTransmitterTransaction.txSd[2] {
   option.comment = "serial data value range ";
-  bins SD_LOW_VALID_RANGE = {[0:50]};
-  bins SD_MID_VALID_RANGE = {[51:200]};
-  bins SD_HIGH_VALID_RANGE = {[201:255]};
-  illegal_bins INVALID_DATA_RANGE = {[256:$]};
-}
+  bins SD_2_LOW_VALID_RANGE = {[0:50]};
+  bins SD_2_MID_VALID_RANGE = {[51:200]};
+  bins SD_2_HIGH_VALID_RANGE = {[201:255]};
+ }
 
-NUMOFBITSTRANSFER_CP : coverpoint packet.txNumOfBitsTransfer {
+SERIALDATARANGE_3_CP : coverpoint i2sTransmitterTransaction.txSd[3] {
+  option.comment = "serial data value range ";
+  bins SD_3_LOW_VALID_RANGE = {[0:50]};
+  bins SD_3_MID_VALID_RANGE = {[51:200]};
+  bins SD_3_HIGH_VALID_RANGE = {[201:255]};
+ }
+
+NUMOFBITSTRANSFER_TX_CP : coverpoint i2sTransmitterTransaction.txNumOfBitsTransfer {
   option.comment = "num of bits transfer";
   bins BITS_8  = {8};
   bins BITS_16 = {16};
@@ -55,8 +57,7 @@ NUMOFBITSTRANSFER_CP : coverpoint packet.txNumOfBitsTransfer {
   bins BITS_32 = {32};
 }
 
-
-SERIAL_DATA_X_WORD_SELECT_PERIOD_CP:cross SERIALDATA_CP,WORDSELECTPERIOD_CP;
+NUMOFBITSTRANSFER_TX_X_WORD_SELECT_TX_CP:cross NUMOFBITSTRANSFER_TX_CP,WORDSELECT_TX_CP;
   
 endgroup
 

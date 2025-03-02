@@ -31,8 +31,7 @@ if(!i2sReceiverWrite8bitTransferSeq.randomize() with {rxSclkSeq==1;
                                                       rxWsSeq==1;
                                                       rxWordSelectPeriodSeq==16;
                                                       clockrateFrequencySeq==48000;
-							                                        rxNumOfBitsTransferSeq==8;
-
+						    
       }) begin
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite8bitTransferSeq")
   end
@@ -40,7 +39,7 @@ if(!i2sReceiverWrite8bitTransferSeq.randomize() with {rxSclkSeq==1;
  
 
  if (!i2sTransmitterWrite8bitTransferSeq.randomize() with { txNumOfBitsTransferSeq==8;
-							                                              txWordSelectPeriodSeq==16;
+						            txWordSelectPeriodSeq==16;
 
                                                              }) begin
     `uvm_error(get_type_name(), "Randomization failed: Inside I2sTransmitterWrite8bitTransferSeq")

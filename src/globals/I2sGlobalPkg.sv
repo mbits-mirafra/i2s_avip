@@ -55,7 +55,6 @@ typedef struct {
 
   typedef struct {
     bit [DATA_WIDTH-1:0]sd[MAXIMUM_SIZE];
-    
     bit ws;
     bit sclk;
     int wordSelectPeriod;

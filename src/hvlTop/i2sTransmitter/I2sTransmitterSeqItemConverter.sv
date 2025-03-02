@@ -59,7 +59,7 @@ function void I2sTransmitterSeqItemConverter::toTransmitterClass(input i2sTransf
     `uvm_info("I2sTransmitterSeqItemConverter",$sformatf("After converting toTransmitterClass sclk=  %0h",outputConv.txSclk),UVM_NONE);
     
  
-     outputConv.txNumOfBitsTransfer = numOfBitsTransferEnum'(inputConv.numOfBitsTransfer);
+    outputConv.txNumOfBitsTransfer = numOfBitsTransferEnum'(inputConv.numOfBitsTransfer);
     `uvm_info("I2sTransmitterSeqItemConverter",$sformatf("After converting toTransmitterClassnumOfBitsTransfer =  %0h",outputConv.txNumOfBitsTransfer),UVM_NONE);
 
 
@@ -70,6 +70,7 @@ function void I2sTransmitterSeqItemConverter::toTransmitterClass(input i2sTransf
       outputConv.txWordSelectPeriod = wordSelectPeriodEnum'(inputConv.wordSelectPeriod);
     `uvm_info("I2sTransmitterSeqItemConverter",$sformatf("After converting toTransmitterClass wordSelectPeriod =  %0h",outputConv.txWordSelectPeriod),UVM_NONE);
       
+
     outputConv.txSd = inputConv.sd;   
     `uvm_info("I2sTransmitterSeqItemConverter",$sformatf(" After converting to_TransmitterClass Serial Data= %p",outputConv.txSd),UVM_NONE)  
 
