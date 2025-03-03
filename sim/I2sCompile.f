@@ -1,16 +1,16 @@
-+incdir+../../src/globals/I2sGlobalsPackage.sv
++incdir+../../src/globals/I2sGlobalPkg.sv
 +incdir+../../src/hvlTop/i2sTransmitter/transmitterSequences/ 
 +incdir+../../src/hvlTop/i2sTransmitter/
 +incdir+../../src/hdlTop/transmitterAgentBFM/ 
 +incdir+../../src/hvlTop/i2sEnv/virtualSequencer/
 +incdir+../../src/hvlTop/tb/virtualSequences/
 +incdir+../../src/hvlTop/i2sEnv
-+incdir+../../src/hvlTop/i2sReceiver/
 +incdir+../../src/hvlTop/i2sReceiver/receiverSequences/
++incdir+../../src/hvlTop/i2sReceiver/
 +incdir+../../src/hvlTop/tb/test
 +incdir+../../src/hdlTop/receiverAgentBFM/
 +incdir+../../src/hdlTop/i2sInterface
-../../src/globals/I2sGlobalsPackage.sv
+../../src/globals/I2sGlobalPkg.sv
 ../../src/hvlTop/i2sTransmitter/I2sTransmitterPkg.sv
 ../../src/hvlTop/i2sReceiver/I2sReceiverPkg.sv
 ../../src/hvlTop/i2sTransmitter/transmitterSequences/I2sTransmitterSequencePkg.sv 
@@ -25,6 +25,7 @@
 ../../src/hdlTop/receiverAgentBFM/I2sReceiverDriverBFM.sv 
 ../../src/hdlTop/receiverAgentBFM/I2sReceiverMonitorBFM.sv 
 ../../src/hdlTop/receiverAgentBFM/I2sReceiverAgentBFM.sv
-../../src/hdlTop/HdlTop.sv
-../../src/hvlTop/HvlTop.sv
+../../src/hdlTop/hdlTop.sv
+../../src/hvlTop/hvlTop.sv
+
 

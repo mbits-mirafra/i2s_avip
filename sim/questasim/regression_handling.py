@@ -18,7 +18,7 @@ if debug:
   print(regression_list);
 
 # Reading the file
-path = "../../src/hvl_top/testlists/" + regression_list
+path = "../../src/hvlTop/testlist/" + regression_list
 if debug:
   print(path)
 
@@ -28,7 +28,7 @@ with open(path,'r') as f:
     if(match): 
       continue;
 
-    match = re.search('(.*_test)',line);
+    match = re.search('(.*Test)',line);
     if(match):
       reg_list_array.append(match.group(0))
       if debug:
@@ -44,4 +44,4 @@ for testname in reg_list_array:
   line = "make simulate test_folder=" + test_folder + " test=" + testname
   if debug:
     print(line)
-  os.system(line
+  os.system(line)

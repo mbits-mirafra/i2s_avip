@@ -57,7 +57,10 @@ task I2sReceiverMonitorProxy::run_phase(uvm_phase phase);
   forever begin
     i2sTransferPacketStruct packetStruct;
     i2sTransferCfgStruct configStruct;
- 
+
+    I2sReceiverSeqItemConverter::fromReceiverClass(i2sReceiverTransaction, packetStruct);
+    `uvm_info(get_type_name(), $sformatf("Converted req struct\n%p",packetStruct), UVM_HIGH)
+
    
     I2sReceiverConfigConverter::fromReceiverClass(i2sReceiverAgentConfig, configStruct);
     `uvm_info(get_type_name(), $sformatf("Converted cfg struct\n%p",configStruct), UVM_HIGH)

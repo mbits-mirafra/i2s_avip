@@ -61,6 +61,9 @@ task I2sTransmitterMonitorProxy::run_phase(uvm_phase phase);
      i2sTransferPacketStruct packetStruct;
     i2sTransferCfgStruct configStruct;
 
+     I2sTransmitterSeqItemConverter::fromTransmitterClass(i2sTransmitterTransaction, packetStruct);
+      `uvm_info(get_type_name(), $sformatf("IN MONITOR- Converted i2sTransmitterTransaction to struct\n%p",packetStruct), UVM_NONE)
+
 
    I2sTransmitterConfigConverter::fromTransmitterClass(i2sTransmitterAgentConfig, configStruct);
 

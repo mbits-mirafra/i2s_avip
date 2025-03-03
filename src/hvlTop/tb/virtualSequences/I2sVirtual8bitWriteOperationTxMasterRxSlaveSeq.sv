@@ -22,7 +22,7 @@ repeat(4)
   `uvm_info(get_type_name(), $sformatf("Inside Body Seq start I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq"), UVM_NONE); 
   
    if(!i2sTransmitterWrite8bitTransferSeq.randomize() with {txSclkSeq==1;
-							                                             txWsSeq==1; 
+						   	   txWsSeq==1; 
                                                            txNumOfBitsTransferSeq==8;
                                                            txWordSelectPeriodSeq==16;
                                                            clockrateFrequencySeq==48000;
@@ -39,4 +39,5 @@ i2sTransmitterWrite8bitTransferSeq.start(p_sequencer.i2sTransmitterSequencer);
  endtask : body
 
 `endif
+
 

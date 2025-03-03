@@ -12,7 +12,7 @@ class I2sReceiverWrite8bitTransferSeq extends I2sReceiverBaseSeq;
   rand clockrateFrequencyEnum clockrateFrequencySeq;
 
  
-  constraint rxNumOfBitsTransferSeq_c {soft rxNumOfBitsTransferSeq <= rxWordSelectPeriodSeq/2;}
+  constraint rxNumOfBitsTransferSeq_c {rxNumOfBitsTransferSeq == rxWordSelectPeriodSeq/2;}
 
   extern function new(string name = "I2sReceiverWrite8bitTransferSeq");
   

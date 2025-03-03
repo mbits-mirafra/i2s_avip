@@ -150,7 +150,7 @@ interface I2sTransmitterDriverBFM(input clk,
   endtask: detectWsToggleAndDriveSdWhenTxSlave
 
 
- function  sclkPeriod(inout i2sTransferPacketStruct dataStr, input i2sTransferCfgStruct cfgStr );
+ function void sclkPeriod(inout i2sTransferPacketStruct dataStr, input i2sTransferCfgStruct cfgStr );
     
     cfgStr.sclkFrequency = dataStr.clockratefrequency * dataStr.numOfBitsTransfer *NUM_OF_CHANNEL;
 
