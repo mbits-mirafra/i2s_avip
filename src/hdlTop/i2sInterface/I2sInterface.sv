@@ -13,9 +13,9 @@ interface I2sInterface(input bit clk,input bit rst);
   logic sclkInput;
   logic sclkOutput;
   
- /*  int wordSelectPeriod;
+ /*int wordSelectPeriod;
    int numOfBitsTransfer;
-   int clockratefrequency;  */
+   int clockratefrequency;*/
  
 
   import uvm_pkg::*;
