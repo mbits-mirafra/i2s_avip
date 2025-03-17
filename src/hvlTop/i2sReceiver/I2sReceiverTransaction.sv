@@ -67,16 +67,16 @@ function bit  I2sReceiverTransaction::do_compare (uvm_object rhs,uvm_comparer co
 function void I2sReceiverTransaction::do_print(uvm_printer printer);
   super.do_print(printer);
 
-  printer.print_field($sformatf("WORD SELECT"),this.rxWs,1,UVM_HEX);
+  printer.print_field($sformatf("WORD SELECT"),this.rxWs,1,UVM_BIN);
 
   foreach(rxSd[i]) begin
   printer.print_field($sformatf("SERIALDATA[%0d]",i),this.rxSd[i],$bits(rxSd[i]),UVM_BIN);
   end
 
-  printer.print_field($sformatf("SERIAL_CLK"),this.rxSclk,$bits(rxSclk),UVM_HEX);
-  printer.print_field($sformatf("WORD_SELECT_PERIOD"),this.rxWordSelectPeriod,$bits(rxWordSelectPeriod),UVM_HEX);
-  printer.print_field($sformatf("NO_OF_BITS_TRANSFER"),this.rxNumOfBitsTransfer,$bits(rxNumOfBitsTransfer),UVM_HEX);
- printer.print_field($sformatf("Serial clock rate"),this.clockrateFrequency,$bits(clockrateFrequency),UVM_DEC);
+  //printer.print_field($sformatf("SERIAL_CLK"),this.rxSclk,$bits(rxSclk),UVM_HEX);
+  printer.print_field($sformatf("WORD_SELECT_PERIOD"),this.rxWordSelectPeriod,$bits(rxWordSelectPeriod),UVM_DEC);
+  //printer.print_field($sformatf("NO_OF_BITS_TRANSFER"),this.rxNumOfBitsTransfer,$bits(rxNumOfBitsTransfer),UVM_HEX);
+// printer.print_field($sformatf("Serial clock rate"),this.clockrateFrequency,$bits(clockrateFrequency),UVM_DEC);
 
 endfunction : do_print
 

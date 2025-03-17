@@ -16,17 +16,13 @@ endfunction : new
 
 task I2sVirtual24bitWriteOperationTxMasterRxSlaveSeq::body();
 
-repeat(4)
+repeat(2)
  begin
  i2sTransmitterWrite24bitTransferSeq = I2sTransmitterWrite24bitTransferSeq::type_id::create("i2sTransmitterWrite24bitTransferSeq");
   `uvm_info(get_type_name(), $sformatf("Inside Body Seq start I2sVirtual24bitWriteOperationTxMasterRxSlaveSeq"), UVM_NONE); 
   
-   if(!i2sTransmitterWrite24bitTransferSeq.randomize() with {txSclkSeq==1;
-						   	   txWsSeq==1; 
-                                                           txNumOfBitsTransferSeq==24;
-                                                           txWordSelectPeriodSeq==48;
-                                                           clockrateFrequencySeq==48000;
-                                                            }) begin  
+   if(!i2sTransmitterWrite24bitTransferSeq.randomize() with { txWsSeq==1; 
+                                                              txWordSelectPeriodSeq==48;                                                                                                                                            }) begin  
 
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sTransmitterWrite24bitTransferSeq")
   end

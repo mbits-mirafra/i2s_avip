@@ -21,11 +21,8 @@ repeat(4)
  i2sTransmitterWrite32bitTransferSeq = I2sTransmitterWrite32bitTransferSeq::type_id::create("i2sTransmitterWrite32bitTransferSeq");
   `uvm_info(get_type_name(), $sformatf("Inside Body Seq start I2sVirtual32bitWriteOperationTxMasterRxSlaveSeq"), UVM_NONE); 
 
-   if(!i2sTransmitterWrite32bitTransferSeq.randomize() with {txSclkSeq==1;
-						   	   txWsSeq==1; 
-                                                           txNumOfBitsTransferSeq==32;
-                                                           txWordSelectPeriodSeq==64;
-                                                           clockrateFrequencySeq==48000;
+   if(!i2sTransmitterWrite32bitTransferSeq.randomize() with {//txWsSeq==1; 
+                                                             txWordSelectPeriodSeq==64;
                                                             }) begin  
 
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sTransmitterWrite32bitTransferSeq")

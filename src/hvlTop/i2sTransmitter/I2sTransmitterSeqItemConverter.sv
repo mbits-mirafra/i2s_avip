@@ -83,10 +83,10 @@ function void I2sTransmitterSeqItemConverter::do_print(uvm_printer printer);
   super.do_print(printer);
 
    printer.print_field("ws",TransmitterPacketStruct.ws,$bits(TransmitterPacketStruct.ws),UVM_DEC);
-  printer.print_field("sclk",TransmitterPacketStruct.sclk,$bits(TransmitterPacketStruct.sclk),UVM_DEC);
+ // printer.print_field("sclk",TransmitterPacketStruct.sclk,$bits(TransmitterPacketStruct.sclk),UVM_DEC);
   printer.print_field("wordSelectPeriod",TransmitterPacketStruct.wordSelectPeriod,$bits(TransmitterPacketStruct.wordSelectPeriod),UVM_DEC);
-  printer.print_field("clockratefrequency",TransmitterPacketStruct.clockratefrequency,$bits(TransmitterPacketStruct.clockratefrequency),UVM_DEC);
-  printer.print_field("numOfBitsTransfer",TransmitterPacketStruct.numOfBitsTransfer,$bits(TransmitterPacketStruct.numOfBitsTransfer),UVM_DEC);
+ // printer.print_field("clockratefrequency",TransmitterPacketStruct.clockratefrequency,$bits(TransmitterPacketStruct.clockratefrequency),UVM_DEC);
+  //printer.print_field("numOfBitsTransfer",TransmitterPacketStruct.numOfBitsTransfer,$bits(TransmitterPacketStruct.numOfBitsTransfer),UVM_DEC);
   foreach(TransmitterPacketStruct.sd[i]) begin
     printer.print_field($sformatf("serial_data[%0d]=%0b",i,TransmitterPacketStruct.sd[i]),$bits(TransmitterPacketStruct.sd),UVM_DEC);
   end

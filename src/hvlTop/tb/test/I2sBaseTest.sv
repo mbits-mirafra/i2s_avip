@@ -56,6 +56,7 @@ endfunction: setupReceiverAgentConfig
 
 function void I2sBaseTest::end_of_elaboration_phase(uvm_phase phase);
   uvm_top.print_topology();
+  uvm_test_done.set_drain_time(this,100ns);
 endfunction : end_of_elaboration_phase
 
 task I2sBaseTest::run_phase(uvm_phase phase);

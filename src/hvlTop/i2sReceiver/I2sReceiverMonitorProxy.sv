@@ -50,20 +50,20 @@ task I2sReceiverMonitorProxy::run_phase(uvm_phase phase);
  
   I2sReceiverTransaction i2sReceiverTxn;
  
-  `uvm_info(get_type_name(),"Running the Monitor Proxy", UVM_HIGH)
+  `uvm_info(get_type_name(),"IN RECEIVER MONITOR: Running the Monitor Proxy", UVM_HIGH)
  
-  `uvm_info(get_type_name(), "Waiting for reset", UVM_HIGH);
+  `uvm_info(get_type_name(), "IN RECEIVER MONITOR: Waiting for reset", UVM_HIGH);
  i2sReceiverMonitorBFM.waitForReset();
   forever begin
     i2sTransferPacketStruct packetStruct;
     i2sTransferCfgStruct configStruct;
 
     I2sReceiverSeqItemConverter::fromReceiverClass(i2sReceiverTransaction, packetStruct);
-    `uvm_info(get_type_name(), $sformatf("Converted req struct\n%p",packetStruct), UVM_HIGH)
+    `uvm_info(get_type_name(), $sformatf("IN RECEIVER MONITOR: Converted req struct\n%p",packetStruct), UVM_HIGH)
 
    
     I2sReceiverConfigConverter::fromReceiverClass(i2sReceiverAgentConfig, configStruct);
-    `uvm_info(get_type_name(), $sformatf("Converted cfg struct\n%p",configStruct), UVM_HIGH)
+    `uvm_info(get_type_name(), $sformatf("IN RECEIVER MONITOR: Converted cfg struct\n%p",configStruct), UVM_HIGH)
  
     i2sReceiverMonitorBFM.samplePacket(packetStruct,configStruct);
  
@@ -71,7 +71,7 @@ task I2sReceiverMonitorProxy::run_phase(uvm_phase phase);
     
 
     $cast(i2sReceiverTxn, i2sReceiverTransaction.clone());
-    `uvm_info(get_type_name(),$sformatf("Packet received from sample_data clone packet is  %s",i2sReceiverTxn.sprint()),UVM_HIGH)   
+    `uvm_info(get_type_name(),$sformatf("IN RECEIVER MONITOR: Packet received from sample_data clone packet is  %s",i2sReceiverTxn.sprint()),UVM_HIGH)   
     i2sReceiverAnalysisPort.write(i2sReceiverTxn);
 end
  
