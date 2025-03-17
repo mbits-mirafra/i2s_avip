@@ -27,5 +27,9 @@
 ../../src/hdlTop/receiverAgentBFM/I2sReceiverAgentBFM.sv
 ../../src/hdlTop/hdlTop.sv
 ../../src/hvlTop/hvlTop.sv
+../../src/hdlTop/transmitterAgentBFM/I2sTransmitterAssertion.sv
+../../src/hdlTop/receiverAgentBFM/I2sReceiverAssertions.sv
+
+
 
 
