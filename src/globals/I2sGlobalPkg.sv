@@ -10,6 +10,8 @@ parameter int MAXIMUM_SIZE=4;
 
 parameter int NUM_OF_CHANNEL=2;
 
+parameter logic WS_DEFAULT=1'bx;
+
 typedef enum bit{
     TRUE=1'b1,
     FALSE=1'b0
@@ -46,11 +48,14 @@ typedef enum bit[1:0]{
    }numOfBitsTransferEnum;
 
 typedef struct {
-   bit[1:0]mode; 
+   bit[1:0]mode;
+    int clockratefrequency;
+    int numOfBitsTransfer; 
     int delayFortxSd;
     int delayFortxWs;
     int clockPeriod;
     int sclkFrequency;
+    bit Sclk;
   } i2sTransferCfgStruct;  
 
   typedef struct {
@@ -65,3 +70,4 @@ typedef struct {
 endpackage:I2sGlobalPkg
 
 `endif
+
