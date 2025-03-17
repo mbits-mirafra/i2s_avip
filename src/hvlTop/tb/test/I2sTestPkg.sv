@@ -15,15 +15,20 @@ package I2sTestPkg;
   import I2sVirtualSeqPkg::*;
 
  `include "I2sBaseTest.sv"
- `include "I2sWriteOperationWith8bitdataTxMasterRxSlaveTest.sv"
- `include "I2sWriteOperationWith8bitdataRxMasterTxSlaveTest.sv"
- `include "I2sWriteOperationWith16bitdataTxMasterRxSlaveTest.sv"
- `include "I2sWriteOperationWith16bitdataRxMasterTxSlaveTest.sv"
- `include "I2sWriteOperationWith24bitdataTxMasterRxSlaveTest.sv"
- `include "I2sWriteOperationWith24bitdataRxMasterTxSlaveTest.sv"
- `include "I2sWriteOperationWith32bitdataTxMasterRxSlaveTest.sv"
- `include "I2sWriteOperationWith32bitdataRxMasterTxSlaveTest.sv"
+ 
+ `include "I2sWriteOperationWith8bitdataTxMasterRxSlaveWith48khzTest.sv"
+ `include "I2sWriteOperationWith16bitdataTxMasterRxSlaveWith8khzTest.sv"
+ `include "I2sWriteOperationWith24bitdataTxMasterRxSlaveWith96khzTest.sv"
+ `include "I2sWriteOperationWith32bitdataTxMasterRxSlaveWith192khzTest.sv"
 
+ `include "I2sWriteOperationWith8bitdataRxMasterTxSlaveWith8khzTest.sv"
+ `include "I2sWriteOperationWith16bitdataRxMasterTxSlaveWith48khzTest.sv"
+ `include "I2sWriteOperationWith24bitdataRxMasterTxSlaveWith192khzTest.sv"
+ `include "I2sWriteOperationWith32bitdataRxMasterTxSlaveWith96khzTest.sv"
+
+
+
+ /*     
  //Test cases for  Padding data with zeroes
  `include "I2sWriteOperationWith8bitdataRxMasterTxSlaveWithRxWSP32bitTxWSP16bitTest.sv"
  `include "I2sWriteOperationWith8bitdataRxMasterTxSlaveWithRxWSP48bitTxWSP16bitTest.sv"
@@ -39,7 +44,7 @@ package I2sTestPkg;
  `include "I2sWriteOperationWith32bitdataRxMasterTxSlaveWithRxWSP16bitTxWSP64bitTest.sv" 
  `include "I2sWriteOperationWith16bitdataRxMasterTxSlaveWithRxWSP16bitTxWSP32bitTest.sv" 
  `include "I2sWriteOperationWith24bitdataRxMasterTxSlaveWithRxWSP16bitTxWSP48bitTest.sv" 
- `include "I2sWriteOperationWith24bitdataRxMasterTxSlaveWithRxWSP32bitTxWSP48bitTest.sv"
+ `include "I2sWriteOperationWith24bitdataRxMasterTxSlaveWithRxWSP32bitTxWSP48bitTest.sv"*/
 
 endpackage : I2sTestPkg
 

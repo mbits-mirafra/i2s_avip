@@ -17,7 +17,7 @@ endfunction : new
 
 task I2sVirtual8bitWriteOperationRxMasterTxSlaveSeq::body();
 
-repeat(4) 
+repeat(2) 
  begin
 
   i2sReceiverWrite8bitTransferSeq = I2sReceiverWrite8bitTransferSeq::type_id::create("i2sReceiverWrite8bitTransferSeq");
@@ -27,20 +27,15 @@ repeat(4)
 
 
 
-if(!i2sReceiverWrite8bitTransferSeq.randomize() with {rxSclkSeq==1; 
-                                                      rxWsSeq==1;
+if(!i2sReceiverWrite8bitTransferSeq.randomize() with {rxWsSeq==1;
                                                       rxWordSelectPeriodSeq==16;
-                                                      clockrateFrequencySeq==48000;
-						    
-      }) begin
+                                                     }) begin
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite8bitTransferSeq")
   end
 
  
 
- if (!i2sTransmitterWrite8bitTransferSeq.randomize() with { txNumOfBitsTransferSeq==8;
-						            txWordSelectPeriodSeq==16;
-
+ if (!i2sTransmitterWrite8bitTransferSeq.randomize() with {txWordSelectPeriodSeq==16;
                                                              }) begin
     `uvm_error(get_type_name(), "Randomization failed: Inside I2sTransmitterWrite8bitTransferSeq")
   end

@@ -21,7 +21,9 @@ function void I2sTransmitterConfigConverter::fromTransmitterClass(input I2sTrans
   outputConv.delayFortxWs  = inputConv.delayFortxWs;
   outputConv.clockPeriod  = inputConv.clockPeriod;
   outputConv.sclkFrequency  = inputConv.sclkFrequency;
-
+  outputConv.Sclk  = inputConv.Sclk;
+  outputConv.clockratefrequency = clockrateFrequencyEnum'(inputConv.clockratefrequency);
+  outputConv.numOfBitsTransfer = numOfBitsTransferEnum'(inputConv.numOfBitsTransfer);
 
 endfunction: fromTransmitterClass
   
@@ -35,6 +37,10 @@ function void I2sTransmitterConfigConverter::do_print(uvm_printer printer);
   printer.print_field("delayFortxWs",ConfigStruct.delayFortxWs,$bits(ConfigStruct.delayFortxWs),UVM_DEC);
   printer.print_field("clockPeriod",ConfigStruct.clockPeriod,$bits(ConfigStruct.clockPeriod),UVM_DEC);
   printer.print_field("sclkFrequency",ConfigStruct.sclkFrequency,$bits(ConfigStruct.sclkFrequency),UVM_DEC);
+  printer.print_field("clockratefrequency",ConfigStruct.clockratefrequency,$bits(ConfigStruct.clockratefrequency),UVM_DEC);
+  printer.print_field("numOfBitsTransfer",ConfigStruct.numOfBitsTransfer,$bits(ConfigStruct.numOfBitsTransfer),UVM_DEC);
+  printer.print_field ("Sclk",ConfigStruct.Sclk, $bits(ConfigStruct.Sclk), UVM_DEC);
+
 
 endfunction : do_print
  

@@ -32,8 +32,7 @@ function void I2sEnv::build_phase(uvm_phase phase);
   end
   
   if(i2sEnvConfig.hasVirtualSequencer)begin
-    $display("Nitish has virtual seqr");
-    i2sVirtualSequencer=I2sVirtualSequencer::type_id::create("i2sVirtualSequencer",this);
+     i2sVirtualSequencer=I2sVirtualSequencer::type_id::create("i2sVirtualSequencer",this);
   end 
   
   if(i2sEnvConfig.hasScoreboard)begin

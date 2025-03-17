@@ -72,10 +72,10 @@ function void I2sTransmitterTransaction::do_print(uvm_printer printer);
   printer.print_field($sformatf("SERIALDATA[%0d]",i),this.txSd[i],$bits(txSd[i]),UVM_BIN);
   end
 
-  printer.print_field($sformatf("SERIAL_CLK"),this.txSclk,$bits(txSclk),UVM_DEC);
+ // printer.print_field($sformatf("SERIAL_CLK"),this.txSclk,$bits(txSclk),UVM_DEC);
   printer.print_field($sformatf("WORD_SELECT_PERIOD"),this.txWordSelectPeriod,$bits(txWordSelectPeriod),UVM_DEC);
-   printer.print_field($sformatf("NO_OF_BITS_TRANSFER"),this.txNumOfBitsTransfer,$bits(txNumOfBitsTransfer),UVM_DEC);
- printer.print_field($sformatf("clock rate Frequency"),this.clockrateFrequency,$bits(clockrateFrequency),UVM_DEC);
+  // printer.print_field($sformatf("NO_OF_BITS_TRANSFER"),this.txNumOfBitsTransfer,$bits(txNumOfBitsTransfer),UVM_DEC);
+//  printer.print_field($sformatf("clock rate Frequency"),this.clockrateFrequency,$bits(clockrateFrequency),UVM_DEC);
 
 endfunction : do_print
 

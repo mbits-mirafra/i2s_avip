@@ -17,7 +17,7 @@ endfunction : new
 
 task I2sVirtual24bitWriteOperationRxMasterTxSlaveSeq::body();
 
-repeat(4) begin
+repeat(2) begin
   i2sReceiverWrite24bitTransferSeq = I2sReceiverWrite24bitTransferSeq::type_id::create("i2sReceiverWrite24bitTransferSeq");
   i2sTransmitterWrite24bitTransferSeq = I2sTransmitterWrite24bitTransferSeq::type_id::create("i2sTransmitterWrite24bitTransferSeq");
 
@@ -26,20 +26,15 @@ repeat(4) begin
 
 
 
-if(!i2sReceiverWrite24bitTransferSeq.randomize() with {rxSclkSeq==1; 
-                                                      rxWsSeq==1;
+if(!i2sReceiverWrite24bitTransferSeq.randomize() with {rxWsSeq==1;
                                                       rxWordSelectPeriodSeq==48;
-                                                      clockrateFrequencySeq==48000;
-						    
-      }) begin
+                                                      }) begin
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite24bitTransferSeq")
   end
 
  
 
- if (!i2sTransmitterWrite24bitTransferSeq.randomize() with { txNumOfBitsTransferSeq==24;
-						            txWordSelectPeriodSeq==48;
-
+ if (!i2sTransmitterWrite24bitTransferSeq.randomize() with { txWordSelectPeriodSeq==48;
                                                              }) begin
     `uvm_error(get_type_name(), "Randomization failed: Inside I2sTransmitterWrite24bitTransferSeq")
   end

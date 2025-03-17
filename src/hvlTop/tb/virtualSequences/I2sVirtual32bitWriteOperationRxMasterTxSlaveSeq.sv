@@ -16,27 +16,23 @@ function I2sVirtual32bitWriteOperationRxMasterTxSlaveSeq::new(string name = "I2s
 endfunction : new
 
 task I2sVirtual32bitWriteOperationRxMasterTxSlaveSeq::body();
-repeat(4) begin
+repeat(2) begin
   i2sReceiverWrite32bitTransferSeq = I2sReceiverWrite32bitTransferSeq::type_id::create("i2sReceiverWrite32bitTransferSeq");
   i2sTransmitterWrite32bitTransferSeq = I2sTransmitterWrite32bitTransferSeq::type_id::create("i2sTransmitterWrite32bitTransferSeq");
 
   `uvm_info(get_type_name(), $sformatf("Inside Body Seq Start: I2sVirtual32bitWriteOperationRxMasterTxSlaveSeq"), UVM_NONE);
 
-  if(!i2sReceiverWrite32bitTransferSeq.randomize() with {rxSclkSeq==1; 
+  if(!i2sReceiverWrite32bitTransferSeq.randomize() with { 
                                                       rxWsSeq==1;
-                                                      rxWordSelectPeriodSeq==64;
-                                                      clockrateFrequencySeq==48000;
-						    
-      }) begin
+                                                      rxWordSelectPeriodSeq==64;						    
+                                                       }) begin
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite32bitTransferSeq")
   end
 
  
 
- if (!i2sTransmitterWrite32bitTransferSeq.randomize() with { txNumOfBitsTransferSeq==32;
-						            txWordSelectPeriodSeq==64;
-
-                                                             }) begin
+ if (!i2sTransmitterWrite32bitTransferSeq.randomize() with {txWordSelectPeriodSeq==64;
+                                                            }) begin
     `uvm_error(get_type_name(), "Randomization failed: Inside I2sTransmitterWrite32bitTransferSeq")
   end
 

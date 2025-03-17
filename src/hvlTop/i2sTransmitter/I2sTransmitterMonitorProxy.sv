@@ -51,23 +51,23 @@ task I2sTransmitterMonitorProxy::run_phase(uvm_phase phase);
 
   I2sTransmitterTransaction i2sTransmittertxn;
 
-  `uvm_info(get_type_name(),"IN MONITOR- Running the Monitor Proxy", UVM_NONE)
+  `uvm_info(get_type_name(),"IN TRANSMITTER MONITOR: Running the Monitor Proxy", UVM_NONE)
 
-  `uvm_info(get_type_name(), "IN MONITOR- Waiting for reset", UVM_NONE);
+  `uvm_info(get_type_name(), "IN TRANSMITTER MONITOR: Waiting for reset", UVM_NONE);
     i2sTransmitterMonitorBFM.waitForReset();
-  `uvm_info(get_type_name(), "IN MONITOR- I2S :: Reset detected", UVM_NONE);
+  `uvm_info(get_type_name(), "IN TRANSMITTER MONITOR: I2S: Reset detected", UVM_NONE);
 
   forever begin
      i2sTransferPacketStruct packetStruct;
     i2sTransferCfgStruct configStruct;
 
      I2sTransmitterSeqItemConverter::fromTransmitterClass(i2sTransmitterTransaction, packetStruct);
-      `uvm_info(get_type_name(), $sformatf("IN MONITOR- Converted i2sTransmitterTransaction to struct\n%p",packetStruct), UVM_NONE)
+      `uvm_info(get_type_name(), $sformatf("IN TRANSMITTER MONITOR: Converted i2sTransmitterTransaction to struct\n%p",packetStruct), UVM_NONE)
 
 
    I2sTransmitterConfigConverter::fromTransmitterClass(i2sTransmitterAgentConfig, configStruct);
 
-   `uvm_info(get_type_name(), $sformatf("IN MONITOR- Converted cfg struct\n%p",configStruct), UVM_NONE)
+   `uvm_info(get_type_name(), $sformatf("IN TRANSMITTER MONITOR: Converted cfg struct\n%p",configStruct), UVM_NONE)
    
      i2sTransmitterMonitorBFM.sampleData(packetStruct,configStruct);
 
@@ -75,7 +75,7 @@ task I2sTransmitterMonitorProxy::run_phase(uvm_phase phase);
          
 
     $cast(i2sTransmittertxn, i2sTransmitterTransaction.clone());
-    `uvm_info(get_type_name(),$sformatf("IN MONITOR- Packet received from sample_data clone packet is \n %s",i2sTransmittertxn.sprint()),UVM_NONE)   
+    `uvm_info(get_type_name(),$sformatf("IN TRANSMITTER MONITOR: Packet received from sample_data clone packet is \n %s",i2sTransmittertxn.sprint()),UVM_NONE)   
  
     i2sTransmitterAnalysisPort.write(i2sTransmittertxn); 
    
