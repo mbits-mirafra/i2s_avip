@@ -1,14 +1,13 @@
 `ifndef I2SRECEIVERASSERTIONS_INCLUDED_
 `define I2SRECEIVERASSERTIONS_INCLUDED_
 
-//import I2sGlobalPkg::*;
-parameter int DATA_WIDTH=8;
+import I2sGlobalPkg::*;
 
 interface I2sReceiverAssertions (input  clk,
                                     input  rst,
 				    input sclk,
 				    input ws,
-				    input [DATA_WIDTH-1:0] sd);
+				    input sd);
   import uvm_pkg::*;
   `include "uvm_macros.svh";
  
@@ -17,38 +16,37 @@ interface I2sReceiverAssertions (input  clk,
     `uvm_info("I2sReceiverAssertions","I2sReceiverAssertions",UVM_LOW);
   end
 
-  /*property SdZeroWhenReset();
+  property SdZeroWhenReset();
    @(posedge clk) 
-      rst |-> sd==0;
+      (rst==0) |-> sd==0;
   endproperty
-  SD_ZER0_WHEN_RESET :assert property(SdZeroWhenReset)
+  RX_SD_ZER0_WHEN_RESET :assert property(SdZeroWhenReset)
    $info("RX_SD_ZER0_WHEN_RESET: ASSERTED");
    else
-   $error("RX_SD_ZER0_WHEN_RESET:NOT ASSERTED");*/
+   $error("RX_SD_ZER0_WHEN_RESET:NOT ASSERTED");
  
  
-  /*property wsNotUnknown();
-      @(negedge sclk) disable iff (rst)
-         !($isunknown(ws));
+  property wsNotUnknown();
+      @(posedge sclk) disable iff (!rst)
+       1 |-> !($isunknown(ws));
   endproperty
  
- WS_NOT_UNKNOWN: assert property (wsNotUnknown)
-  $info("WS_NOT_UNKNOWN: ASSERTED");
+/*  RX_WS_NOT_UNKNOWN: assert property (wsNotUnknown)
+  $info("RX_WS_NOT_UNKNOWN: ASSERTED");
   else
-    $error("WS_NOT_UNKNOWN : NOT ASSERTED");
+    $error("RX_WS_NOT_UNKNOWN : NOT ASSERTED");  */
 
   property sdNotUnknown();
-     @(negedge sclk)
-          $changed(ws)  |-> !($isunknown(sd));
+     @(posedge sclk) disable iff (!rst)
+          $changed(ws)  |-> (!($isunknown(sd)) until $changed(ws));
   endproperty
  
- 
-  SD_NOT_UNKNOWN: assert property (sdNotUnknown)
-  $info("SD_NOT_UNKNOWN: ASSERTED");
+  RX_SD_NOT_UNKNOWN: assert property (sdNotUnknown)
+  $info("RX_SD_NOT_UNKNOWN: ASSERTED");
   else
-    $error("SD_NOT_UNKNOWN : NOT ASSERTED");
+    $error("RX_SD_NOT_UNKNOWN : NOT ASSERTED");
 
-  property wsAlignWithPosedgeSclk();
+ /* property wsAlignWithPosedgeSclk();
       @(posedge sclk)
           $changed(ws)
   endproperty

@@ -17,6 +17,10 @@ interface I2sTransmitterDriverBFM(input clk,
   int clkPeriod;
   int clkFrequency;
   int sclkPeriodDivider;
+  int numOfChannels;
+  int timeout_ws;
+  int txNumOfBitsTransfer;
+  int rxNumOfBitsTransfer;
 
 
   import uvm_pkg::*;
@@ -26,24 +30,57 @@ interface I2sTransmitterDriverBFM(input clk,
 
   I2sTransmitterDriverProxy i2sTransmitterDriverProxy;
 
+  i2sStateEnum state;
+
   string name = "I2sTransmitterDriverBFM";
 
+  import I2sTransmitterPkg::I2sTransmitterAgentConfig;
+  import I2sReceiverPkg::I2sReceiverAgentConfig;
+
+  I2sTransmitterAgentConfig i2sTransmitterAgentConfig;
+  I2sReceiverAgentConfig i2sReceiverAgentConfig;
+
+
+  initial begin
+    start_of_simulation_ph.wait_for_state(UVM_PHASE_STARTED);
+
+     if(!uvm_config_db#(I2sTransmitterAgentConfig)::get(null, "*", "I2sTransmitterAgentConfig",i2sTransmitterAgentConfig)) begin
+    `uvm_fatal("FATAL_TRANSMITTER_CANNOT_GET_IN_INTERFACE","cannot get() i2sTransmitterAgentConfig"); 
+    end
+ 
+    if(!uvm_config_db#(I2sReceiverAgentConfig)::get(null, "*", "I2sReceiverAgentConfig",i2sReceiverAgentConfig)) begin
+    `uvm_fatal("FATAL_TRANSMITTER_CANNOT_GET_IN_INTERFACE","cannot get() i2sTransmitterAgentConfig"); 
+    end
+    
+    $display("WordSelect from Rx Config:%0d",i2sReceiverAgentConfig.wordSelectPeriod);
+
+    end
+
+
+
   task waitForReset();
-    @(posedge rst);
+
+    @(negedge rst);
     sd <= 1'b0;
     wsOutput <= 1'bx;
     sclkOutput<=1'b0;
+    state<=RESET_ACTIVATED;
     `uvm_info(name,$sformatf("SYSTEM RESET ACTIVATED"),UVM_NONE)
-    @(negedge rst);
+    @(posedge rst);
+    state<=RESET_DEACTIVATED;
     `uvm_info(name,$sformatf("SYSTEM RESET DEACTIVATED"),UVM_NONE)
 
   endtask: waitForReset
 
   task genSclk(input i2sTransferCfgStruct configPacketStruct);
 
-    static int counter=0;
+     static int counter=0;
 
     `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER-Generating the Serial clock"), UVM_NONE)
+
+    txNumOfBitsTransfer= i2sTransmitterAgentConfig.wordSelectPeriod/2;
+
+   
 
     @(posedge clk);
     time1 = $realtime;
@@ -74,7 +111,7 @@ interface I2sTransmitterDriverBFM(input clk,
 
   function void generateSclkPeriod(input i2sTransferCfgStruct cfgStr);
 
-    cfgStr.sclkFrequency = cfgStr.clockratefrequency * cfgStr.numOfBitsTransfer *NUM_OF_CHANNEL;
+    cfgStr.sclkFrequency = cfgStr.clockratefrequency * txNumOfBitsTransfer * cfgStr.numOfChannels;
 
     sclkPeriod = ((10**9)/cfgStr.sclkFrequency);
     sclkPeriodDivider = (clkFrequency/cfgStr.sclkFrequency);
@@ -91,49 +128,58 @@ interface I2sTransmitterDriverBFM(input clk,
 
     `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Starting the drive data method mode=%d",configPacketStruct.mode), UVM_NONE);
 
-    dataPacketStruct.clockratefrequency = configPacketStruct.clockratefrequency;
-    dataPacketStruct.numOfBitsTransfer = configPacketStruct.numOfBitsTransfer;
     fork
-      genWs(dataPacketStruct);
-      repeat(NUM_OF_CHANNEL) 
+      genWs(dataPacketStruct,configPacketStruct);
+      repeat(configPacketStruct.numOfChannels) 
         begin
-          detectWsAndDriveSdWhenTxMaster(dataPacketStruct);
+	 detectWsAndDriveSdWhenTxMaster(dataPacketStruct);
         end
     join
 
   endtask: driveData
 
-  task genWs(inout i2sTransferPacketStruct dataPacketStruct);
+  task genWs(inout i2sTransferPacketStruct dataPacketStruct, input i2sTransferCfgStruct configPacketStruct);
     static int counter=0;
-    static int timeout_ws = NUM_OF_CHANNEL;
-
+     timeout_ws = configPacketStruct.numOfChannels;   
     `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER-Generating the WS"), UVM_NONE)
-
+      
     forever begin
       @(posedge sclkOutput);
 
-      if (counter == (dataPacketStruct.wordSelectPeriod/2)) 
+      if (counter == (configPacketStruct.wordSelectPeriod/2))
         begin
-          timeout_ws=timeout_ws-1;
+	 timeout_ws=timeout_ws-1;
           if(timeout_ws==0) begin
-            wsOutput <= WS_DEFAULT;  
+            wsOutput <= WS_DEFAULT; 
+	    state<=IDLE;
             break;
           end
 
           dataPacketStruct.ws = ~ dataPacketStruct.ws;
+			
           counter = 0;
         end
-      wsOutput <= dataPacketStruct.ws; 
+       wsOutput <= dataPacketStruct.ws; 
+       counter++;
+       
+        if (dataPacketStruct.ws==1'b0)
+          begin
+	   state <= RIGHT_CHANNEL;
+	  end
+        else if(dataPacketStruct.ws==1'b1)
+         begin
+	   state <= LEFT_CHANNEL;
+	 end
 
-      counter++;
-    end
+    end  
     counter=0;
-    timeout_ws=NUM_OF_CHANNEL;
+    timeout_ws= configPacketStruct.numOfChannels;
 
     `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER-Generating the WS ended"), UVM_NONE)
   endtask: genWs                
 
   task detectWsAndDriveSdWhenTxMaster(inout i2sTransferPacketStruct dataPacketStruct);
+
     if(dataPacketStruct.ws==1'b1) 
       begin
         `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Driving data from left channel"), UVM_NONE);
@@ -148,7 +194,7 @@ interface I2sTransmitterDriverBFM(input clk,
         `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Driving data from Right channel"), UVM_NONE);
         for(int i=0; i<dataPacketStruct.numOfBitsTransfer/DATA_WIDTH;i++) 
           begin
-            RightChanneldriveSdWhenTxMaster(dataPacketStruct.sd[i]);    
+	   RightChanneldriveSdWhenTxMaster(dataPacketStruct.sd[i]);    
           end
       end
 
@@ -162,8 +208,8 @@ interface I2sTransmitterDriverBFM(input clk,
       begin
         static int bit_no=0;
         bit_no = (DATA_WIDTH - 1) - k;
-        @(posedge sclkOutput) 
-        sd <= serialdata[bit_no];
+        @(posedge sclkOutput)
+     	sd <= serialdata[bit_no];
         `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Left Serial data[%0d] = %b at time:%0t",bit_no, serialdata[bit_no],$time), UVM_NONE)
       end
     `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Generating Left serial data end"), UVM_NONE)
@@ -177,7 +223,7 @@ interface I2sTransmitterDriverBFM(input clk,
       begin
         static int bit_no=0;
         bit_no = (DATA_WIDTH - 1) - k;
-        @(posedge sclkOutput) 
+        @(posedge sclkOutput)
         sd <= serialdata[bit_no];
         `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Right Serial data[%0d] = %b at time:%0t",bit_no, serialdata[bit_no],$time), UVM_NONE)
       end
@@ -187,8 +233,10 @@ interface I2sTransmitterDriverBFM(input clk,
 
   task detectWsandDriveSD(inout i2sTransferPacketStruct dataPacketStruct, input i2sTransferCfgStruct configPacketStruct);
     begin
+
+     rxNumOfBitsTransfer= i2sReceiverAgentConfig.wordSelectPeriod/2;
       initialDetectWsfromUnknown(); 
-      repeat(NUM_OF_CHANNEL)
+      repeat(configPacketStruct.numOfChannels)
         begin
           detectWsToggleAndDriveSdWhenTxSlave(dataPacketStruct,configPacketStruct);
         end
@@ -222,7 +270,7 @@ interface I2sTransmitterDriverBFM(input clk,
       begin
         wsLocal = 2'b11; 
         do begin
-          for(int i=0; i< configPacketStruct.numOfBitsTransfer/DATA_WIDTH;i++) 
+	  for(int i=0; i<rxNumOfBitsTransfer/DATA_WIDTH;i++) 
             begin
               driveSerialDataTxSlave(dataPacketStruct.sd[i]);  
             end
@@ -234,7 +282,7 @@ interface I2sTransmitterDriverBFM(input clk,
       begin
         wsLocal = 2'b00;
         do begin
-          for(int i=0; i< configPacketStruct.numOfBitsTransfer/DATA_WIDTH;i++) 
+	   for(int i=0; i<rxNumOfBitsTransfer/DATA_WIDTH;i++) 
             begin
               driveSerialDataTxSlave(dataPacketStruct.sd[i]);
             end
