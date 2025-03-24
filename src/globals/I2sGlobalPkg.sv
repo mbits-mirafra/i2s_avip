@@ -8,9 +8,12 @@ parameter int DATA_WIDTH=8;
 
 parameter int MAXIMUM_SIZE=4;
 
-parameter int NUM_OF_CHANNEL=2;
-
 parameter logic WS_DEFAULT=1'bx;
+
+typedef enum int{
+    MONO= 1,
+    STEREO= 2
+} numOfChannelsEnum;
 
 typedef enum bit{
     TRUE=1'b1,
@@ -49,25 +52,34 @@ typedef enum bit[1:0]{
 
 typedef struct {
    bit[1:0]mode;
-    int clockratefrequency;
-    int numOfBitsTransfer; 
-    int delayFortxSd;
-    int delayFortxWs;
+    int clockratefrequency; 
+    int wordSelectPeriod;
     int clockPeriod;
     int sclkFrequency;
     bit Sclk;
+    int numOfChannels;
+  //  int delayFortxSd;
+  //  int delayFortxWs;
   } i2sTransferCfgStruct;  
 
   typedef struct {
     bit [DATA_WIDTH-1:0]sd[MAXIMUM_SIZE];
-    bit ws;
+    logic ws;
     bit sclk;
     int wordSelectPeriod;
     int numOfBitsTransfer;
     int clockratefrequency;
    }i2sTransferPacketStruct;
 
+
+typedef enum int{
+    RESET_DEACTIVATED,
+    RESET_ACTIVATED,
+    IDLE,
+    LEFT_CHANNEL,
+    RIGHT_CHANNEL
+   }i2sStateEnum;
+ 
 endpackage:I2sGlobalPkg
 
 `endif
-
