@@ -22,8 +22,8 @@ repeat(2)
   `uvm_info(get_type_name(), $sformatf("Inside Body Seq start I2sVirtual24bitWriteOperationTxMasterRxSlaveSeq"), UVM_NONE); 
   
    if(!i2sTransmitterWrite24bitTransferSeq.randomize() with { txWsSeq==1; 
-                                                              txWordSelectPeriodSeq==48;                                                                                                                                            }) begin  
-
+                                                              txNumOfBitsTransferSeq == (p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2);
+                                                               }) begin  
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sTransmitterWrite24bitTransferSeq")
   end
 

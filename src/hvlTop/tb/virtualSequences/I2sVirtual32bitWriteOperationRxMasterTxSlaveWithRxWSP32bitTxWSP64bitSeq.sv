@@ -16,6 +16,10 @@ function I2sVirtual32bitWriteOperationRxMasterTxSlaveWithRxWSP32bitTxWSP64bitSeq
 endfunction : new
 
 task I2sVirtual32bitWriteOperationRxMasterTxSlaveWithRxWSP32bitTxWSP64bitSeq::body();
+ 
+ repeat(2) 
+  begin
+
   i2sReceiverWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq = I2sReceiverWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq::type_id::create("i2sReceiverWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq");
   i2sTransmitterWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq = I2sTransmitterWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq::type_id::create("i2sTransmitterWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq");
 
@@ -23,17 +27,13 @@ task I2sVirtual32bitWriteOperationRxMasterTxSlaveWithRxWSP32bitTxWSP64bitSeq::bo
 
 
 
-   if(!i2sReceiverWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq.randomize() with {rxSclkSeq==1; rxWsSeq==1;
-							                         rxWordSelectPeriodSeq==32;
-										 clockrateFrequencySeq==48000;
-							                          //rxNumOfBitsTransferSeq==8;
-										  }) begin
+   if(!i2sReceiverWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq.randomize() with {rxWsSeq==1;
+							                          }) begin
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq")
   end
 
- if (!i2sTransmitterWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq.randomize() with {
-                                                           txNumOfBitsTransferSeq==32;
-							   txWordSelectPeriodSeq==64;
+ if (!i2sTransmitterWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq.randomize() with 
+                                                             {txNumOfBitsTransferSeq == (p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2); 
                                                              }) begin
     `uvm_error(get_type_name(), "Randomization failed: Inside I2sTransmitterWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq")
   end
@@ -50,6 +50,7 @@ task I2sVirtual32bitWriteOperationRxMasterTxSlaveWithRxWSP32bitTxWSP64bitSeq::bo
   join
 
   `uvm_info(get_type_name(), "Fork_join Completed",UVM_NONE);
+  end
 endtask : body
 
 `endif

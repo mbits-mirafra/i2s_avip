@@ -1,66 +1,105 @@
 `ifndef I2STRANSMITTERASSERTIONS_INCLUDED_
 `define I2STRANSMITTERASSERTIONS_INCLUDED_
 
-//import I2sGlobalPkg::*;
-parameter int DATA_WIDTH=8;
+import I2sGlobalPkg::*;
 
 interface I2sTransmitterAssertions (input  clk,
                                     input  rst,
 				    input sclk,
 				    input ws,
-			            input [DATA_WIDTH-1:0] sd);
+			            input sd);
  
    import uvm_pkg::*;
   `include "uvm_macros.svh";
  
- 
+   //int numOfBitsTransfer;
+
+   import I2sTransmitterPkg::I2sTransmitterAgentConfig;
+
+   I2sTransmitterAgentConfig i2sTransmitterAgentConfig;
+
   initial begin
     `uvm_info("I2sTransmitterAssertions","I2sTransmitterAssertions",UVM_LOW);
   end
 
-   
-  /*property SdZeroWhenReset();
+   initial begin
+    start_of_simulation_ph.wait_for_state(UVM_PHASE_STARTED);
+ 
+    if(!uvm_config_db#(I2sTransmitterAgentConfig)::get(null, "*", "I2sTransmitterAgentConfig",i2sTransmitterAgentConfig)) begin
+    `uvm_fatal("FATAL_TRANSMITTER_CANNOT_GET_IN_INTERFACE","cannot get() i2sTransmitterAgentConfig"); 
+    end
+    // numOfBitsTransfer= i2sTransmitterAgentConfig.numOfBitsTransfer;
+   end
+
+  property SdZeroWhenReset();
    @(posedge clk) 
-      rst |-> sd==0;
+      (rst==0) |-> sd==0;
   endproperty
-  SD_ZER0_WHEN_RESET :assert property(SdZeroWhenReset)
+ 
+ TX_SD_ZER0_WHEN_RESET :assert property(SdZeroWhenReset)
    $info("TX_SD_ZER0_WHEN_RESET: ASSERTED");
    else
-   $error("TX_SD_ZER0_WHEN_RESET:NOT ASSERTED");*/
+   $error("TX_SD_ZER0_WHEN_RESET:NOT ASSERTED");
  
-  /*property wsNotUnknown();
-      @(negedge sclk) disable iff (rst)
-         !($isunknown(ws));
-  endproperty
+  property wsNotUnknown();
+      @(posedge sclk) disable iff (!rst)
+         1 |-> !($isunknown(ws));
+   endproperty
  
- WS_NOT_UNKNOWN: assert property (wsNotUnknown)
-  $info("WS_NOT_UNKNOWN: ASSERTED");
+ /* TX_WS_NOT_UNKNOWN: assert property (wsNotUnknown)
+  $info("TX_WS_NOT_UNKNOWN : ASSERTED");
   else
-    $error("WS_NOT_UNKNOWN : NOT ASSERTED");*/   
+    $error("TX_WS_NOT_UNKNOWN : NOT ASSERTED");   */
 
-  /*property sdNotUnknown();
-     @(posedge sclk) disable iff (rst)
-          //$changed(ws)  |-> !($isunknown(sd));
-	  $changed(ws)  |-> (sd==1 || sd==0);
+  property sdNotUnknown();
+     @(posedge sclk) disable iff (!rst)
+        $changed(ws)  |-> (!($isunknown(sd)) until $changed(ws));
 
   endproperty
  
- 
-  SD_NOT_UNKNOWN: assert property (sdNotUnknown)
+  TX_SD_NOT_UNKNOWN: assert property (sdNotUnknown)
   $info("TX_SD_NOT_UNKNOWN: ASSERTED");
   else
-    $error("TX_SD_NOT_UNKNOWN : NOT ASSERTED");*/
+    $error("TX_SD_NOT_UNKNOWN : NOT ASSERTED");
+ 
 
-  /*property wsAlignWithPosedgeSclk();
+ /*  property wsAlignWithPosedgeSclk(int bits);
       @(posedge sclk)
-          $changed(ws)
+         $changed(ws) |-> ##0 ((ws[*bits]) or (!ws[*bits]));
+  endproperty
+  
+  TX_WS_ALIGN_WITH_POSEDGE_SCLK : assert property(wsAlignWithPosedgeSclk(numOfBitsTransfer))      //not working
+       $info("TX_WS_ALIGN_WITH_POSEDGE_SCLK :ASSERTED");
+     else
+       $error("TX_WS_ALIGN_WITH_POSEDGE_SCLK :NOT ASSERTED");  */
+
+
+ /* property wsAlignWithPosedgeSclkWith8bits();
+      @(posedge sclk)
+          $changed(ws) |-> ##0 ((ws[*8]) or (!ws[*8]));
   endproperty
 
+  property wsAlignWithPosedgeSclkWith16bits();
+      @(posedge sclk)
+          $changed(ws) |-> ##0 ((ws[*16]) or (!ws[*16]));
+  endproperty
+  
+  property wsAlignWithPosedgeSclkWith24bits();
+      @(posedge sclk)
+          $changed(ws) |-> ##0 ((ws[*24]) or (!ws[*24]));
+  endproperty
+  
+  property wsAlignWithPosedgeSclkWith32bits();
+      @(posedge sclk)
+          $changed(ws) |-> ##0 ((ws[*32]) or (!ws[*32]));
+  endproperty    
+
  
-  WS_ALIGN_WITH_POSEDGE_SCLK :assert property(wsAlignWithPosedgeSclk)
-    $info("WS_ALIGN_WITH_POSEDGE_SCLK :ASSERTED");
-    else
-    $error("WS_ALIGN_WITH_POSEDGE_SCLK :NOT ASSERTED"); */           //WORKING
+  TX_WS_ALIGN_WITH_POSEDGE_SCLK : assert property(wsAlignWithPosedgeSclkWith8bits())
+       $info("TX_WS_ALIGN_WITH_POSEDGE_SCLK :ASSERTED");
+     else
+       $error("TX_WS_ALIGN_WITH_POSEDGE_SCLK :NOT ASSERTED");      */
+
  
     /*property wsAlignWithNegedgeSclk();
       @(negedge sclkInput)
@@ -132,6 +171,8 @@ interface I2sTransmitterAssertions (input  clk,
 endinterface : I2sTransmitterAssertions
  
 `endif
+
+
 
 /*
 `ifndef I2STRANSMITTERASSERTIONS_INCLUDED_

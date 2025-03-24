@@ -16,19 +16,36 @@ class I2sReceiverCoverage extends uvm_subscriber#(I2sReceiverTransaction);
    bins WORDSELECT_RIGHT                             = {0};
    }
 
+   NUMOFCHANNELS_RX_CP : coverpoint i2sReceiverAgentConfig.numOfChannels {
+   option.comment = "Number Of Channels";
+   bins MONO                              = {1}; 
+   bins STEREO                            = {2};
+   }
+
+
    SERIALCLOCK_RX_CP : coverpoint i2sReceiverAgentConfig.Sclk{
    option.comment = "serial clock";
    bins SCLK_CHANGE                             = {0,1}; 
      }
  
  
-  NUMOFBITSTRANSFER_RX_CP : coverpoint i2sReceiverAgentConfig.numOfBitsTransfer{
+  NUMOFBITSTRANSFER_RX_CP : coverpoint i2sReceiverTransaction.rxNumOfBitsTransfer{
   option.comment = "num of bits transfer";
   bins BITS_8  = {8};
   bins BITS_16 = {16};
   bins BITS_24 = {24};
   bins BITS_32 = {32};
   }
+
+   WORDSELECTPERIOD_RX_CP : coverpoint i2sReceiverAgentConfig.wordSelectPeriod{
+  option.comment = " WORD SELECT PERIOD";
+
+   bins WS_PERIOD_2_BYTE = {16};
+   bins WS_PERIOD_4_BYTE = {32};
+   bins WS_PERIOD_6_BYTE = {48};
+   bins WS_PERIOD_8_BYTE = {64};
+}
+
 
   CLOCKFREQUENCY_RX_CP : coverpoint i2sReceiverAgentConfig.clockratefrequency {
   option.comment = "Clock Frequency";
@@ -37,12 +54,10 @@ class I2sReceiverCoverage extends uvm_subscriber#(I2sReceiverTransaction);
   bins khz_48000={KHZ_48};
   bins khz_96000={KHZ_96};
   bins khz_192000={KHZ_192};
-
 }
-
  
+ NUMOFBITSTRANSFER_RX_CP_X_WORD_SELECT_RX_CP:cross NUMOFBITSTRANSFER_RX_CP,WORDSELECT_RX_CP;
  
- NUMOFBITSTRANSFER_RX_X_WORD_SELECT_RX_CP:cross NUMOFBITSTRANSFER_RX_CP,WORDSELECT_RX_CP;
 endgroup
  
  

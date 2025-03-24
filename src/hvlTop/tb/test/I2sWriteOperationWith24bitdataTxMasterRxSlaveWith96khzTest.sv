@@ -21,8 +21,9 @@ endfunction : new
 function void I2sWriteOperationWith24bitdataTxMasterRxSlaveWith96khzTest::setupTransmitterAgentConfig();
   super.setupTransmitterAgentConfig();
      i2sEnvConfig.i2sTransmitterAgentConfig.clockratefrequency  = clockrateFrequencyEnum'(KHZ_96);
-     i2sEnvConfig.i2sTransmitterAgentConfig.numOfBitsTransfer  = numOfBitsTransferEnum'(BITS_24); 
      i2sEnvConfig.i2sTransmitterAgentConfig.Sclk  = 1; 
+     i2sEnvConfig.i2sTransmitterAgentConfig.numOfChannels  = numOfChannelsEnum'(MONO);
+     i2sEnvConfig.i2sTransmitterAgentConfig.wordSelectPeriod  = wordSelectPeriodEnum'(WS_PERIOD_6_BYTE);
           
 endfunction:setupTransmitterAgentConfig
 
@@ -30,9 +31,10 @@ endfunction:setupTransmitterAgentConfig
 function void I2sWriteOperationWith24bitdataTxMasterRxSlaveWith96khzTest::setupReceiverAgentConfig();
   super.setupReceiverAgentConfig();
    i2sEnvConfig.i2sReceiverAgentConfig.isActive     = uvm_active_passive_enum'(UVM_PASSIVE);
-   i2sEnvConfig.i2sReceiverAgentConfig.numOfBitsTransfer  = numOfBitsTransferEnum'(BITS_24); 
-
-endfunction:setupReceiverAgentConfig
+   i2sEnvConfig.i2sReceiverAgentConfig.numOfChannels  = numOfChannelsEnum'(STEREO);
+   i2sEnvConfig.i2sReceiverAgentConfig.wordSelectPeriod  = wordSelectPeriodEnum'(WS_PERIOD_6_BYTE);
+  
+ endfunction:setupReceiverAgentConfig
 
 
 task I2sWriteOperationWith24bitdataTxMasterRxSlaveWith96khzTest::run_phase(uvm_phase phase);

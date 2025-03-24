@@ -5,14 +5,8 @@ class I2sReceiverWrite16bitTransferWithRxWSP64bitTxWSP32bitSeq extends I2sReceiv
   `uvm_object_utils(I2sReceiverWrite16bitTransferWithRxWSP64bitTxWSP32bitSeq)
 
   rand bit rxWsSeq;
-  rand bit rxSclkSeq;
-  rand bit[DATA_WIDTH-1:0] rxSdSeq[];
-  rand numOfBitsTransferEnum rxNumOfBitsTransferSeq;
-  rand wordSelectPeriodEnum rxWordSelectPeriodSeq;
+  numOfBitsTransferEnum rxNumOfBitsTransferSeq;
   
-  rand clockrateFrequencyEnum clockrateFrequencySeq;
- 
-  constraint rxNumOfBitsTransferSeq_c {rxNumOfBitsTransferSeq == rxWordSelectPeriodSeq/2;}
   extern function new(string name = "I2sReceiverWrite16bitTransferWithRxWSP64bitTxWSP32bitSeq");
   
   extern task body();
@@ -26,10 +20,7 @@ task I2sReceiverWrite16bitTransferWithRxWSP64bitTxWSP32bitSeq::body();
   super.body();
   start_item(req);
   if(!req.randomize() with {rxWs == rxWsSeq;
-                            rxSclk == rxSclkSeq;
-                            clockrateFrequency==clockrateFrequencySeq;
-                            rxNumOfBitsTransfer  == rxNumOfBitsTransferSeq;
-                            rxWordSelectPeriod == rxWordSelectPeriodSeq;
+                          
                           }) begin 
    `uvm_error(get_type_name(), "Randomization failed")
   end

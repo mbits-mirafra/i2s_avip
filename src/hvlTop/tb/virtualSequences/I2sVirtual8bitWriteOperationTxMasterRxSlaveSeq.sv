@@ -19,11 +19,11 @@ task I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq::body();
 repeat(2)
  begin
  i2sTransmitterWrite8bitTransferSeq = I2sTransmitterWrite8bitTransferSeq::type_id::create("i2sTransmitterWrite8bitTransferSeq");
-  `uvm_info(get_type_name(), $sformatf("Inside Body Seq start I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq"), UVM_NONE); 
-  
-   if(!i2sTransmitterWrite8bitTransferSeq.randomize() with { txWsSeq==1; 
-                                                           txWordSelectPeriodSeq==16;
-                                                            }) begin  
+  `uvm_info(get_type_name(), $sformatf("Inside Body Seq start I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq"), UVM_NONE);    
+
+   if(!i2sTransmitterWrite8bitTransferSeq.randomize() with {txWsSeq==1; 
+				                            txNumOfBitsTransferSeq == (p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2);
+	                                                    }) begin  
 
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sTransmitterWrite8bitTransferSeq")
   end

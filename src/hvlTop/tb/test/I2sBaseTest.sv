@@ -61,7 +61,6 @@ endfunction : end_of_elaboration_phase
 
 task I2sBaseTest::run_phase(uvm_phase phase);
  i2sVirtualBaseSeq = I2sVirtualBaseSeq :: type_id :: create("i2sVirtualBaseSeq");
- $display("base test mode=%d", i2sEnvConfig.i2sTransmitterAgentConfig.mode);
   phase.raise_objection(this);
   i2sVirtualBaseSeq.start(i2sEnv.i2sVirtualSequencer);
   `uvm_info(get_type_name(), $sformatf("Inside I2sBaseTest"), UVM_NONE);

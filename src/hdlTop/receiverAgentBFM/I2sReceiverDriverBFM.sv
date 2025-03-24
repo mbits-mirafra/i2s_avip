@@ -23,17 +23,23 @@ interface I2sReceiverDriverBFM(input clk,
   int clkPeriod;
   int clkFrequency;
   int sclkPeriodDivider;
+  int numOfBitsTransfer;
+  int timeout_ws;
 
-
+ 
   I2sReceiverDriverProxy i2sReceiverDriverProxy;
   string name = "I2ReceiverDriverBFM";
+  i2sStateEnum state;
+
 
   task waitForReset();
-    @(posedge rst);
+    @(negedge rst);
     wsOutput <= 1'dx;
     sclkOutput<=1'b0;
+     state<=RESET_ACTIVATED;
     `uvm_info(name,$sformatf("SYSTEM RESET ACTIVATED"),UVM_HIGH)
-    @(negedge rst);
+    @(posedge rst);
+     state<=RESET_DEACTIVATED;
     `uvm_info(name,$sformatf("SYSTEM RESET DEACTIVATED"),UVM_HIGH)
 
   endtask: waitForReset
@@ -41,6 +47,8 @@ interface I2sReceiverDriverBFM(input clk,
   task genSclk(input i2sTransferCfgStruct configPacketStruct);
 
     static int counter=0;
+
+    numOfBitsTransfer=configPacketStruct.wordSelectPeriod/2;
 
     `uvm_info(name, $sformatf("IN RECEIVER DRIVER-Generating the Serial clock"), UVM_NONE)
 
@@ -73,7 +81,7 @@ interface I2sReceiverDriverBFM(input clk,
 
   function void generateSclkPeriod(input i2sTransferCfgStruct cfgStr);
 
-    cfgStr.sclkFrequency = cfgStr.clockratefrequency * cfgStr.numOfBitsTransfer *NUM_OF_CHANNEL;
+    cfgStr.sclkFrequency = cfgStr.clockratefrequency * numOfBitsTransfer * cfgStr.numOfChannels;
 
     sclkPeriod = ((10**9)/cfgStr.sclkFrequency);
     sclkPeriodDivider = (clkFrequency/cfgStr.sclkFrequency);
@@ -91,28 +99,30 @@ interface I2sReceiverDriverBFM(input clk,
 
     `uvm_info(name, $sformatf("Starting the drive packet method"), UVM_HIGH)
 
-    dataPacketStruct.clockratefrequency = configPacketStruct.clockratefrequency;
-    dataPacketStruct.numOfBitsTransfer = configPacketStruct.numOfBitsTransfer;
+    //dataPacketStruct.clockratefrequency = configPacketStruct.clockratefrequency;
+    //dataPacketStruct.numOfBitsTransfer = configPacketStruct.numOfBitsTransfer;
 
-    genWs(dataPacketStruct);
+    genWs(dataPacketStruct,configPacketStruct);
 
   endtask: drivePacket
 
-  task genWs(inout i2sTransferPacketStruct dataPacketStruct);
+  task genWs(inout i2sTransferPacketStruct dataPacketStruct,input i2sTransferCfgStruct configPacketStruct); 
+                 
     static int counter=0;
-    static int timeout_ws = NUM_OF_CHANNEL;
+    timeout_ws = configPacketStruct.numOfChannels;
 
     `uvm_info(name, $sformatf("IN RECEIVER DRIVER-Generating the WS"), UVM_NONE)
 
     forever begin
       @(posedge sclkOutput);
 
-      if (counter == (dataPacketStruct.wordSelectPeriod/2)) 
+      if (counter == (configPacketStruct.wordSelectPeriod/2)) 
         begin
           timeout_ws=timeout_ws-1;
           if(timeout_ws==0) 
             begin
-              wsOutput <= WS_DEFAULT;  
+              wsOutput <= WS_DEFAULT; 
+	      state<= IDLE;
               break;
             end
 
@@ -123,9 +133,18 @@ interface I2sReceiverDriverBFM(input clk,
 
       wsOutput <= dataPacketStruct.ws; 
       counter++;
+      
+      if (dataPacketStruct.ws==1'b0)
+        begin
+	   state <= RIGHT_CHANNEL;
+        end
+      else if(dataPacketStruct.ws==1'b1)
+        begin
+	   state <= LEFT_CHANNEL;
+	end
     end      
     counter=0;
-    timeout_ws=NUM_OF_CHANNEL;  
+    timeout_ws= configPacketStruct.numOfChannels;  
     `uvm_info(name, $sformatf("IN RECEIVER DRIVER-Generating the WS ended"), UVM_NONE)
   endtask: genWs  
 

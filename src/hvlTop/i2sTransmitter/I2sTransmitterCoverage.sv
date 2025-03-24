@@ -17,6 +17,12 @@ class I2sTransmitterCoverage extends uvm_subscriber#(I2sTransmitterTransaction);
    bins WORDSELECT_RIGHT                             = {0};
    }
 
+   NUMOFCHANNELS_TX_CP : coverpoint i2sTransmitterAgentConfig.numOfChannels {
+   option.comment = "Number Of Channels";
+   bins MONO                              = {1}; 
+   bins STEREO                            = {2};
+   }
+
    SERIALCLOCK_TX_CP : coverpoint i2sTransmitterAgentConfig.Sclk{
    option.comment = "serial clock";
    bins SCLK_CHANGE                             = {0,1}; 
@@ -29,36 +35,36 @@ SERIALDATARANGE_0_CP : coverpoint i2sTransmitterTransaction.txSd[0] {
   bins SD_0_MID_VALID_RANGE = {[51:200]};
   bins SD_0_HIGH_VALID_RANGE = {[201:255]}; 
  }
-SERIALDATARANGE_1_CP : coverpoint i2sTransmitterTransaction.txSd[1] {
+SERIALDATARANGE_1_CP : coverpoint i2sTransmitterTransaction.txSd[1]{
   option.comment = "serial data value range ";
   bins SD_1_LOW_VALID_RANGE = {[0:50]};
   bins SD_1_MID_VALID_RANGE = {[51:200]};
   bins SD_1_HIGH_VALID_RANGE = {[201:255]};
  }
 
-SERIALDATARANGE_2_CP : coverpoint i2sTransmitterTransaction.txSd[2] {
+SERIALDATARANGE_2_CP : coverpoint i2sTransmitterTransaction.txSd[2]{
   option.comment = "serial data value range ";
   bins SD_2_LOW_VALID_RANGE = {[0:50]};
   bins SD_2_MID_VALID_RANGE = {[51:200]};
   bins SD_2_HIGH_VALID_RANGE = {[201:255]};
  }
 
-SERIALDATARANGE_3_CP : coverpoint i2sTransmitterTransaction.txSd[3] {
+SERIALDATARANGE_3_CP : coverpoint i2sTransmitterTransaction.txSd[3]{
   option.comment = "serial data value range ";
   bins SD_3_LOW_VALID_RANGE = {[0:50]};
   bins SD_3_MID_VALID_RANGE = {[51:200]};
   bins SD_3_HIGH_VALID_RANGE = {[201:255]};
  }
 
-NUMOFBITSTRANSFER_TX_CP : coverpoint i2sTransmitterAgentConfig.numOfBitsTransfer {
-  option.comment = "num of bits transfer";
+NUMOFBITSTRANSFER_TX_CP : coverpoint i2sTransmitterTransaction.txNumOfBitsTransfer{
+  option.comment = "Num of Bits Transfer";
   bins BITS_8  = {8};
   bins BITS_16 = {16};
   bins BITS_24 = {24};
   bins BITS_32 = {32};
 }
 
-CLOCKFREQUENCY_TX_CP : coverpoint i2sTransmitterAgentConfig.clockratefrequency {
+CLOCKFREQUENCY_TX_CP : coverpoint i2sTransmitterAgentConfig.clockratefrequency{
   option.comment = "Clock Frequency";
 
   bins khz_8000={KHZ_8};
@@ -68,6 +74,14 @@ CLOCKFREQUENCY_TX_CP : coverpoint i2sTransmitterAgentConfig.clockratefrequency {
 
 }
 
+ WORDSELECTPERIOD_TX_CP : coverpoint i2sTransmitterAgentConfig.wordSelectPeriod{
+  option.comment = " WORD SELECT PERIOD";
+
+   bins WS_PERIOD_2_BYTE = {16};
+   bins WS_PERIOD_4_BYTE = {32};
+   bins WS_PERIOD_6_BYTE = {48};
+   bins WS_PERIOD_8_BYTE = {64};
+}
 
 NUMOFBITSTRANSFER_TX_X_WORD_SELECT_TX_CP:cross NUMOFBITSTRANSFER_TX_CP,WORDSELECT_TX_CP;
   
@@ -101,9 +115,6 @@ function void I2sTransmitterCoverage :: build_phase(uvm_phase phase);
   super.build_phase(phase);
   if(!( uvm_config_db #(I2sTransmitterAgentConfig)::get(this,"*","I2sTransmitterAgentConfig",this.i2sTransmitterAgentConfig)))
   `uvm_fatal("FATAL Tx AGENT CONFIG IN TX COVERAGE", $sformatf("Failed to get Tx agent config in coverage"))
-
-  //uvm_config_db #(I2sTransmitterAgentConfig)::get(this,"*","I2sTransmitterAgentConfig",this.i2sTransmitterAgentConfig);
-
 endfunction : build_phase
  
  
@@ -118,6 +129,5 @@ display();
 `uvm_info(get_type_name(),$sformatf("I2s Transmitter Coverage  = %0.2f %%", i2sTransmitterTransactionCovergroup.get_coverage()), UVM_NONE);
 endfunction: report_phase
 `endif
-
 
 

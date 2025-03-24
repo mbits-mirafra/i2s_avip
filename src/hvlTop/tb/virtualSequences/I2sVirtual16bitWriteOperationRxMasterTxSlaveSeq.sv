@@ -23,18 +23,14 @@ repeat(2) begin
 
   `uvm_info(get_type_name(), $sformatf("Inside Body Seq Start: I2sVirtual16bitWriteOperationRxMasterTxSlaveSeq"), UVM_NONE);
 
-  if(!i2sReceiverWrite16bitTransferSeq.randomize() with {rxWsSeq==1;
-                                                      rxWordSelectPeriodSeq==32;
-                                                      	}) begin
+  if(!i2sReceiverWrite16bitTransferSeq.randomize() with  {rxWsSeq==1;
+                                                      }) begin
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite16bitTransferSeq")
   end
 
  
 
- if (!i2sTransmitterWrite16bitTransferSeq.randomize() with {
-						            txWordSelectPeriodSeq==32;
-
-                                                             }) begin
+ if (!i2sTransmitterWrite16bitTransferSeq.randomize() with {txNumOfBitsTransferSeq == (p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2);                                                             }) begin
     `uvm_error(get_type_name(), "Randomization failed: Inside I2sTransmitterWrite16bitTransferSeq")
   end
 
@@ -52,6 +48,7 @@ repeat(2) begin
 
   `uvm_info(get_type_name(), "Fork_join Completed",UVM_NONE);
   end
+
 endtask : body
 
 `endif

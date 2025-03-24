@@ -17,12 +17,12 @@ module hdlTop;
  end
 
   initial begin
-    rst =1'b0;
+    rst =1'b1;
     @(posedge clk);
-   rst = 1'b1;
+    rst = 1'b0;
 
    @(posedge clk);
-   rst = 1'b0;
+   rst = 1'b1;
 
   end
 

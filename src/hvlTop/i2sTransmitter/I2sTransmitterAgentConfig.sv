@@ -8,15 +8,15 @@ class I2sTransmitterAgentConfig extends uvm_object;
   hasCoverageEnum hasCoverage = TRUE;
   modeTypeEnum mode;
   clockrateFrequencyEnum clockratefrequency;
-  numOfBitsTransferEnum numOfBitsTransfer;
   bit Sclk;
+  numOfChannelsEnum numOfChannels;
+  wordSelectPeriodEnum  wordSelectPeriod;
 
   int clockPeriod;
   int sclkFrequency;
-  int delayFortxSd;
-  int delayFortxWs;
+ // int delayFortxSd;
+ // int delayFortxWs;
   
- 
   extern function new(string name = "I2sTransmitterAgentConfig");
   extern function void do_print(uvm_printer printer);
 endclass : I2sTransmitterAgentConfig
@@ -35,11 +35,13 @@ function void I2sTransmitterAgentConfig::do_print(uvm_printer printer);
   printer.print_string("hasCoverage",hasCoverage.name());
   printer.print_field ("clockPeriod",clockPeriod, $bits(clockPeriod), UVM_DEC);
   printer.print_field ("sclkFrequency",sclkFrequency, $bits(sclkFrequency), UVM_DEC);
-  printer.print_field ("clockratefrequency",clockratefrequency, $bits(clockratefrequency), UVM_DEC);
-  printer.print_field ("numOfBitsTransfer",numOfBitsTransfer, $bits(numOfBitsTransfer), UVM_DEC);   
+  printer.print_field ("clockratefrequency",clockratefrequency, $bits(clockratefrequency), UVM_DEC);  
   printer.print_field ("Sclk",Sclk, $bits(Sclk), UVM_DEC);
-  printer.print_field ("delayFortxSd", delayFortxSd, 32, UVM_DEC);
-  printer.print_field ("delayForWs", delayFortxWs, 32, UVM_DEC);
+  printer.print_field ("numOfChannels", numOfChannels, $bits(numOfChannels), UVM_DEC);
+  printer.print_field ("wordSelectPeriod", wordSelectPeriod, $bits(wordSelectPeriod), UVM_DEC);
+
+ // printer.print_field ("delayFortxSd", delayFortxSd, 32, UVM_DEC);
+ // printer.print_field ("delayForWs", delayFortxWs, 32, UVM_DEC);
 
  endfunction : do_print
  
