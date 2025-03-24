@@ -65,7 +65,7 @@ task I2sScoreboard::dataComparison();
 
   if(i2sTransmitterTransaction.txWs == i2sReceiverTransaction.rxWs) begin    
         
-    if(i2sTransmitterTransaction.txWordSelectPeriod == i2sReceiverTransaction.rxWordSelectPeriod) begin
+    if(i2sEnvConfig.i2sTransmitterAgentConfig.wordSelectPeriod == i2sEnvConfig.i2sReceiverAgentConfig.wordSelectPeriod) begin
          
         for(int i=0; i<i2sTransmitterTransaction.txSd.size(); i++) begin
          if(i2sTransmitterTransaction.txSd[i] == i2sReceiverTransaction.rxSd[i]) begin
@@ -83,7 +83,7 @@ task I2sScoreboard::dataComparison();
         end
     end
   end
-    else if (i2sTransmitterTransaction.txWordSelectPeriod < i2sReceiverTransaction.rxWordSelectPeriod) begin
+    else if (i2sEnvConfig.i2sTransmitterAgentConfig.wordSelectPeriod < i2sEnvConfig.i2sReceiverAgentConfig.wordSelectPeriod) begin
        for(int i=0; i<i2sTransmitterTransaction.txSd.size(); i++) begin
          if(i2sTransmitterTransaction.txSd[i] == i2sReceiverTransaction.rxSd[i]) begin
           `uvm_info(get_type_name(),$sformatf("i2s serial data from transmitter and receiver is equal"),UVM_NONE);
@@ -100,7 +100,7 @@ task I2sScoreboard::dataComparison();
     end
 
     end
-    else if (i2sTransmitterTransaction.txWordSelectPeriod > i2sReceiverTransaction.rxWordSelectPeriod) begin
+    else if (i2sEnvConfig.i2sTransmitterAgentConfig.wordSelectPeriod > i2sEnvConfig.i2sReceiverAgentConfig.wordSelectPeriod) begin
        for(int i=0; i<i2sReceiverTransaction.rxSd.size(); i++) begin
          if(i2sTransmitterTransaction.txSd[i] == i2sReceiverTransaction.rxSd[i]) begin
           `uvm_info(get_type_name(),$sformatf("i2s serial data from transmitter and receiver is equal"),UVM_NONE);

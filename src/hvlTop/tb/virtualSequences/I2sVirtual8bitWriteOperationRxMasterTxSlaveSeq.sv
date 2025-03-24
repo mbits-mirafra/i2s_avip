@@ -28,19 +28,18 @@ repeat(2)
 
 
 if(!i2sReceiverWrite8bitTransferSeq.randomize() with {rxWsSeq==1;
-                                                      rxWordSelectPeriodSeq==16;
-                                                     }) begin
+                                                      }) begin
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite8bitTransferSeq")
   end
 
  
 
- if (!i2sTransmitterWrite8bitTransferSeq.randomize() with {txWordSelectPeriodSeq==16;
-                                                             }) begin
+ if (!i2sTransmitterWrite8bitTransferSeq.randomize() with {txNumOfBitsTransferSeq == (p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2);                                                             }) begin
     `uvm_error(get_type_name(), "Randomization failed: Inside I2sTransmitterWrite8bitTransferSeq")
   end
 
   
+
 //end
 
  

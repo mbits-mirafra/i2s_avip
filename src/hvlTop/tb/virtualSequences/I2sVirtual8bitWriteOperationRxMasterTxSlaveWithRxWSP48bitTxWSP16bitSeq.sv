@@ -16,6 +16,9 @@ function I2sVirtual8bitWriteOperationRxMasterTxSlaveWithRxWSP48bitTxWSP16bitSeq:
 endfunction : new
 
 task I2sVirtual8bitWriteOperationRxMasterTxSlaveWithRxWSP48bitTxWSP16bitSeq::body();
+  repeat(2) 
+   begin
+
   i2sReceiverWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq = I2sReceiverWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq::type_id::create("i2sReceiverWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq");
   i2sTransmitterWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq = I2sTransmitterWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq::type_id::create("i2sTransmitterWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq");
 
@@ -23,19 +26,13 @@ task I2sVirtual8bitWriteOperationRxMasterTxSlaveWithRxWSP48bitTxWSP16bitSeq::bod
 
 
 
-   if(!i2sReceiverWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq.randomize() with {rxSclkSeq==1; rxWsSeq==1;
-							                         rxWordSelectPeriodSeq==48;
-										 clockrateFrequencySeq==48000;
-							                          //rxNumOfBitsTransferSeq==24;
-
-                                                                                }) begin
+   if(!i2sReceiverWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq.randomize() with {rxWsSeq==1;
+							                                                                                                                                                                                      }) begin
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq")
   end
 
- if (!i2sTransmitterWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq.randomize() with {
-                                                           txNumOfBitsTransferSeq==8;
-							   txWordSelectPeriodSeq==16;
-
+ if (!i2sTransmitterWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq.randomize() with
+                                                           {txNumOfBitsTransferSeq == (p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2); 
                                                              }) begin
     `uvm_error(get_type_name(), "Randomization failed: Inside I2sTransmitterWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq")
   end
@@ -52,6 +49,7 @@ task I2sVirtual8bitWriteOperationRxMasterTxSlaveWithRxWSP48bitTxWSP16bitSeq::bod
   join
 
   `uvm_info(get_type_name(), "Fork_join Completed",UVM_NONE);
+  end
 endtask : body
 
 `endif

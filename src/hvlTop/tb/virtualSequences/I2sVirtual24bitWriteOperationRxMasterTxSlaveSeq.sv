@@ -27,15 +27,13 @@ repeat(2) begin
 
 
 if(!i2sReceiverWrite24bitTransferSeq.randomize() with {rxWsSeq==1;
-                                                      rxWordSelectPeriodSeq==48;
                                                       }) begin
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite24bitTransferSeq")
   end
 
  
 
- if (!i2sTransmitterWrite24bitTransferSeq.randomize() with { txWordSelectPeriodSeq==48;
-                                                             }) begin
+ if (!i2sTransmitterWrite24bitTransferSeq.randomize() with {txNumOfBitsTransferSeq == (p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2);                                                                            }) begin
     `uvm_error(get_type_name(), "Randomization failed: Inside I2sTransmitterWrite24bitTransferSeq")
   end
 

@@ -22,7 +22,7 @@ repeat(2)
   `uvm_info(get_type_name(), $sformatf("Inside Body Seq start I2sVirtual16bitWriteOperationTxMasterRxSlaveSeq"), UVM_NONE); 
   
    if(!i2sTransmitterWrite16bitTransferSeq.randomize() with {txWsSeq==1; 
-                                                             txWordSelectPeriodSeq==32;
+                                                             txNumOfBitsTransferSeq == (p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2);
 							     }) begin  
 
        `uvm_error(get_type_name(), "Randomization failed : Inside I2sTransmitterWrite16bitTransferSeq")
