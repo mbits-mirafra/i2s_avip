@@ -66,7 +66,6 @@ typedef struct {
     bit [DATA_WIDTH-1:0]sd[MAXIMUM_SIZE];
     logic ws;
     bit sclk;
-    int wordSelectPeriod;
     int numOfBitsTransfer;
     int clockratefrequency;
    }i2sTransferPacketStruct;
