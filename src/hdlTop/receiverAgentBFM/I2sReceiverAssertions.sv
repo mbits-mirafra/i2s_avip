@@ -10,8 +10,7 @@ interface I2sReceiverAssertions (input  clk,
 				    input sd);
   import uvm_pkg::*;
   `include "uvm_macros.svh";
- 
- 
+  
   initial begin
     `uvm_info("I2sReceiverAssertions","I2sReceiverAssertions",UVM_LOW);
   end
@@ -28,13 +27,13 @@ interface I2sReceiverAssertions (input  clk,
  
   property wsNotUnknown();
       @(posedge sclk) disable iff (!rst)
-       1 |-> !($isunknown(ws));
+          ($changed(ws) && !($isunknown(ws))) |=> ($stable(ws) until $changed(ws));
   endproperty
  
-/*  RX_WS_NOT_UNKNOWN: assert property (wsNotUnknown)
+  RX_WS_NOT_UNKNOWN: assert property (wsNotUnknown)
   $info("RX_WS_NOT_UNKNOWN: ASSERTED");
   else
-    $error("RX_WS_NOT_UNKNOWN : NOT ASSERTED");  */
+    $error("RX_WS_NOT_UNKNOWN : NOT ASSERTED");  
 
   property sdNotUnknown();
      @(posedge sclk) disable iff (!rst)

@@ -12,8 +12,6 @@ interface I2sTransmitterAssertions (input  clk,
    import uvm_pkg::*;
   `include "uvm_macros.svh";
  
-   //int numOfBitsTransfer;
-
    import I2sTransmitterPkg::I2sTransmitterAgentConfig;
 
    I2sTransmitterAgentConfig i2sTransmitterAgentConfig;
@@ -21,15 +19,6 @@ interface I2sTransmitterAssertions (input  clk,
   initial begin
     `uvm_info("I2sTransmitterAssertions","I2sTransmitterAssertions",UVM_LOW);
   end
-
-   initial begin
-    start_of_simulation_ph.wait_for_state(UVM_PHASE_STARTED);
- 
-    if(!uvm_config_db#(I2sTransmitterAgentConfig)::get(null, "*", "I2sTransmitterAgentConfig",i2sTransmitterAgentConfig)) begin
-    `uvm_fatal("FATAL_TRANSMITTER_CANNOT_GET_IN_INTERFACE","cannot get() i2sTransmitterAgentConfig"); 
-    end
-    // numOfBitsTransfer= i2sTransmitterAgentConfig.numOfBitsTransfer;
-   end
 
   property SdZeroWhenReset();
    @(posedge clk) 
@@ -43,13 +32,13 @@ interface I2sTransmitterAssertions (input  clk,
  
   property wsNotUnknown();
       @(posedge sclk) disable iff (!rst)
-         1 |-> !($isunknown(ws));
+     	 ($changed(ws) && !($isunknown(ws))) |=> ($stable(ws) until $changed(ws));
    endproperty
  
- /* TX_WS_NOT_UNKNOWN: assert property (wsNotUnknown)
+ TX_WS_NOT_UNKNOWN: assert property (wsNotUnknown)
   $info("TX_WS_NOT_UNKNOWN : ASSERTED");
   else
-    $error("TX_WS_NOT_UNKNOWN : NOT ASSERTED");   */
+    $error("TX_WS_NOT_UNKNOWN : NOT ASSERTED");   
 
   property sdNotUnknown();
      @(posedge sclk) disable iff (!rst)
