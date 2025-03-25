@@ -20,8 +20,6 @@ interface I2sTransmitterDriverBFM(input clk,
   int numOfChannels;
   int timeout_ws;
   int txNumOfBitsTransfer;
-  int rxNumOfBitsTransfer;
-
 
   import uvm_pkg::*;
   `include "uvm_macros.svh"
@@ -35,28 +33,17 @@ interface I2sTransmitterDriverBFM(input clk,
   string name = "I2sTransmitterDriverBFM";
 
   import I2sTransmitterPkg::I2sTransmitterAgentConfig;
-  import I2sReceiverPkg::I2sReceiverAgentConfig;
-
+ 
   I2sTransmitterAgentConfig i2sTransmitterAgentConfig;
-  I2sReceiverAgentConfig i2sReceiverAgentConfig;
-
 
   initial begin
     start_of_simulation_ph.wait_for_state(UVM_PHASE_STARTED);
 
      if(!uvm_config_db#(I2sTransmitterAgentConfig)::get(null, "*", "I2sTransmitterAgentConfig",i2sTransmitterAgentConfig)) begin
     `uvm_fatal("FATAL_TRANSMITTER_CANNOT_GET_IN_INTERFACE","cannot get() i2sTransmitterAgentConfig"); 
-    end
- 
-    if(!uvm_config_db#(I2sReceiverAgentConfig)::get(null, "*", "I2sReceiverAgentConfig",i2sReceiverAgentConfig)) begin
-    `uvm_fatal("FATAL_TRANSMITTER_CANNOT_GET_IN_INTERFACE","cannot get() i2sTransmitterAgentConfig"); 
-    end
     
-    $display("WordSelect from Rx Config:%0d",i2sReceiverAgentConfig.wordSelectPeriod);
-
     end
-
-
+   end
 
   task waitForReset();
 
@@ -79,9 +66,7 @@ interface I2sTransmitterDriverBFM(input clk,
     `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER-Generating the Serial clock"), UVM_NONE)
 
     txNumOfBitsTransfer= i2sTransmitterAgentConfig.wordSelectPeriod/2;
-
-   
-
+    
     @(posedge clk);
     time1 = $realtime;
 
@@ -233,8 +218,8 @@ interface I2sTransmitterDriverBFM(input clk,
 
   task detectWsandDriveSD(inout i2sTransferPacketStruct dataPacketStruct, input i2sTransferCfgStruct configPacketStruct);
     begin
+      txNumOfBitsTransfer= i2sTransmitterAgentConfig.wordSelectPeriod/2;
 
-     rxNumOfBitsTransfer= i2sReceiverAgentConfig.wordSelectPeriod/2;
       initialDetectWsfromUnknown(); 
       repeat(configPacketStruct.numOfChannels)
         begin
@@ -264,29 +249,58 @@ interface I2sTransmitterDriverBFM(input clk,
 
 
   task detectWsToggleAndDriveSdWhenTxSlave(inout i2sTransferPacketStruct dataPacketStruct, input i2sTransferCfgStruct configPacketStruct);
-    logic [1:0] wsLocal;
 
+    logic [1:0] wsLocal;
+    static int counterSd;
+    static bit [7:0] sdLocal='b00000000;
+     
     if(wsInput == 1'b1) 
       begin
-        wsLocal = 2'b11; 
+       wsLocal = 2'b11; 
+       counterSd=0;
         do begin
-	  for(int i=0; i<rxNumOfBitsTransfer/DATA_WIDTH;i++) 
-            begin
-              driveSerialDataTxSlave(dataPacketStruct.sd[i]);  
-            end
-          wsLocal = {wsLocal[0], wsInput}; 
+         if (counterSd==0)
+           begin
+             for(int i=0; i< txNumOfBitsTransfer/DATA_WIDTH;i++) 
+              begin
+               if (wsInput==1)
+		begin
+                  driveSerialDataTxSlave(dataPacketStruct.sd[i]);  
+		end
+               else
+		 break;
+              end
+            counterSd= 1;
+           end
+         else
+           begin
+            driveSerialDataTxSlave(sdLocal);      
+           end  
+         wsLocal = {wsLocal[0], wsInput}; 
         end while((wsLocal == 2'b11) );
       end
-
-    else if (wsInput == 1'b0)
+ 
+     else if(wsInput == 1'b0) 
       begin
-        wsLocal = 2'b00;
+       wsLocal = 2'b00; 
+       counterSd=0;
         do begin
-	   for(int i=0; i<rxNumOfBitsTransfer/DATA_WIDTH;i++) 
-            begin
-              driveSerialDataTxSlave(dataPacketStruct.sd[i]);
-            end
-          wsLocal = {wsLocal[0], wsInput};
+         if (counterSd==0)
+           begin
+             for(int i=0; i< txNumOfBitsTransfer/DATA_WIDTH;i++) 
+              begin
+               if (wsInput==0)
+		begin
+                 driveSerialDataTxSlave(dataPacketStruct.sd[i]);  
+		end
+              end
+            counterSd= 1;
+           end
+         else
+           begin
+            driveSerialDataTxSlave(sdLocal);      
+           end  
+         wsLocal = {wsLocal[0], wsInput}; 
         end while((wsLocal == 2'b00) );
       end
 

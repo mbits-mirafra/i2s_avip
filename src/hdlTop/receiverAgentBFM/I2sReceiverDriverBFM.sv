@@ -23,7 +23,7 @@ interface I2sReceiverDriverBFM(input clk,
   int clkPeriod;
   int clkFrequency;
   int sclkPeriodDivider;
-  int numOfBitsTransfer;
+  int rxNumOfBitsTransfer;
   int timeout_ws;
 
  
@@ -48,7 +48,7 @@ interface I2sReceiverDriverBFM(input clk,
 
     static int counter=0;
 
-    numOfBitsTransfer=configPacketStruct.wordSelectPeriod/2;
+    rxNumOfBitsTransfer=configPacketStruct.wordSelectPeriod/2;
 
     `uvm_info(name, $sformatf("IN RECEIVER DRIVER-Generating the Serial clock"), UVM_NONE)
 
@@ -81,7 +81,7 @@ interface I2sReceiverDriverBFM(input clk,
 
   function void generateSclkPeriod(input i2sTransferCfgStruct cfgStr);
 
-    cfgStr.sclkFrequency = cfgStr.clockratefrequency * numOfBitsTransfer * cfgStr.numOfChannels;
+    cfgStr.sclkFrequency = cfgStr.clockratefrequency * rxNumOfBitsTransfer * cfgStr.numOfChannels;
 
     sclkPeriod = ((10**9)/cfgStr.sclkFrequency);
     sclkPeriodDivider = (clkFrequency/cfgStr.sclkFrequency);
@@ -98,9 +98,6 @@ interface I2sReceiverDriverBFM(input clk,
                    input i2sTransferCfgStruct configPacketStruct);
 
     `uvm_info(name, $sformatf("Starting the drive packet method"), UVM_HIGH)
-
-    //dataPacketStruct.clockratefrequency = configPacketStruct.clockratefrequency;
-    //dataPacketStruct.numOfBitsTransfer = configPacketStruct.numOfBitsTransfer;
 
     genWs(dataPacketStruct,configPacketStruct);
 
