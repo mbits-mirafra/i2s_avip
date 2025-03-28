@@ -5,7 +5,8 @@ class I2sReceiverWrite24bitTransferSeq extends I2sReceiverBaseSeq;
   `uvm_object_utils(I2sReceiverWrite24bitTransferSeq)
 
   rand bit rxWsSeq;
-  bit[DATA_WIDTH-1:0] rxSdSeq[];
+  bit[DATA_WIDTH-1:0] rxSdLeftChannelSeq[];
+  bit[DATA_WIDTH-1:0] rxSdRightChannelSeq[];
   numOfBitsTransferEnum rxNumOfBitsTransferSeq;
   
   extern function new(string name = "I2sReceiverWrite24bitTransferSeq");

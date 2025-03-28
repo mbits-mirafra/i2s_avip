@@ -11,9 +11,11 @@ class I2sScoreboard extends uvm_component;
   uvm_tlm_analysis_fifo#(I2sTransmitterTransaction)i2sTransmitterAnalysisFIFO;
   uvm_tlm_analysis_fifo#(I2sReceiverTransaction)i2sReceiverAnalysisFIFO;
 
-  int serialDataComparisonSuccessCount;
-  int serialDataComparisonFailedCount;
-  
+  int leftChannelSerialDataComparisonSuccessCount;
+  int leftChannelSerialDataComparisonFailedCount;
+  int rightChannelSerialDataComparisonSuccessCount;
+  int rightChannelSerialDataComparisonFailedCount; 
+
   extern function new(string name = "I2sScoreboard", uvm_component parent = null);
   extern virtual function void build_phase(uvm_phase phase);
   extern virtual function void connect_phase(uvm_phase phase);
@@ -67,56 +69,100 @@ task I2sScoreboard::dataComparison();
         
     if(i2sEnvConfig.i2sTransmitterAgentConfig.wordSelectPeriod == i2sEnvConfig.i2sReceiverAgentConfig.wordSelectPeriod) begin
          
-        for(int i=0; i<i2sTransmitterTransaction.txSd.size(); i++) begin
-         if(i2sTransmitterTransaction.txSd[i] == i2sReceiverTransaction.rxSd[i]) begin
+      for(int i=0; i<i2sTransmitterTransaction.txSdLeftChannel.size(); i++) begin
+         if(i2sTransmitterTransaction.txSdLeftChannel[i] == i2sReceiverTransaction.rxSdLeftChannel[i]) begin
 
           `uvm_info(get_type_name(),$sformatf("i2s serial data from transmitter and receiver is equal"),UVM_NONE);
-          `uvm_info("SB_serialData_MATCHED", $sformatf("Transmitter SerialData = %0h and Receiver SerialData = %0h",i2sTransmitterTransaction.txSd[i],i2sReceiverTransaction.rxSd[i]),UVM_NONE);
-          serialDataComparisonSuccessCount++;
+          `uvm_info("SB_serialData_MATCHED", $sformatf("Transmitter Left channel SerialData = %0h and Receiver left channel SerialData = %0h",i2sTransmitterTransaction.txSdLeftChannel[i],i2sReceiverTransaction.rxSdLeftChannel[i]),UVM_NONE);
+          leftChannelSerialDataComparisonSuccessCount++;
         end
         else
           begin
           `uvm_error(get_type_name(),$sformatf("i2s serialData from Transmitter and receiver is Not equal"));
-          `uvm_info("SB_serialData_MISMATCHED", $sformatf("Transmitter SerialData = %0h and Receiver SerialData = %0h",i2sTransmitterTransaction.txSd[i],i2sReceiverTransaction.rxSd[i]),UVM_NONE);
+          `uvm_info("SB_serialData_MISMATCHED", $sformatf("Transmitter Left Channel SerialData = %0h and Receiver Left channel SerialData = %0h",i2sTransmitterTransaction.txSdLeftChannel[i],i2sReceiverTransaction.rxSdLeftChannel[i]),UVM_NONE);
  
-          serialDataComparisonFailedCount++;
+          leftChannelSerialDataComparisonFailedCount++;
         end
-    end
-  end
-    else if (i2sEnvConfig.i2sTransmitterAgentConfig.wordSelectPeriod < i2sEnvConfig.i2sReceiverAgentConfig.wordSelectPeriod) begin
-       for(int i=0; i<i2sTransmitterTransaction.txSd.size(); i++) begin
-         if(i2sTransmitterTransaction.txSd[i] == i2sReceiverTransaction.rxSd[i]) begin
+     end
+    for(int i=0; i<i2sTransmitterTransaction.txSdRightChannel.size(); i++) begin
+         if(i2sTransmitterTransaction.txSdRightChannel[i] == i2sReceiverTransaction.rxSdRightChannel[i]) begin
+
           `uvm_info(get_type_name(),$sformatf("i2s serial data from transmitter and receiver is equal"),UVM_NONE);
-          `uvm_info("SB_serialData_MATCHED", $sformatf("Transmitter SerialData = %0h and Receiver SerialData = %0h",i2sTransmitterTransaction.txSd[i],i2sReceiverTransaction.rxSd[i]),UVM_NONE);
-          serialDataComparisonSuccessCount++;
+          `uvm_info("SB_serialData_MATCHED", $sformatf("Transmitter Right channel SerialData = %0h and Receiver Right channel SerialData = %0h",i2sTransmitterTransaction.txSdRightChannel[i],i2sReceiverTransaction.rxSdRightChannel[i]),UVM_NONE);
+          rightChannelSerialDataComparisonSuccessCount++;
         end
         else
           begin
           `uvm_error(get_type_name(),$sformatf("i2s serialData from Transmitter and receiver is Not equal"));
-          `uvm_info("SB_serialData_MISMATCHED", $sformatf("Transmitter SerialData = %0h and Receiver SerialData = %0h",i2sTransmitterTransaction.txSd[i],i2sReceiverTransaction.rxSd[i]),UVM_NONE);
+          `uvm_info("SB_serialData_MISMATCHED", $sformatf("Transmitter Right Channel SerialData = %0h and Receiver Right Channel SerialData = %0h",i2sTransmitterTransaction.txSdRightChannel[i],i2sReceiverTransaction.rxSdRightChannel[i]),UVM_NONE);
  
-          serialDataComparisonFailedCount++;
+          rightChannelSerialDataComparisonFailedCount++;
+        end
+      end
+    end
+   else if (i2sEnvConfig.i2sTransmitterAgentConfig.wordSelectPeriod < i2sEnvConfig.i2sReceiverAgentConfig.wordSelectPeriod) begin
+      for(int i=0; i<i2sTransmitterTransaction.txSdLeftChannel.size(); i++) begin
+         if(i2sTransmitterTransaction.txSdLeftChannel[i] == i2sReceiverTransaction.rxSdLeftChannel[i]) begin
+
+          `uvm_info(get_type_name(),$sformatf("i2s serial data from transmitter and receiver is equal"),UVM_NONE);
+          `uvm_info("SB_serialData_MATCHED", $sformatf("Transmitter Left channel SerialData = %0h and Receiver left channel SerialData = %0h",i2sTransmitterTransaction.txSdLeftChannel[i],i2sReceiverTransaction.rxSdLeftChannel[i]),UVM_NONE);
+          leftChannelSerialDataComparisonSuccessCount++;
+        end
+        else
+          begin
+          `uvm_error(get_type_name(),$sformatf("i2s serialData from Transmitter and receiver is Not equal"));
+          `uvm_info("SB_serialData_MISMATCHED", $sformatf("Transmitter Left Channel SerialData = %0h and Receiver Left channel SerialData = %0h",i2sTransmitterTransaction.txSdLeftChannel[i],i2sReceiverTransaction.rxSdLeftChannel[i]),UVM_NONE);
+          leftChannelSerialDataComparisonFailedCount++;
         end
     end
+    for(int i=0; i<i2sTransmitterTransaction.txSdRightChannel.size(); i++) begin
+         if(i2sTransmitterTransaction.txSdRightChannel[i] == i2sReceiverTransaction.rxSdRightChannel[i]) begin
 
+          `uvm_info(get_type_name(),$sformatf("i2s serial data from transmitter and receiver is equal"),UVM_NONE);
+          `uvm_info("SB_serialData_MATCHED", $sformatf("Transmitter Right channel SerialData = %0h and Receiver Right channel SerialData = %0h",i2sTransmitterTransaction.txSdRightChannel[i],i2sReceiverTransaction.rxSdRightChannel[i]),UVM_NONE);
+          rightChannelSerialDataComparisonSuccessCount++;
+        end
+        else
+          begin
+          `uvm_error(get_type_name(),$sformatf("i2s serialData from Transmitter and receiver is Not equal"));
+          `uvm_info("SB_serialData_MISMATCHED", $sformatf("Transmitter Right Channel SerialData = %0h and Receiver Right Channel SerialData = %0h",i2sTransmitterTransaction.txSdRightChannel[i],i2sReceiverTransaction.rxSdRightChannel[i]),UVM_NONE);
+ 
+          rightChannelSerialDataComparisonFailedCount++;
+       end
+     end
     end
     else if (i2sEnvConfig.i2sTransmitterAgentConfig.wordSelectPeriod > i2sEnvConfig.i2sReceiverAgentConfig.wordSelectPeriod) begin
-       for(int i=0; i<i2sReceiverTransaction.rxSd.size(); i++) begin
-         if(i2sTransmitterTransaction.txSd[i] == i2sReceiverTransaction.rxSd[i]) begin
+       for(int i=0; i<i2sTransmitterTransaction.txSdLeftChannel.size(); i++) begin
+         if(i2sTransmitterTransaction.txSdLeftChannel[i] == i2sReceiverTransaction.rxSdLeftChannel[i]) begin
+
           `uvm_info(get_type_name(),$sformatf("i2s serial data from transmitter and receiver is equal"),UVM_NONE);
-          `uvm_info("SB_serialData_MATCHED", $sformatf("Transmitter SerialData = %0h and Receiver SerialData = %0h",i2sTransmitterTransaction.txSd[i],i2sReceiverTransaction.rxSd[i]),UVM_NONE);
-          serialDataComparisonSuccessCount++;
+          `uvm_info("SB_serialData_MATCHED", $sformatf("Transmitter Left channel SerialData = %0h and Receiver left channel SerialData = %0h",i2sTransmitterTransaction.txSdLeftChannel[i],i2sReceiverTransaction.rxSdLeftChannel[i]),UVM_NONE);
+          leftChannelSerialDataComparisonSuccessCount++;
         end
         else
           begin
           `uvm_error(get_type_name(),$sformatf("i2s serialData from Transmitter and receiver is Not equal"));
-          `uvm_info("SB_serialData_MISMATCHED", $sformatf("Transmitter SerialData = %0h and Receiver SerialData = %0h",i2sTransmitterTransaction.txSd[i],i2sReceiverTransaction.rxSd[i]),UVM_NONE);
- 
-          serialDataComparisonFailedCount++;
+          `uvm_info("SB_serialData_MISMATCHED", $sformatf("Transmitter Left Channel SerialData = %0h and Receiver Left channel SerialData = %0h",i2sTransmitterTransaction.txSdLeftChannel[i],i2sReceiverTransaction.rxSdLeftChannel[i]),UVM_NONE);
+          leftChannelSerialDataComparisonFailedCount++;
         end
     end
+    for(int i=0; i<i2sTransmitterTransaction.txSdRightChannel.size(); i++) begin
+         if(i2sTransmitterTransaction.txSdRightChannel[i] == i2sReceiverTransaction.rxSdRightChannel[i]) begin
 
-    end
+          `uvm_info(get_type_name(),$sformatf("i2s serial data from transmitter and receiver is equal"),UVM_NONE);
+          `uvm_info("SB_serialData_MATCHED", $sformatf("Transmitter Right channel SerialData = %0h and Receiver Right channel SerialData = %0h",i2sTransmitterTransaction.txSdRightChannel[i],i2sReceiverTransaction.rxSdRightChannel[i]),UVM_NONE);
+          rightChannelSerialDataComparisonSuccessCount++;
+        end
+        else
+          begin
+          `uvm_error(get_type_name(),$sformatf("i2s serialData from Transmitter and receiver is Not equal"));
+          `uvm_info("SB_serialData_MISMATCHED", $sformatf("Transmitter Right Channel SerialData = %0h and Receiver Right Channel SerialData = %0h",i2sTransmitterTransaction.txSdRightChannel[i],i2sReceiverTransaction.rxSdRightChannel[i]),UVM_NONE);
+ 
+          rightChannelSerialDataComparisonFailedCount++;
+       end
+     end  
+
+   end  
 
   end
 endtask
@@ -125,17 +171,29 @@ function void I2sScoreboard::check_phase(uvm_phase phase);
   super.check_phase(phase);
   `uvm_info(get_full_name(),"Inside i2s sb check phase",UVM_NONE)
   `uvm_info(get_type_name(),$sformatf("--\n--------SCOREBOARD CHECK PHASE----------------"),UVM_HIGH) 
-  if((serialDataComparisonSuccessCount != 0) && (serialDataComparisonFailedCount == 0)) begin
-      `uvm_info (get_type_name(), $sformatf ("Transmitter And Receiver serialData comparisions are equal = %0d",serialDataComparisonSuccessCount),UVM_HIGH);
+  
+ if((leftChannelSerialDataComparisonSuccessCount != 0) && (leftChannelSerialDataComparisonFailedCount == 0)) begin
+      `uvm_info (get_type_name(), $sformatf ("Transmitter And Receiver serialData comparisions are equal = %0d",leftChannelSerialDataComparisonSuccessCount),UVM_HIGH);
     end
     else begin
-      `uvm_info (get_type_name(), $sformatf ("serialDataComparisonSuccessCount : %0d",
-                                              serialDataComparisonSuccessCount),UVM_HIGH);
-      `uvm_info (get_type_name(), $sformatf ("serialDataComparisonFailedCount : %0d",
-                                              serialDataComparisonFailedCount),UVM_HIGH);
-      `uvm_error("SC_CheckPhase", $sformatf ("Transmitter And Receiver serialData comparisions Not equal"));
+      `uvm_info (get_type_name(), $sformatf ("leftChannelSerialDataComparisonSuccessCount : %0d",
+                                              leftChannelSerialDataComparisonSuccessCount),UVM_HIGH);
+      `uvm_info (get_type_name(), $sformatf ("leftChannelSerialDataComparisonFailedCount : %0d",
+                                              leftChannelSerialDataComparisonFailedCount),UVM_HIGH);
+      `uvm_error("SC_CheckPhase", $sformatf ("Transmitter And Receiver left Channel Serial Data comparisions Not equal"));
     end
-  
+   
+  if((rightChannelSerialDataComparisonSuccessCount != 0) && (rightChannelSerialDataComparisonFailedCount == 0)) begin
+      `uvm_info (get_type_name(), $sformatf ("Transmitter And Receiver serialData comparisions are equal = %0d",rightChannelSerialDataComparisonSuccessCount),UVM_HIGH);
+    end
+    else begin
+      `uvm_info (get_type_name(), $sformatf ("rightChannelSerialDataComparisonSuccessCount : %0d",
+                                              rightChannelSerialDataComparisonSuccessCount),UVM_HIGH);
+      `uvm_info (get_type_name(), $sformatf ("rightChannelSerialDataComparisonFailedCount : %0d",
+                                              rightChannelSerialDataComparisonFailedCount),UVM_HIGH);
+      `uvm_error("SC_CheckPhase", $sformatf ("Transmitter And Receiver right Channel Serial Data comparisions Not equal"));
+    end
+
       
   if(i2sTransmitterAnalysisFIFO.size() == 0)begin
     `uvm_info ("SC_CheckPhase", $sformatf ("I2s Transmitter analysis FIFO is empty"),UVM_HIGH);
