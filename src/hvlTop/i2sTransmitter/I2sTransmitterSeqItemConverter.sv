@@ -28,9 +28,14 @@ function void I2sTransmitterSeqItemConverter::fromTransmitterClass(input I2sTran
      outputConv.numOfBitsTransfer = numOfBitsTransferEnum'(inputConv.txNumOfBitsTransfer);
     `uvm_info("I2sTransmitterSeqItemConverter",$sformatf("After converting from_TransmitterClass numOfBitsTransfer =  %0d",outputConv.numOfBitsTransfer),UVM_NONE);
     
-    for(int i=0; i<inputConv.txSd.size();i++) begin
-    outputConv.sd[i] = inputConv.txSd[i];   
-    `uvm_info("I2sTransmitterSeqItemConverter",$sformatf(" After converting from_TransmitterClass Serial Data[%0d]= %p",i,outputConv.sd[i]),UVM_NONE)
+    for(int i=0; i<inputConv.txSdLeftChannel.size();i++) begin
+    outputConv.sdLeftChannel[i] = inputConv.txSdLeftChannel[i];   
+    `uvm_info("I2sTransmitterSeqItemConverter",$sformatf(" After converting from_TransmitterClass Left Channel Serial Data[%0d]= %p",i,outputConv.sdLeftChannel[i]),UVM_NONE)
+  end
+   for(int i=0; i<inputConv.txSdRightChannel.size();i++) begin
+    outputConv.sdRightChannel[i] = inputConv.txSdRightChannel[i];   
+    `uvm_info("I2sTransmitterSeqItemConverter",$sformatf(" After converting from_TransmitterClass Right Channel Serial Data[%0d]= %p",i,outputConv.sdRightChannel[i]),UVM_NONE)
+
   end
 
 endfunction: fromTransmitterClass 
@@ -46,9 +51,11 @@ function void I2sTransmitterSeqItemConverter::toTransmitterClass(input i2sTransf
     outputConv.txNumOfBitsTransfer = numOfBitsTransferEnum'(inputConv.numOfBitsTransfer);
     `uvm_info("I2sTransmitterSeqItemConverter",$sformatf("After converting toTransmitterClassnumOfBitsTransfer =  %0d",outputConv.txNumOfBitsTransfer),UVM_NONE);
 
-    outputConv.txSd = inputConv.sd;   
-    `uvm_info("I2sTransmitterSeqItemConverter",$sformatf(" After converting to_TransmitterClass Serial Data= %p",outputConv.txSd),UVM_NONE)  
-
+    outputConv.txSdLeftChannel = inputConv.sdLeftChannel;   
+    `uvm_info("I2sTransmitterSeqItemConverter",$sformatf(" After converting to_TransmitterClass Left Channel Serial Data= %p",outputConv.txSdLeftChannel),UVM_NONE)  
+   
+   outputConv.txSdRightChannel = inputConv.sdRightChannel;   
+    `uvm_info("I2sTransmitterSeqItemConverter",$sformatf(" After converting to_TransmitterClass Right Channel Serial Data= %p",outputConv.txSdRightChannel),UVM_NONE)
   
 endfunction: toTransmitterClass
 
@@ -59,9 +66,14 @@ function void I2sTransmitterSeqItemConverter::do_print(uvm_printer printer);
 
    printer.print_field("ws",TransmitterPacketStruct.ws,$bits(TransmitterPacketStruct.ws),UVM_DEC);
    printer.print_field("numOfBitsTransfer",TransmitterPacketStruct.numOfBitsTransfer,$bits(TransmitterPacketStruct.numOfBitsTransfer),UVM_DEC);
-  foreach(TransmitterPacketStruct.sd[i]) begin
-    printer.print_field($sformatf("serial_data[%0d]=%0b",i,TransmitterPacketStruct.sd[i]),$bits(TransmitterPacketStruct.sd),UVM_DEC);
+  foreach(TransmitterPacketStruct.sdLeftChannel[i]) begin
+    printer.print_field($sformatf("Left channel serial_data[%0d]=%0b",i,TransmitterPacketStruct.sdLeftChannel[i]),$bits(TransmitterPacketStruct.sdLeftChannel),UVM_DEC);
   end
+
+   foreach(TransmitterPacketStruct.sdRightChannel[i]) begin
+    printer.print_field($sformatf("Right channel serial_data[%0d]=%0b",i,TransmitterPacketStruct.sdRightChannel[i]),$bits(TransmitterPacketStruct.sdRightChannel),UVM_DEC);
+  end
+
   endfunction : do_print
 
 `endif

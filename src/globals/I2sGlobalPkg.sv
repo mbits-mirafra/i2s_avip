@@ -31,6 +31,9 @@ typedef enum bit[1:0]{
 
   typedef enum bit[31:0] {
     KHZ_8=8000,
+    KHZ_16=16000,
+    KHZ_24=24000,
+    KHZ_32=32000,
     KHZ_48=48000,
     KHZ_96=96000,
     KHZ_192=192000
@@ -63,11 +66,10 @@ typedef struct {
   } i2sTransferCfgStruct;  
 
   typedef struct {
-    bit [DATA_WIDTH-1:0]sd[MAXIMUM_SIZE];
+    bit [DATA_WIDTH-1:0]sdLeftChannel[MAXIMUM_SIZE];
+    bit [DATA_WIDTH-1:0]sdRightChannel[MAXIMUM_SIZE];
     logic ws;
-    bit sclk;
     int numOfBitsTransfer;
-    int clockratefrequency;
    }i2sTransferPacketStruct;
 
 

@@ -5,10 +5,12 @@ class I2sTransmitterWrite24bitTransferSeq extends I2sTransmitterBaseSeq;
   `uvm_object_utils(I2sTransmitterWrite24bitTransferSeq)
 
   rand logic txWsSeq;
-  rand bit[DATA_WIDTH-1:0] txSdSeq[];
+  rand bit[DATA_WIDTH-1:0] txSdLeftChannelSeq[];
+  rand bit[DATA_WIDTH-1:0] txSdRightChannelSeq[];
   rand numOfBitsTransferEnum txNumOfBitsTransferSeq;
-
-  constraint txSdSeq_c{soft txSdSeq.size() == txNumOfBitsTransferSeq/DATA_WIDTH; }
+  
+  constraint txSdLeftChannelSeq_c{soft txSdLeftChannelSeq.size() == txNumOfBitsTransferSeq/DATA_WIDTH; }
+  constraint txSdRightChannelSeq_c{soft txSdRightChannelSeq.size() == txNumOfBitsTransferSeq/DATA_WIDTH; }
  
   extern function new(string name = "I2sTransmitterWrite24bitTransferSeq");
   extern task body();
@@ -21,18 +23,23 @@ endfunction : new
 task I2sTransmitterWrite24bitTransferSeq::body();
   super.body();
 
-  start_item(i2sTransmitterTransaction);
+   start_item(i2sTransmitterTransaction);
   if(!i2sTransmitterTransaction.randomize() with {
                            txWs == txWsSeq;
-                           foreach(txSdSeq[i]){
-                               txSd[i]  == txSdSeq[i]};
+                            foreach(txSdLeftChannelSeq[i]){
+                               txSdLeftChannel[i]  == txSdLeftChannelSeq[i]};
+                            foreach(txSdRightChannelSeq[i]){
+                               txSdRightChannel[i]  == txSdRightChannelSeq[i]};
                             txNumOfBitsTransfer  == txNumOfBitsTransferSeq;
-                            }) begin 
+                             }) begin 
       `uvm_error(get_type_name(), "Randomization failed")
  end
   
- foreach(i2sTransmitterTransaction.txSd[i]) begin
-    $display("sd[%0d]=%b",i,i2sTransmitterTransaction.txSd[i]);
+  foreach(i2sTransmitterTransaction.txSdLeftChannel[i]) begin
+    $display("Left Channel SD[%0d]=%b",i,i2sTransmitterTransaction.txSdLeftChannel[i]);
+   end
+  foreach(i2sTransmitterTransaction.txSdRightChannel[i]) begin
+    $display("Right Channel SD[%0d]=%b",i,i2sTransmitterTransaction.txSdRightChannel[i]);
    end
 
   i2sTransmitterTransaction.print();

@@ -54,6 +54,7 @@ endfunction : connect_phase
 function void I2sTransmitterDriverProxy::end_of_elaboration_phase(uvm_phase phase);
   super.end_of_elaboration_phase(phase);
   i2sTransmitterDriverBFM.i2sTransmitterDriverProxy = this;
+  
 endfunction  : end_of_elaboration_phase
 
 
@@ -85,7 +86,6 @@ task I2sTransmitterDriverProxy::run_phase(uvm_phase phase);
     begin
       driverBFMWhenTXSlave(packetStruct,configStruct);
     end	
- 
 
  endtask : run_phase
 
@@ -108,7 +108,8 @@ task I2sTransmitterDriverProxy::run_phase(uvm_phase phase);
        
     I2sTransmitterSeqItemConverter::toTransmitterClass(packetStruct,i2sTransmitterTransaction);
     `uvm_info(get_type_name(), $sformatf("IN DRIVER-After driving data to interface :: Received i2sTransmitterTransaction\n%s",i2sTransmitterTransaction.sprint()), UVM_NONE)
-
+    
+   // #30; 
     seq_item_port.item_done();
     
   end
@@ -127,11 +128,11 @@ task I2sTransmitterDriverProxy::run_phase(uvm_phase phase);
 
      I2sTransmitterConfigConverter::fromTransmitterClass(i2sTransmitterAgentConfig, configStruct);
     `uvm_info(get_type_name(), $sformatf("IN DRIVER- Converted cfg struct\n%p",configStruct), UVM_NONE)
-     i2sTransmitterDriverBFM.detectWsandDriveSD(packetStruct,configStruct);
+     i2sTransmitterDriverBFM.detectWsandDriveSd(packetStruct,configStruct);
     
     I2sTransmitterSeqItemConverter::toTransmitterClass(packetStruct,i2sTransmitterTransaction);
     `uvm_info(get_type_name(), $sformatf("IN DRIVER-After driving data to interface :: Received i2sTransmitterTransaction\n%s",i2sTransmitterTransaction.sprint()), UVM_NONE)
-
+   
     seq_item_port.item_done();
 
   end

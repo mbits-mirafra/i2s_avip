@@ -5,6 +5,8 @@ class I2sReceiverWrite8bitTransferWithRxWSP32bitTxWSP16bitSeq extends I2sReceive
   `uvm_object_utils(I2sReceiverWrite8bitTransferWithRxWSP32bitTxWSP16bitSeq)
 
   rand bit rxWsSeq;
+  bit[DATA_WIDTH-1:0] rxSdLeftChannelSeq[];
+  bit[DATA_WIDTH-1:0] rxSdRightChannelSeq[];
   numOfBitsTransferEnum rxNumOfBitsTransferSeq;
  
   extern function new(string name = "I2sReceiverWrite8bitTransferWithRxWSP32bitTxWSP16bitSeq");

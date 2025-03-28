@@ -51,9 +51,13 @@ class I2sReceiverCoverage extends uvm_subscriber#(I2sReceiverTransaction);
   option.comment = "Clock Frequency";
 
   bins khz_8000={KHZ_8};
+  bins khz_16000={KHZ_16};
+  bins khz_24000={KHZ_24};
+  bins khz_32000={KHZ_32};
   bins khz_48000={KHZ_48};
   bins khz_96000={KHZ_96};
   bins khz_192000={KHZ_192};
+
 }
  
  NUMOFBITSTRANSFER_RX_CP_X_WORD_SELECT_RX_CP:cross NUMOFBITSTRANSFER_RX_CP,WORDSELECT_RX_CP;
