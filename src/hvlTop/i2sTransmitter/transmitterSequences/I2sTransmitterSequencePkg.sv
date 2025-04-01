@@ -19,12 +19,11 @@ package I2sTransmitterSequencePkg;
 
   `include "I2sTransmitterWrite8bitTransferWithRxWSP32bitTxWSP16bitSeq.sv"
   `include "I2sTransmitterWrite8bitTransferWithRxWSP48bitTxWSP16bitSeq.sv"
-  `include "I2sTransmitterWrite8bitTransferWithRxWSP64bitTxWSP16bitSeq.sv"
+  `include "I2sTransmitterWrite8bitTransferWithRxWSP64bitTxWSP16bitSeq.sv"  
 
   `include "I2sTransmitterWrite16bitTransferWithRxWSP48bitTxWSP32bitSeq.sv"
-  `include "I2sTransmitterWrite16bitTransferWithRxWSP64bitTxWSP32bitSeq.sv"
+  `include "I2sTransmitterWrite16bitTransferWithRxWSP64bitTxWSP32bitSeq.sv"  
   `include "I2sTransmitterWrite24bitTransferWithRxWSP64bitTxWSP48bitSeq.sv" 
-
 
  `include "I2sTransmitterWrite32bitTransferWithRxWSP32bitTxWSP64bitSeq.sv"
  `include "I2sTransmitterWrite32bitTransferWithRxWSP48bitTxWSP64bitSeq.sv"
@@ -32,7 +31,7 @@ package I2sTransmitterSequencePkg;
 
  `include "I2sTransmitterWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq.sv"
  `include "I2sTransmitterWrite24bitTransferWithRxWSP16bitTxWSP48bitSeq.sv"
- `include "I2sTransmitterWrite24bitTransferWithRxWSP32bitTxWSP48bitSeq.sv"
+ `include "I2sTransmitterWrite24bitTransferWithRxWSP32bitTxWSP48bitSeq.sv"  
 
 
   endpackage : I2sTransmitterSequencePkg

@@ -23,38 +23,66 @@ class I2sTransmitterCoverage extends uvm_subscriber#(I2sTransmitterTransaction);
    bins STEREO                            = {2};
    }
 
-   SERIALCLOCK_TX_CP : coverpoint i2sTransmitterAgentConfig.Sclk{
+ SERIALCLOCK_TX_CP : coverpoint i2sTransmitterAgentConfig.Sclk{
    option.comment = "serial clock";
    bins SCLK_CHANGE                             = {0,1}; 
      }
 
   
-SERIALDATARANGE_0_CP : coverpoint i2sTransmitterTransaction.txSd[0] {
-  option.comment = "serial data value range ";
-  bins SD_0_LOW_VALID_RANGE = {[0:50]};
-  bins SD_0_MID_VALID_RANGE = {[51:200]};
-  bins SD_0_HIGH_VALID_RANGE = {[201:255]}; 
+LEFTCHANNELSERIALDATARANGE_0_CP : coverpoint i2sTransmitterTransaction.txSdLeftChannel[0] {
+  option.comment = "left channel serial data value range ";
+  bins SD_LEFT_CHANNEL_0_LOW_VALID_RANGE = {[0:50]};
+  bins SD_LEFT_CHANNEL_0_MID_VALID_RANGE = {[51:200]};
+  bins SD_LEFT_CHANNEL_0_HIGH_VALID_RANGE = {[201:255]}; 
  }
-SERIALDATARANGE_1_CP : coverpoint i2sTransmitterTransaction.txSd[1]{
-  option.comment = "serial data value range ";
-  bins SD_1_LOW_VALID_RANGE = {[0:50]};
-  bins SD_1_MID_VALID_RANGE = {[51:200]};
-  bins SD_1_HIGH_VALID_RANGE = {[201:255]};
+LEFTCHANNELSERIALDATARANGE_1_CP : coverpoint i2sTransmitterTransaction.txSdLeftChannel[1]{
+  option.comment = "left channel serial data value range ";
+  bins SD_LEFT_CHANNEL_1_LOW_VALID_RANGE = {[0:50]};
+  bins SD_LEFT_CHANNEL_1_MID_VALID_RANGE = {[51:200]};
+  bins SD_LEFT_CHANNEL_1_HIGH_VALID_RANGE = {[201:255]}; 
+}
+
+LEFTCHANNELSERIALDATARANGE_2_CP : coverpoint i2sTransmitterTransaction.txSdLeftChannel[2]{
+  option.comment = "left channel serial data value range ";
+  bins SD_LEFT_CHANNEL_2_LOW_VALID_RANGE = {[0:50]};
+  bins SD_LEFT_CHANNEL_2_MID_VALID_RANGE = {[51:200]};
+  bins SD_LEFT_CHANNEL_2_HIGH_VALID_RANGE = {[201:255]};   
+}
+
+LEFTCHANNELSERIALDATARANGE_3_CP : coverpoint i2sTransmitterTransaction.txSdLeftChannel[3]{
+  option.comment = "left channel serial data value range ";
+  bins SD_LEFT_CHANNEL_3_LOW_VALID_RANGE = {[0:50]};
+  bins SD_LEFT_CHANNEL_3_MID_VALID_RANGE = {[51:200]};
+  bins SD_LEFT_CHANNEL_3_HIGH_VALID_RANGE = {[201:255]};
  }
 
-SERIALDATARANGE_2_CP : coverpoint i2sTransmitterTransaction.txSd[2]{
-  option.comment = "serial data value range ";
-  bins SD_2_LOW_VALID_RANGE = {[0:50]};
-  bins SD_2_MID_VALID_RANGE = {[51:200]};
-  bins SD_2_HIGH_VALID_RANGE = {[201:255]};
+RIGHTCHANNELSERIALDATARANGE_0_CP : coverpoint i2sTransmitterTransaction.txSdRightChannel[0] {
+  option.comment = "right channel serial data value range ";
+  bins SD_RIGHT_CHANNEL_0_LOW_VALID_RANGE = {[0:50]};
+  bins SD_RIGHT_CHANNEL_0_MID_VALID_RANGE = {[51:200]};
+  bins SD_RIGHT_CHANNEL_0_HIGH_VALID_RANGE = {[201:255]}; 
+ }
+RIGHTCHANNELSERIALDATARANGE_1_CP : coverpoint i2sTransmitterTransaction.txSdRightChannel[1]{
+  option.comment = "right channel serial data value range ";
+  bins SD_RIGHT_CHANNEL_1_LOW_VALID_RANGE = {[0:50]};
+  bins SD_RIGHT_CHANNEL_1_MID_VALID_RANGE = {[51:200]};
+  bins SD_RIGHT_CHANNEL_1_HIGH_VALID_RANGE = {[201:255]};
  }
 
-SERIALDATARANGE_3_CP : coverpoint i2sTransmitterTransaction.txSd[3]{
-  option.comment = "serial data value range ";
-  bins SD_3_LOW_VALID_RANGE = {[0:50]};
-  bins SD_3_MID_VALID_RANGE = {[51:200]};
-  bins SD_3_HIGH_VALID_RANGE = {[201:255]};
- }
+RIGHTCHANNELSERIALDATARANGE_2_CP : coverpoint i2sTransmitterTransaction.txSdRightChannel[2]{
+  option.comment = "right channel serial data value range ";
+  bins SD_RIGHT_CHANNEL_2_LOW_VALID_RANGE = {[0:50]};
+  bins SD_RIGHT_CHANNEL_2_MID_VALID_RANGE = {[51:200]};
+  bins SD_RIGHT_CHANNEL_2_HIGH_VALID_RANGE = {[201:255]}; 
+}
+
+RIGHTCHANNELSERIALDATARANGE_3_CP : coverpoint i2sTransmitterTransaction.txSdRightChannel[3]{
+  option.comment = "right channel serial data value range ";
+  bins SD_RIGHT_CHANNEL_3_LOW_VALID_RANGE = {[0:50]};
+  bins SD_RIGHT_CHANNEL_3_MID_VALID_RANGE = {[51:200]};
+  bins SD_RIGHT_CHANNEL_3_HIGH_VALID_RANGE = {[201:255]}; 
+}
+
 
 NUMOFBITSTRANSFER_TX_CP : coverpoint i2sTransmitterTransaction.txNumOfBitsTransfer{
   option.comment = "Num of Bits Transfer";
@@ -68,6 +96,9 @@ CLOCKFREQUENCY_TX_CP : coverpoint i2sTransmitterAgentConfig.clockratefrequency{
   option.comment = "Clock Frequency";
 
   bins khz_8000={KHZ_8};
+  bins khz_16000={KHZ_16};
+  bins khz_24000={KHZ_24};
+  bins khz_32000={KHZ_32};
   bins khz_48000={KHZ_48};
   bins khz_96000={KHZ_96};
   bins khz_192000={KHZ_192};

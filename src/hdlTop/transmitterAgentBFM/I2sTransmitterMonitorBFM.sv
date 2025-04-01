@@ -118,7 +118,8 @@ interface I2sTransmitterMonitorBFM(input clk,
         @(negedge sclk);
       end
     end
-   packetStruct.sd[i] = serialdata;
+   packetStruct.sdLeftChannel[i] = serialdata;
+   packetStruct.sdRightChannel[i]=0;
 
   endtask : SampleSdFromLeftChannel
 
@@ -136,7 +137,9 @@ interface I2sTransmitterMonitorBFM(input clk,
         @(negedge sclk);
       end
     end
-    packetStruct.sd[i] = serialdata;
+    packetStruct.sdRightChannel[i] = serialdata;
+    packetStruct.sdLeftChannel[i]=0;
+
   endtask : SampleSdFromRightChannel
 
 endinterface : I2sTransmitterMonitorBFM
