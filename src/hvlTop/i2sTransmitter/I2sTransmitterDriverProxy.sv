@@ -18,7 +18,9 @@ class I2sTransmitterDriverProxy extends uvm_driver#(I2sTransmitterTransaction);
   extern virtual function void connect_phase(uvm_phase phase);
   extern virtual function void end_of_elaboration_phase(uvm_phase phase);
   extern virtual task run_phase(uvm_phase phase);
-  extern virtual task driveToBFM(inout i2sTransferPacketStruct packetStruct, 
+  extern virtual task driveToBFMWhenTXMaster(inout i2sTransferPacketStruct packetStruct, 
+                                   input i2sTransferCfgStruct configStruct);
+  extern virtual task driveToBFMWhenTXSlave(inout i2sTransferPacketStruct packetStruct, 
                                    input i2sTransferCfgStruct configStruct);
   extern virtual task driveToBFMSclk(input i2sTransferCfgStruct configStruct);
 
@@ -64,7 +66,7 @@ task I2sTransmitterDriverProxy::run_phase(uvm_phase phase);
   `uvm_info(get_type_name(), "Running the transmitter Driver", UVM_NONE)
 
    i2sTransmitterDriverBFM.waitForReset();
-  `uvm_info(get_type_name(), "I2S :: Reset detected", UVM_NONE);
+   `uvm_info(get_type_name(), "I2S :: Reset detected", UVM_NONE);
 
    
      I2sTransmitterConfigConverter::fromTransmitterClass(i2sTransmitterAgentConfig, configStruct);
@@ -80,23 +82,23 @@ task I2sTransmitterDriverProxy::run_phase(uvm_phase phase);
        driveToBFMSclk(configStruct);
        driverBFMWhenTXMaster(packetStruct,configStruct);
      join_any
-    
+     
      end
+
     else if(configStruct.mode == TX_SLAVE)
     begin
       driverBFMWhenTXSlave(packetStruct,configStruct);
-    end	
 
+    end	
  endtask : run_phase
 
  task I2sTransmitterDriverProxy::driverBFMWhenTXMaster(inout i2sTransferPacketStruct packetStruct,input i2sTransferCfgStruct configStruct);
 
-  forever begin
-
-    seq_item_port.get_next_item(i2sTransmitterTransaction);
+  forever 
+   begin
+     seq_item_port.get_next_item(i2sTransmitterTransaction);
     
     `uvm_info(get_type_name(), $sformatf("IN DRIVER- Received i2sTransmitterTransaction\n%s",i2sTransmitterTransaction.sprint()), UVM_NONE)
-
 
     I2sTransmitterSeqItemConverter::fromTransmitterClass(i2sTransmitterTransaction, packetStruct);
     `uvm_info(get_type_name(), $sformatf("IN DRIVER- Converted i2sTransmitterTransaction to struct\n%p",packetStruct), UVM_NONE)
@@ -104,17 +106,15 @@ task I2sTransmitterDriverProxy::run_phase(uvm_phase phase);
      I2sTransmitterConfigConverter::fromTransmitterClass(i2sTransmitterAgentConfig, configStruct);
     `uvm_info(get_type_name(), $sformatf("IN DRIVER- Converted cfg struct\n%p",configStruct), UVM_NONE)
 
-     driveToBFM(packetStruct,configStruct);
+     driveToBFMWhenTXMaster(packetStruct,configStruct);
        
     I2sTransmitterSeqItemConverter::toTransmitterClass(packetStruct,i2sTransmitterTransaction);
     `uvm_info(get_type_name(), $sformatf("IN DRIVER-After driving data to interface :: Received i2sTransmitterTransaction\n%s",i2sTransmitterTransaction.sprint()), UVM_NONE)
     
-   // #30; 
     seq_item_port.item_done();
-    
   end
-  
-  endtask
+
+ endtask:driverBFMWhenTXMaster
 
    task I2sTransmitterDriverProxy::driverBFMWhenTXSlave(inout i2sTransferPacketStruct packetStruct,input i2sTransferCfgStruct configStruct);
     
@@ -128,7 +128,8 @@ task I2sTransmitterDriverProxy::run_phase(uvm_phase phase);
 
      I2sTransmitterConfigConverter::fromTransmitterClass(i2sTransmitterAgentConfig, configStruct);
     `uvm_info(get_type_name(), $sformatf("IN DRIVER- Converted cfg struct\n%p",configStruct), UVM_NONE)
-     i2sTransmitterDriverBFM.detectWsandDriveSd(packetStruct,configStruct);
+     
+     driveToBFMWhenTXSlave(packetStruct,configStruct);
     
     I2sTransmitterSeqItemConverter::toTransmitterClass(packetStruct,i2sTransmitterTransaction);
     `uvm_info(get_type_name(), $sformatf("IN DRIVER-After driving data to interface :: Received i2sTransmitterTransaction\n%s",i2sTransmitterTransaction.sprint()), UVM_NONE)
@@ -140,18 +141,26 @@ task I2sTransmitterDriverProxy::run_phase(uvm_phase phase);
   endtask:driverBFMWhenTXSlave
 
 
-task I2sTransmitterDriverProxy::driveToBFM(inout i2sTransferPacketStruct packetStruct, 
-                                   input i2sTransferCfgStruct configStruct);
-  `uvm_info("DEBUG", "IN DRIVER- Inside drive to bfm", UVM_NONE);
-  i2sTransmitterDriverBFM.driveData(packetStruct,configStruct); 
-  `uvm_info(get_type_name(),$sformatf("IN DRIVER- AFTER STRUCT PACKET : , \n %p",configStruct),UVM_LOW);
-endtask: driveToBFM
-
 task I2sTransmitterDriverProxy::driveToBFMSclk(input i2sTransferCfgStruct configStruct);
   `uvm_info("DEBUG", "IN DRIVER- Inside drive to bfm Sclk", UVM_NONE);
   i2sTransmitterDriverBFM.genSclk(configStruct);
   `uvm_info(get_type_name(),$sformatf("IN DRIVER- AFTER STRUCT PACKET : , \n %p",configStruct),UVM_LOW);
 endtask: driveToBFMSclk
+
+task I2sTransmitterDriverProxy::driveToBFMWhenTXMaster(inout i2sTransferPacketStruct packetStruct, 
+                                   input i2sTransferCfgStruct configStruct);
+  `uvm_info("DEBUG", "IN DRIVER- Inside drive to bfm when TX master", UVM_NONE);
+  i2sTransmitterDriverBFM.driveDataWhenTxMaster(packetStruct,configStruct); 
+  `uvm_info(get_type_name(),$sformatf("IN DRIVER- AFTER STRUCT PACKET : , \n %p",configStruct),UVM_LOW);
+endtask: driveToBFMWhenTXMaster
+
+task I2sTransmitterDriverProxy::driveToBFMWhenTXSlave(inout i2sTransferPacketStruct packetStruct, 
+                                   input i2sTransferCfgStruct configStruct);
+  `uvm_info("DEBUG", "IN DRIVER- Inside drive to bfm when TX slave", UVM_NONE);
+  i2sTransmitterDriverBFM.driveDataWhenTxSlave(packetStruct,configStruct); 
+  `uvm_info(get_type_name(),$sformatf("IN DRIVER- AFTER STRUCT PACKET : , \n %p",configStruct),UVM_LOW);
+endtask: driveToBFMWhenTXSlave
+
 
 
 `endif

@@ -34,6 +34,9 @@ package I2sReceiverSequencePkg;
   `include "I2sReceiverWrite24bitTransferWithRxWSP16bitTxWSP48bitSeq.sv"
   `include "I2sReceiverWrite24bitTransferWithRxWSP32bitTxWSP48bitSeq.sv"
 
+  
+  `include "I2sReceiverWriteRandomTransferSeq.sv"
+
 
   endpackage : I2sReceiverSequencePkg
 `endif

@@ -14,8 +14,6 @@ package I2sVirtualSeqPkg;
 
  `include "I2sVirtualBaseSeq.sv"
 
-
- 
  `include "I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq.sv"
  `include "I2sVirtual8bitWriteOperationRxMasterTxSlaveSeq.sv"
  `include "I2sVirtual16bitWriteOperationTxMasterRxSlaveSeq.sv"
@@ -38,8 +36,16 @@ package I2sVirtualSeqPkg;
  `include "I2sVirtual32bitWriteOperationRxMasterTxSlaveWithRxWSP48bitTxWSP64bitSeq.sv"
  `include "I2sVirtual16bitWriteOperationRxMasterTxSlaveWithRxWSP16bitTxWSP32bitSeq.sv"
  `include "I2sVirtual24bitWriteOperationRxMasterTxSlaveWithRxWSP16bitTxWSP48bitSeq.sv"
- `include "I2sVirtual24bitWriteOperationRxMasterTxSlaveWithRxWSP32bitTxWSP48bitSeq.sv"  
- 
+ `include "I2sVirtual24bitWriteOperationRxMasterTxSlaveWithRxWSP32bitTxWSP48bitSeq.sv" 
+
+ `include "I2sVirtualRandomWriteOperationTxMasterRxSlaveWithTxWSP32bitSeq.sv"
+ `include "I2sVirtualRandomWriteOperationTxMasterRxSlaveWithTxWSP48bitSeq.sv"
+ `include "I2sVirtualRandomWriteOperationTxMasterRxSlaveWithTxWSP64bitSeq.sv"
+ `include "I2sVirtualRandomWriteOperationRxMasterTxSlaveSeq.sv"
+
+ `include "I2sVirtualWriteOperationDataTransferErrorSeq.sv"
+ `include "I2sVirtualWriteOperationWithInvalidWSPErrorSeq.sv"
+
 endpackage : I2sVirtualSeqPkg
 
 `endif

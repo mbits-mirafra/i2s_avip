@@ -24,8 +24,8 @@ function void I2sWriteOperationWith8bitdataTxMasterRxSlaveWith48khzTest::setupTr
      i2sEnvConfig.i2sTransmitterAgentConfig.Sclk  = 1; 
      i2sEnvConfig.i2sTransmitterAgentConfig.numOfChannels  = numOfChannelsEnum'(STEREO);
      i2sEnvConfig.i2sTransmitterAgentConfig.wordSelectPeriod  = wordSelectPeriodEnum'(WS_PERIOD_2_BYTE);
-
-
+     i2sEnvConfig.i2sTransmitterAgentConfig.dataTransferDirection  = dataTransferDirectionEnum'(MSB_FIRST);
+    
 endfunction:setupTransmitterAgentConfig
 
 
@@ -35,13 +35,14 @@ function void I2sWriteOperationWith8bitdataTxMasterRxSlaveWith48khzTest::setupRe
    i2sEnvConfig.i2sReceiverAgentConfig.isActive     = uvm_active_passive_enum'(UVM_PASSIVE);
    i2sEnvConfig.i2sReceiverAgentConfig.numOfChannels  = numOfChannelsEnum'(STEREO);
    i2sEnvConfig.i2sReceiverAgentConfig.wordSelectPeriod  = wordSelectPeriodEnum'(WS_PERIOD_2_BYTE);
+   
 
 endfunction:setupReceiverAgentConfig
 
 
 function void I2sWriteOperationWith8bitdataTxMasterRxSlaveWith48khzTest::build_phase(uvm_phase phase);
   super.build_phase(phase);
-    i2sVirtual8bitWriteOperationTxMasterRxSlaveSeq =  I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq::type_id::create(" i2sVirtual8bitWriteOperationTxMasterRxSlaveSeq",this);
+    i2sVirtual8bitWriteOperationTxMasterRxSlaveSeq =  I2sVirtual8bitWriteOperationTxMasterRxSlaveSeq::type_id::create(" i2sVirtual8bitWriteOperationTxMasterRxSlaveSeq");
   endfunction : build_phase
 
 task I2sWriteOperationWith8bitdataTxMasterRxSlaveWith48khzTest::run_phase(uvm_phase phase);

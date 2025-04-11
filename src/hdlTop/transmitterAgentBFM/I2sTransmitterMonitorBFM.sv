@@ -22,9 +22,9 @@ interface I2sTransmitterMonitorBFM(input clk,
 
   task waitForReset();
     @(negedge rst);
-    `uvm_info("IN MONITOR- FROM TRANSMITTER MON BFM",$sformatf("SYSTEM RESET ACTIVATED"),UVM_NONE)
+    `uvm_info("IN MONITOR- FROM TRANSMITTER MONITOR BFM",$sformatf("SYSTEM RESET ACTIVATED"),UVM_NONE)
     @(posedge rst);
-    `uvm_info("IN MONITOR- FROM TRANSMITTER MON BFM",$sformatf("SYSTEM RESET DEACTIVATED"),UVM_NONE)
+    `uvm_info("IN MONITOR- FROM TRANSMITTER MONITOR BFM",$sformatf("SYSTEM RESET DEACTIVATED"),UVM_NONE)
   endtask : waitForReset
 
 
@@ -37,7 +37,7 @@ interface I2sTransmitterMonitorBFM(input clk,
         if(ws===1'bx) begin
           initialDetectWsfromUnknown(packetStruct);
         end
-        detectWs(packetStruct);
+        detectWsAndSampleSd(packetStruct,configStruct);
       end
 
   endtask : sampleData
@@ -45,8 +45,8 @@ interface I2sTransmitterMonitorBFM(input clk,
 
   task initialDetectWsfromUnknown(inout i2sTransferPacketStruct packetStruct);
     logic [1:0] wsLocal;
-    $display("IN MONITOR- INITIAL detection of  WS: %0d at %0t",ws,$time);
-
+   `uvm_info(name, $sformatf("IN TRANSMITTER MONITOR-  INITIAL detection of  WS: %0d at %0t",ws,$time), UVM_NONE);
+    
     if (ws===1'bx)
       begin
         wsLocal = 2'b01;
@@ -58,7 +58,7 @@ interface I2sTransmitterMonitorBFM(input clk,
 
   endtask: initialDetectWsfromUnknown
 
-  task detectWs(inout i2sTransferPacketStruct packetStruct);
+  task detectWsAndSampleSd(inout i2sTransferPacketStruct packetStruct,input i2sTransferCfgStruct configStruct);
     logic [1:0] wsLocal;
          
     if(ws == 1) begin
@@ -72,7 +72,7 @@ interface I2sTransmitterMonitorBFM(input clk,
            if (ws==1) 
             begin
 	      packetStruct.ws=ws;
-              SampleSdFromLeftChannel(packetStruct,i);
+              SampleSdFromLeftChannel(packetStruct,i,configStruct);
             end
             else
               break;
@@ -92,7 +92,7 @@ interface I2sTransmitterMonitorBFM(input clk,
                if (ws==0) 
                begin
 		 packetStruct.ws=ws;
-                 SampleSdFromRightChannel(packetStruct,i);
+                 SampleSdFromRightChannel(packetStruct,i,configStruct);
                end
                else
                  break;
@@ -101,22 +101,25 @@ interface I2sTransmitterMonitorBFM(input clk,
           wsLocal = {wsLocal[0], ws};
         end while((wsLocal == 2'b00));
       end
-    `uvm_info(name, $sformatf("IN MONITOR- Monitor detect WS END"),UVM_NONE);
+    `uvm_info(name, $sformatf("IN TRANSMITTER MONITOR- Monitor detect WS END"),UVM_NONE);
 
-  endtask: detectWs
+  endtask: detectWsAndSampleSd
 
-  task SampleSdFromLeftChannel(inout i2sTransferPacketStruct packetStruct,input int i);
+  task SampleSdFromLeftChannel(inout i2sTransferPacketStruct packetStruct,input int i,input i2sTransferCfgStruct configStruct);
     bit [DATA_WIDTH-1:0] serialdata;
-    $display("IN MONITOR- Monitor sample SD from left channel task");
-    for(int k=DATA_WIDTH-1; k>=0; k--) begin 
-      serialdata[k] = sd;
+    `uvm_info(name,$sformatf("IN TRANSMITTER MONITOR- Monitor Serial Data from left channel task"),UVM_NONE);
+
+    for(int k=0; k<DATA_WIDTH; k++) 
+     begin
+      static int bit_no=0;
+      bit_no = (configStruct.dataTransferDirection==MSB_FIRST)?((DATA_WIDTH - 1) - k) :k;
+      serialdata[bit_no] = sd;
       packetStruct.numOfBitsTransfer++;
-      $display("IN TRASNMITTER MONITOR-LEFT CHANNEL SERIAL DATA[%0d]=%b at time:%0t",k,sd,$time);
-      `uvm_info(name, $sformatf("IN TRASNMITTER MONITOR-LEFT CHANNEL SERIAL DATA[%0d]=%b",k,sd),UVM_NONE);     
+      `uvm_info(name, $sformatf("IN TRANSMITTER MONITOR-LEFT CHANNEL SERIAL DATA[%0d]=%0b",bit_no,sd),UVM_NONE);     
       @(posedge sclk);
       if(ws==1) begin
         @(negedge sclk);
-      end
+     end
     end
    packetStruct.sdLeftChannel[i] = serialdata;
    packetStruct.sdRightChannel[i]=0;
@@ -124,14 +127,17 @@ interface I2sTransmitterMonitorBFM(input clk,
   endtask : SampleSdFromLeftChannel
 
 
-  task SampleSdFromRightChannel(inout i2sTransferPacketStruct packetStruct,input int i);
+  task SampleSdFromRightChannel(inout i2sTransferPacketStruct packetStruct,input int i,input i2sTransferCfgStruct configStruct);
     bit [DATA_WIDTH-1:0] serialdata;
-    $display("IN MONITOR- Monitor sample SD from right channel task");
-    for(int k=DATA_WIDTH-1; k>=0; k--) begin       
-      serialdata[k] = sd; 
+   `uvm_info(name,$sformatf("IN TRANSMITTER MONITOR- Monitor Serial Data from right channel task"),UVM_NONE);
+   
+   for(int k=0; k<DATA_WIDTH; k++) 
+     begin
+      static int bit_no=0;
+      bit_no = (configStruct.dataTransferDirection==MSB_FIRST)?((DATA_WIDTH - 1) - k) :k;
+      serialdata[bit_no] = sd;
       packetStruct.numOfBitsTransfer++; 
-      $display("IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[%0d]=%b at time:%0t",k,sd,$time);
-      `uvm_info(name, $sformatf("IN TRASNMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[%0d]=%b",k,sd),UVM_NONE);           
+      `uvm_info(name, $sformatf("IN TRANSMITTER MONITOR-RIGHT CHANNEL SERIAL DATA[%0d]=%0b",bit_no,sd),UVM_NONE);           
       @(posedge sclk);
       if(ws==0) begin
         @(negedge sclk);

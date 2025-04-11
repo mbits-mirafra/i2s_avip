@@ -43,6 +43,8 @@ function void I2sBaseTest::setupTransmitterAgentConfig();
     i2sEnvConfig.i2sTransmitterAgentConfig.isActive     = uvm_active_passive_enum'(UVM_ACTIVE);
     i2sEnvConfig.i2sTransmitterAgentConfig.hasCoverage  = hasCoverageEnum'(TRUE);
     i2sEnvConfig.i2sTransmitterAgentConfig.mode  = modeTypeEnum'(TX_MASTER);
+    i2sEnvConfig.i2sTransmitterAgentConfig.dataTransferDirection  = dataTransferDirectionEnum'(MSB_FIRST);
+
     uvm_config_db #(I2sTransmitterAgentConfig)::set(this,"*","I2sTransmitterAgentConfig",i2sEnvConfig.i2sTransmitterAgentConfig);
 endfunction: setupTransmitterAgentConfig
 
@@ -51,6 +53,8 @@ function void I2sBaseTest::setupReceiverAgentConfig();
     i2sEnvConfig.i2sReceiverAgentConfig.isActive     = uvm_active_passive_enum'(UVM_ACTIVE);
     i2sEnvConfig.i2sReceiverAgentConfig.hasCoverage  = hasCoverageEnum'(TRUE);
     i2sEnvConfig.i2sReceiverAgentConfig.mode  = modeTypeEnum'(RX_SLAVE);
+    i2sEnvConfig.i2sReceiverAgentConfig.dataTransferDirection  = dataTransferDirectionEnum'(MSB_FIRST);
+
     uvm_config_db #(I2sReceiverAgentConfig)::set(this,"*","I2sReceiverAgentConfig",i2sEnvConfig.i2sReceiverAgentConfig);
 endfunction: setupReceiverAgentConfig
 
@@ -61,6 +65,7 @@ endfunction : end_of_elaboration_phase
 
 task I2sBaseTest::run_phase(uvm_phase phase);
  i2sVirtualBaseSeq = I2sVirtualBaseSeq :: type_id :: create("i2sVirtualBaseSeq");
+ super.run_phase(phase);
   phase.raise_objection(this);
   i2sVirtualBaseSeq.start(i2sEnv.i2sVirtualSequencer);
   `uvm_info(get_type_name(), $sformatf("Inside I2sBaseTest"), UVM_NONE);

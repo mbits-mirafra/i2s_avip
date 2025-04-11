@@ -19,7 +19,7 @@ interface I2sTransmitterDriverBFM(input clk,
   int sclkPeriodDivider;
   int numOfChannels;
   int timeout_ws;
-  int txNumOfBitsTransfer;
+  int txNumOfBitsTransferLocal;
   
   import uvm_pkg::*;
   `include "uvm_macros.svh"
@@ -31,19 +31,6 @@ interface I2sTransmitterDriverBFM(input clk,
   i2sStateEnum state;
 
   string name = "I2sTransmitterDriverBFM";
-
-  import I2sTransmitterPkg::I2sTransmitterAgentConfig;
- 
-  I2sTransmitterAgentConfig i2sTransmitterAgentConfig;
-
-  initial begin
-    start_of_simulation_ph.wait_for_state(UVM_PHASE_STARTED);
-
-     if(!uvm_config_db#(I2sTransmitterAgentConfig)::get(null, "*", "I2sTransmitterAgentConfig",i2sTransmitterAgentConfig)) begin
-    `uvm_fatal("FATAL_TRANSMITTER_CANNOT_GET_IN_INTERFACE","cannot get() i2sTransmitterAgentConfig"); 
-    
-    end
-   end
 
   task waitForReset();
 
@@ -65,7 +52,7 @@ interface I2sTransmitterDriverBFM(input clk,
 
     `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER-Generating the Serial clock"), UVM_NONE)
 
-    txNumOfBitsTransfer= i2sTransmitterAgentConfig.wordSelectPeriod/2;
+    txNumOfBitsTransferLocal= configPacketStruct.wordSelectPeriod/2;
     
     @(posedge clk);
     time1 = $realtime;
@@ -96,7 +83,7 @@ interface I2sTransmitterDriverBFM(input clk,
 
   function void generateSclkPeriod(input i2sTransferCfgStruct cfgStr);
 
-    cfgStr.sclkFrequency = cfgStr.clockratefrequency * txNumOfBitsTransfer * cfgStr.numOfChannels;
+    cfgStr.sclkFrequency = cfgStr.clockratefrequency * txNumOfBitsTransferLocal * cfgStr.numOfChannels;
 
     sclkPeriod = ((10**9)/cfgStr.sclkFrequency);
     sclkPeriodDivider = (clkFrequency/cfgStr.sclkFrequency);
@@ -108,83 +95,90 @@ interface I2sTransmitterDriverBFM(input clk,
 
   endfunction: generateSclkPeriod
 
-  task driveData(inout i2sTransferPacketStruct dataPacketStruct, 
+//TX MASTER
+  task driveDataWhenTxMaster(inout i2sTransferPacketStruct dataPacketStruct, 
                  input i2sTransferCfgStruct configPacketStruct);
 
     `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Starting the drive data method mode=%d",configPacketStruct.mode), UVM_NONE);
-       repeat(configPacketStruct.numOfChannels) 
+   
+     repeat(configPacketStruct.numOfChannels) 
         begin
-      	 detectWsAndDriveSdWhenTxMaster(dataPacketStruct,configPacketStruct);
+      	 generateWsAndDriveSdWhenTxMaster(dataPacketStruct,configPacketStruct);
         end
        idleState();
-  endtask: driveData
+  endtask: driveDataWhenTxMaster
 
   task idleState();
      @(posedge sclkOutput)
+       $display("Inside Idle State");
        wsOutput <= WS_DEFAULT; 
        state    <= IDLE; 
   endtask:idleState
 
-task detectWsAndDriveSdWhenTxMaster(inout i2sTransferPacketStruct dataPacketStruct, input i2sTransferCfgStruct configPacketStruct);
-      if(dataPacketStruct.ws==1'b1) 
+task generateWsAndDriveSdWhenTxMaster(inout i2sTransferPacketStruct dataPacketStruct, input i2sTransferCfgStruct configPacketStruct);
+  txNumOfBitsTransferLocal= configPacketStruct.wordSelectPeriod/2;
+ 
+   if(dataPacketStruct.ws==1'b1) 
       begin
         `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Driving data from left channel"), UVM_NONE);
-        for(int i=0; i<dataPacketStruct.numOfBitsTransfer/DATA_WIDTH;i++) 
+        
+       for(int i=0; i< txNumOfBitsTransferLocal/DATA_WIDTH;i++) 
           begin
-            LeftChanneldriveSdandWsWhenTxMaster(dataPacketStruct.sdLeftChannel[i],dataPacketStruct);
+            leftChannelDriveSdAndWsWhenTxMaster(dataPacketStruct.sdLeftChannel[i],dataPacketStruct,configPacketStruct);
           end
        end
 
     else if(dataPacketStruct.ws==1'b0) 
       begin
         `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Driving data from Right channel"), UVM_NONE);
-        for(int i=0; i<dataPacketStruct.numOfBitsTransfer/DATA_WIDTH;i++) 
+       
+        for(int i=0; i< txNumOfBitsTransferLocal/DATA_WIDTH;i++) 
           begin
-	   RightChanneldriveSdandWsWhenTxMaster(dataPacketStruct.sdRightChannel[i],dataPacketStruct);    
+	   rightChannelDriveSdAndWsWhenTxMaster(dataPacketStruct.sdRightChannel[i],dataPacketStruct,configPacketStruct);    
           end
       end
 
-     dataPacketStruct.ws = ~ dataPacketStruct.ws;
+     dataPacketStruct.ws = ~ dataPacketStruct.ws;  
 
+  endtask: generateWsAndDriveSdWhenTxMaster
 
-  endtask: detectWsAndDriveSdWhenTxMaster
-
-  task LeftChanneldriveSdandWsWhenTxMaster(input bit[7:0]serialData,input i2sTransferPacketStruct dataPacketStruct);
-    `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Left SerialData = %b",serialData), UVM_NONE) 
-
+  task leftChannelDriveSdAndWsWhenTxMaster(input bit[7:0]serialData,input i2sTransferPacketStruct dataPacketStruct,input i2sTransferCfgStruct configPacketStruct);
+    `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Left Channel Serial Data = %b",serialData), UVM_NONE) 
+    
     for(int k=0; k<DATA_WIDTH; k++) 
       begin
         static int bit_no=0;
-        bit_no = (DATA_WIDTH - 1) - k;
+        bit_no = (configPacketStruct.dataTransferDirection==MSB_FIRST)?((DATA_WIDTH - 1) - k) :k;
         @(posedge sclkOutput)
           state <= LEFT_CHANNEL;
           wsOutput <= dataPacketStruct.ws;
           sd <= serialData[bit_no];
-         `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Left Serial data[%0d] = %b at time:%0t",bit_no, serialData[bit_no],$time), UVM_NONE)
+         `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Left Channel Serial data[%0d] = %b at time:%0t",bit_no,serialData[bit_no],$time), UVM_NONE)
       end
-    `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Generating Left serial data end"), UVM_NONE)
-  endtask: LeftChanneldriveSdandWsWhenTxMaster
+    `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Generating Left Channel serial data end"), UVM_NONE)
+  endtask: leftChannelDriveSdAndWsWhenTxMaster
 
 
-  task RightChanneldriveSdandWsWhenTxMaster(input bit[7:0]serialData, input i2sTransferPacketStruct dataPacketStruct);
-    `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Right SerialData = %b",serialData), UVM_NONE) 
+  task rightChannelDriveSdAndWsWhenTxMaster(input bit[7:0]serialData, input i2sTransferPacketStruct dataPacketStruct,input i2sTransferCfgStruct configPacketStruct);
+    `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Right Channel Serial Data = %b",serialData), UVM_NONE) 
 
     for(int k=0; k<DATA_WIDTH; k++) 
       begin
         static int bit_no=0;
-        bit_no = (DATA_WIDTH - 1) - k;
+        bit_no = (configPacketStruct.dataTransferDirection==MSB_FIRST)?((DATA_WIDTH - 1) - k) :k;
         @(posedge sclkOutput)
 	  state <= RIGHT_CHANNEL;
-          wsOutput <= dataPacketStruct.ws;
+          wsOutput <= dataPacketStruct.ws;     
           sd <= serialData[bit_no];
-        `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Right Serial data[%0d] = %b at time:%0t",bit_no,serialData[bit_no],$time), UVM_NONE)
+        `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Right Channel Serial data[%0d] = %b at time:%0t",bit_no,serialData[bit_no],$time), UVM_NONE)
       end
-    `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Generating serial Right data end"), UVM_NONE)
-  endtask: RightChanneldriveSdandWsWhenTxMaster
+    `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Generating Right Channel serial data end"), UVM_NONE)
+  endtask: rightChannelDriveSdAndWsWhenTxMaster
 
-  task detectWsandDriveSd(inout i2sTransferPacketStruct dataPacketStruct, input i2sTransferCfgStruct configPacketStruct);
+ // TX SLAVE
+  task driveDataWhenTxSlave(inout i2sTransferPacketStruct dataPacketStruct, input i2sTransferCfgStruct configPacketStruct);
     begin
-      txNumOfBitsTransfer= i2sTransmitterAgentConfig.wordSelectPeriod/2;
+      txNumOfBitsTransferLocal= configPacketStruct.wordSelectPeriod/2;
 
       initialDetectWsfromUnknown(); 
       repeat(configPacketStruct.numOfChannels)
@@ -192,7 +186,7 @@ task detectWsAndDriveSdWhenTxMaster(inout i2sTransferPacketStruct dataPacketStru
           detectWsToggleAndDriveSdWhenTxSlave(dataPacketStruct,configPacketStruct);
         end
     end
-  endtask :detectWsandDriveSd
+  endtask :driveDataWhenTxSlave
 
   task initialDetectWsfromUnknown();
     logic [1:0] wsLocal;
@@ -213,158 +207,114 @@ task detectWsAndDriveSdWhenTxMaster(inout i2sTransferPacketStruct dataPacketStru
   endtask: initialDetectWsfromUnknown
 
 
-
-  task detectWsToggleAndDriveSdWhenTxSlave(inout i2sTransferPacketStruct dataPacketStruct, input i2sTransferCfgStruct configPacketStruct);
-
-    logic [1:0] wsLocal;
-    static int counterSd;
-    static bit [7:0] sdLocal='b00000000;
+  task detectWsToggleAndDriveSdWhenTxSlave(inout i2sTransferPacketStruct dataPacketStruct,input i2sTransferCfgStruct configPacketStruct);
      
     if(wsInput == 1'b1) 
       begin
-       wsLocal = 2'b11; 
-       counterSd=0;
-        do begin
-         if (counterSd==0)
-           begin
-             for(int i=0; i< txNumOfBitsTransfer/DATA_WIDTH;i++) 
-              begin
-               if (wsInput==1)
-		begin
-                  driveSerialDataTxSlave(dataPacketStruct.sdLeftChannel[i]);  
-		end
-               else
-		 break;
-              end
-            counterSd= 1;
-           end
-         else
-           begin
-            driveSerialDataTxSlave(sdLocal);      
-           end  
-         wsLocal = {wsLocal[0], wsInput}; 
-        end while((wsLocal == 2'b11) );
+         driveLeftChannelSerialDataWhenTxSlave(dataPacketStruct,configPacketStruct);
       end
  
      else if(wsInput == 1'b0) 
       begin
-       wsLocal = 2'b00; 
-       counterSd=0;
-        do begin
-         if (counterSd==0)
-           begin
-             for(int i=0; i< txNumOfBitsTransfer/DATA_WIDTH;i++) 
-              begin
-               if (wsInput==0)
-		begin
-                 driveSerialDataTxSlave(dataPacketStruct.sdRightChannel[i]);  
-		end
-              end
-            counterSd= 1;
-           end
-         else
-           begin
-            driveSerialDataTxSlave(sdLocal);      
-           end  
-         wsLocal = {wsLocal[0], wsInput}; 
-        end while((wsLocal == 2'b00) );
+         driveRightChannelSerialDataWhenTxSlave(dataPacketStruct,configPacketStruct);
       end
 
   endtask: detectWsToggleAndDriveSdWhenTxSlave
 
-  task driveSerialDataTxSlave(input bit[7:0] serialdata);
-    `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving SerialData = %b",serialdata), UVM_NONE)
+ task driveLeftChannelSerialDataWhenTxSlave(inout i2sTransferPacketStruct dataPacketStruct,input i2sTransferCfgStruct configPacketStruct);
+    logic [1:0] wsLocal;
+    static int counterSd;
+    static bit [7:0] sdLocal='b00000000;
+     
+     wsLocal = 2'b11; 
+     counterSd=0;
+     do begin
+       if (counterSd==0)
+         begin
+           for(int i=0; i< txNumOfBitsTransferLocal/DATA_WIDTH;i++) 
+            begin
+              if (wsInput==1)
+		begin
+                 leftChannelDriveSdWhenTxSlave(dataPacketStruct.sdLeftChannel[i],configPacketStruct);  
+		end
+              else
+        	 break;
+            end
+         counterSd= 1;
+        end
+      else
+        begin
+          leftChannelDriveSdWhenTxSlave(sdLocal,configPacketStruct);      
+        end  
+     wsLocal = {wsLocal[0], wsInput}; 
+     end while((wsLocal == 2'b11) );
 
-    for(int k=0; k<DATA_WIDTH; k++) begin
-      static int bit_no=0;
-      bit_no = (DATA_WIDTH - 1) - k;
-      sd <= serialdata[bit_no];
-      `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Serial data[%0d] = %b at time %0t",bit_no, serialdata[bit_no], $time), UVM_NONE)
-      @(posedge sclkInput);
-    end
-    `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Generating serial data end"), UVM_NONE)
-  endtask: driveSerialDataTxSlave
+ endtask: driveLeftChannelSerialDataWhenTxSlave 
 
+ task driveRightChannelSerialDataWhenTxSlave(inout i2sTransferPacketStruct dataPacketStruct,input i2sTransferCfgStruct configPacketStruct);
+    logic [1:0] wsLocal;
+    static int counterSd;
+    static bit [7:0] sdLocal='b00000000;
+    
+     wsLocal = 2'b00; 
+     counterSd=0;
+     do begin
+       if (counterSd==0)
+         begin
+          for(int i=0; i< txNumOfBitsTransferLocal/DATA_WIDTH;i++) 
+            begin
+             if (wsInput==0)
+               begin
+                 rightChannelDriveSdWhenTxSlave(dataPacketStruct.sdRightChannel[i],configPacketStruct);  
+               end
+             else
+        	break;
+           end
+         counterSd= 1;
+        end
+      else
+        begin
+          rightChannelDriveSdWhenTxSlave(sdLocal,configPacketStruct);      
+        end  
+     wsLocal = {wsLocal[0], wsInput}; 
+     end while((wsLocal == 2'b00) );
+   
+ endtask: driveRightChannelSerialDataWhenTxSlave 
+
+ task leftChannelDriveSdWhenTxSlave(input bit[7:0]serialData,input i2sTransferCfgStruct configPacketStruct);
+    `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Left Channel Serial Data = %b",serialData), UVM_NONE) 
+
+    for(int k=0; k<DATA_WIDTH; k++) 
+      begin
+        static int bit_no=0;
+         bit_no = (configPacketStruct.dataTransferDirection==MSB_FIRST)?((DATA_WIDTH - 1) - k) :k;
+        sd <= serialData[bit_no];
+        state <= LEFT_CHANNEL;
+        `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Left Channel Serial data[%0d] = %b at time:%0t",bit_no,serialData[bit_no],$time), UVM_NONE)
+       @(posedge sclkInput);
+
+      end
+    `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Generating Left Channel serial data end"), UVM_NONE)
+  endtask: leftChannelDriveSdWhenTxSlave
+
+
+  task rightChannelDriveSdWhenTxSlave(input bit[7:0]serialData,input i2sTransferCfgStruct configPacketStruct);
+    `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Right Channel Serial Data = %b",serialData), UVM_NONE) 
+
+    for(int k=0; k<DATA_WIDTH; k++) 
+      begin
+        static int bit_no=0;
+        bit_no = (configPacketStruct.dataTransferDirection==MSB_FIRST)?((DATA_WIDTH - 1) - k) :k;
+       	sd <= serialData[bit_no];
+        state <= RIGHT_CHANNEL;
+        `uvm_info("DEBUG", $sformatf("IN TRANSMITTER DRIVER- Driving Right Channel Serial data[%0d] = %b at time:%0t",bit_no,serialData[bit_no],$time), UVM_NONE)
+         @(posedge sclkInput);
+
+      end
+    `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Generating Right Channel serial data end"), UVM_NONE)
+  endtask: rightChannelDriveSdWhenTxSlave
 
 endinterface : I2sTransmitterDriverBFM
 `endif
 
- /* task genWs(inout i2sTransferPacketStruct dataPacketStruct, input i2sTransferCfgStruct configPacketStruct);
-    static int counter=0;
-     timeout_ws = configPacketStruct.numOfChannels;   
-    `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER-Generating the WS"), UVM_NONE)
-      
-    forever begin
-      @(posedge sclkOutput);
-   
-      if (counter == (configPacketStruct.wordSelectPeriod/2))
-        begin
-	 timeout_ws=timeout_ws-1;
-
-          if(timeout_ws==0) begin
-            wsOutput <= WS_DEFAULT; 
-	    state<=IDLE;
-            break;
-          end
-
-          dataPacketStruct.ws = ~ dataPacketStruct.ws;	
-          counter = 0;
-        end
-       wsOutput <= dataPacketStruct.ws;
-      
-       counter++;
-       
-        if (dataPacketStruct.ws==1'b0)
-          begin
-
-	   state <= RIGHT_CHANNEL;
-       	   `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Driving data from Right channel"), UVM_NONE);
-           for(int i=0; i<dataPacketStruct.numOfBitsTransfer/DATA_WIDTH;i++) 
-           begin
-	    RightChanneldriveSdWhenTxMaster(dataPacketStruct.sd[i]);    
-           end
-
-	  end
-        else if(dataPacketStruct.ws==1'b1)
-         begin
-	   state <= LEFT_CHANNEL;
-           `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Driving data from left channel"), UVM_NONE);
-           for(int i=0; i<dataPacketStruct.numOfBitsTransfer/DATA_WIDTH;i++) 
-           begin
-            LeftChanneldriveSdWhenTxMaster(dataPacketStruct.sd[i]);
-           end
-
-	 end
-
-    end  
-    counter=0;
-    timeout_ws= configPacketStruct.numOfChannels;
-
-    `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER-Generating the WS ended"), UVM_NONE)
-  endtask: genWs*/                
-
-  /*task detectWsAndDriveSdWhenTxMaster(inout i2sTransferPacketStruct dataPacketStruct);
-    repeat(2) begin
-    if(wsLocal==1'b1) 
-      begin
-        `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Driving data from left channel"), UVM_NONE);
-        for(int i=0; i<dataPacketStruct.numOfBitsTransfer/DATA_WIDTH;i++) 
-          begin
-            LeftChanneldriveSdWhenTxMaster(dataPacketStruct.sd[i]);
-          end
-      end
-
-    else if(wsLocal==1'b0) 
-     begin
-        `uvm_info(name, $sformatf("IN TRANSMITTER DRIVER- Driving data from Right channel"), UVM_NONE);
-        for(int i=0; i<dataPacketStruct.numOfBitsTransfer/DATA_WIDTH;i++) 
-          begin
-	   RightChanneldriveSdWhenTxMaster(dataPacketStruct.sd[i]);    
-          end
-      end
-   end
-
-  endtask: detectWsAndDriveSdWhenTxMaster*/
-
-
-
+  

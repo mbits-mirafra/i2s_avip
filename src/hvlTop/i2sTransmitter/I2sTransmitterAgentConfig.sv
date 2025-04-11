@@ -11,6 +11,7 @@ class I2sTransmitterAgentConfig extends uvm_object;
   bit Sclk;
   numOfChannelsEnum numOfChannels;
   wordSelectPeriodEnum  wordSelectPeriod;
+  dataTransferDirectionEnum dataTransferDirection;
 
   int clockPeriod;
   int sclkFrequency;
@@ -39,7 +40,8 @@ function void I2sTransmitterAgentConfig::do_print(uvm_printer printer);
   printer.print_field ("Sclk",Sclk, $bits(Sclk), UVM_DEC);
   printer.print_field ("numOfChannels", numOfChannels, $bits(numOfChannels), UVM_DEC);
   printer.print_field ("wordSelectPeriod", wordSelectPeriod, $bits(wordSelectPeriod), UVM_DEC);
-
+  printer.print_field ("dataTransferDirection",dataTransferDirection, $bits(dataTransferDirection), UVM_DEC);
+ 
  // printer.print_field ("delayFortxSd", delayFortxSd, 32, UVM_DEC);
  // printer.print_field ("delayForWs", delayFortxWs, 32, UVM_DEC);
 
