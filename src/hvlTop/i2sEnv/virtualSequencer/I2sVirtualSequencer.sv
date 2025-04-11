@@ -25,7 +25,8 @@ function void I2sVirtualSequencer::build_phase(uvm_phase phase);
   super.build_phase(phase);
   
   if(!uvm_config_db #(I2sEnvConfig)::get(this,"","I2sEnvConfig",i2sEnvConfig))
-   `uvm_error("VSEQR","COULDNT GET")
+   `uvm_fatal(get_type_name(),"cannot get() env_cfg from uvm_config_db.Have you set() it?")
+
     i2sTransmitterSequencer = I2sTransmitterSequencer::type_id::create("i2sTransmitterSequencer",this);
    i2sReceiverSequencer = I2sReceiverSequencer::type_id::create("i2sReceiverSequencer",this);
   

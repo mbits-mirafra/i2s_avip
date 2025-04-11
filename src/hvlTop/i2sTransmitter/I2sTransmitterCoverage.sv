@@ -90,6 +90,7 @@ NUMOFBITSTRANSFER_TX_CP : coverpoint i2sTransmitterTransaction.txNumOfBitsTransf
   bins BITS_16 = {16};
   bins BITS_24 = {24};
   bins BITS_32 = {32};
+  illegal_bins BINS_INVALID={[33:$]};
 }
 
 CLOCKFREQUENCY_TX_CP : coverpoint i2sTransmitterAgentConfig.clockratefrequency{
@@ -112,6 +113,7 @@ CLOCKFREQUENCY_TX_CP : coverpoint i2sTransmitterAgentConfig.clockratefrequency{
    bins WS_PERIOD_4_BYTE = {32};
    bins WS_PERIOD_6_BYTE = {48};
    bins WS_PERIOD_8_BYTE = {64};
+   illegal_bins WS_PERIOD_INVALID= {[65:$]};
 }
 
 NUMOFBITSTRANSFER_TX_X_WORD_SELECT_TX_CP:cross NUMOFBITSTRANSFER_TX_CP,WORDSELECT_TX_CP;

@@ -42,7 +42,21 @@ package I2sTestPkg;
  `include "I2sWriteOperationWith32bitdataRxMasterTxSlaveWithRxWSP16bitTxWSP64bitWith32khzTest.sv"       
  `include "I2sWriteOperationWith16bitdataRxMasterTxSlaveWithRxWSP16bitTxWSP32bitWith48khzTest.sv"    
  `include "I2sWriteOperationWith24bitdataRxMasterTxSlaveWithRxWSP16bitTxWSP48bitWith16khzTest.sv"   
- `include "I2sWriteOperationWith24bitdataRxMasterTxSlaveWithRxWSP32bitTxWSP48bitWith192khzTest.sv" 
+ `include "I2sWriteOperationWith24bitdataRxMasterTxSlaveWithRxWSP32bitTxWSP48bitWith192khzTest.sv"
+
+ //Random Tests
+  `include "I2sWriteOperationRandomTxMasterRxSlaveWithTxWSP32bitWith16khzTest.sv"
+  `include "I2sWriteOperationRandomTxMasterRxSlaveWithTxWSP48bitWith96khzTest.sv"
+  `include "I2sWriteOperationRandomTxMasterRxSlaveWithTxWSP64bitWith32khzTest.sv"
+
+  `include "I2sWriteOperationRandomRxMasterTxSlaveWith32khzTest.sv"
+
+ //Error Tests
+  `include "I2sWriteOperationDataTransferErrorTest.sv"
+  `include "I2sWriteOperationWithInvalidWSPErrorTest.sv"
+
+        
+
 
 endpackage : I2sTestPkg
 

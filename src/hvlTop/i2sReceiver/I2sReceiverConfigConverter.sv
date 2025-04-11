@@ -20,6 +20,7 @@ function void I2sReceiverConfigConverter::fromReceiverClass(input I2sReceiverAge
   outputConv.Sclk  = inputConv.Sclk;
   outputConv.numOfChannels = numOfChannelsEnum'(inputConv.numOfChannels);
   outputConv.wordSelectPeriod = wordSelectPeriodEnum'(inputConv.wordSelectPeriod);
+  outputConv.dataTransferDirection = dataTransferDirectionEnum'(inputConv.dataTransferDirection); 
   
 //  outputConv.delayFortxSd  = inputConv.delayFortxSd;
 //  outputConv.delayFortxWs  = inputConv.delayFortxWs;
@@ -34,6 +35,7 @@ function void I2sReceiverConfigConverter::do_print(uvm_printer printer);
   printer.print_field ("Sclk",ConfigStruct.Sclk, $bits(ConfigStruct.Sclk), UVM_DEC);
   printer.print_field("numOfChannels",ConfigStruct.numOfChannels, $bits(ConfigStruct.numOfChannels), UVM_DEC);
   printer.print_field("wordSelectPeriod",ConfigStruct.wordSelectPeriod, $bits(ConfigStruct.wordSelectPeriod), UVM_DEC);
+  printer.print_field("dataTransferDirection",ConfigStruct.dataTransferDirection, $bits(ConfigStruct.dataTransferDirection), UVM_DEC);
 
 //  printer.print_field("delayFortxSd",ConfigStruct.delayFortxSd,$bits(ConfigStruct.delayFortxSd),UVM_DEC);
 //  printer.print_field("delayFortxWs",ConfigStruct.delayFortxWs,$bits(ConfigStruct.delayFortxWs),UVM_DEC);

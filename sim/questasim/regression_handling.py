@@ -45,3 +45,4 @@ for testname in reg_list_array:
   if debug:
     print(line)
   os.system(line)
+

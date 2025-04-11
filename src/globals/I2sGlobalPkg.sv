@@ -20,6 +20,10 @@ typedef enum bit{
     FALSE=1'b0
 } hasCoverageEnum;
 
+typedef enum bit {
+    MSB_FIRST = 1'b0,
+    LSB_FIRST = 1'b1
+  } dataTransferDirectionEnum;
 
 typedef enum bit[1:0]{
     TX_MASTER=2'b00,
@@ -43,14 +47,16 @@ typedef enum bit[1:0]{
     WS_PERIOD_2_BYTE = 16,
     WS_PERIOD_4_BYTE=32,
     WS_PERIOD_6_BYTE=48,
-    WS_PERIOD_8_BYTE=64
+    WS_PERIOD_8_BYTE=64,
+    WS_PERIOD_INVALID= 128
   } wordSelectPeriodEnum;
 
   typedef enum{
     BITS_8  = 8, 
     BITS_16 =16,
     BITS_24 =24,
-    BITS_32 =32
+    BITS_32 =32,
+    BITS_INVALID = 64
    }numOfBitsTransferEnum;
 
 typedef struct {
@@ -61,6 +67,7 @@ typedef struct {
     int sclkFrequency;
     bit Sclk;
     int numOfChannels;
+    bit dataTransferDirection;
   //  int delayFortxSd;
   //  int delayFortxWs;
   } i2sTransferCfgStruct;  
