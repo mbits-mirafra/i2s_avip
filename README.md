@@ -6,10 +6,15 @@ The idea of using Accelerated VIP is to push the synthesizable part of the testb
 
 # Key Features
 1. It has 8,16,24,32 Serial data bits for each sample. 
-2. It has different sample rates. (8 khz to 192 khz)
-3. I2S supports the Left justified, Right justified (CODEC) mode, Phillips Standard mode.
-4. It has 16-bit, 32-bit, 48-bit, or 64-bit Word select period.
-5. It supports serial data transmission through mono and stereo channels based on word select signal.
+2. It supports both mono channel and stereo channel modes of communication  
+3. It has different sample rates. (8 khz to 192 khz) 
+4. It supports the Left justified (Codec) mode.  
+5. It has 16-bit, 32-bit, 48-bit, or 64-bit Word select period. 
+6. Mechanism to enable Serial data transmission, WS generation and Serial clock generation. 
+
+# Key features for the TO DO 
+1. It supports the Right justified (Codec) mode and Phillips Standard mode.  
+
    
 # Testbench Architecture Diagram
 ![image](https://github.com/user-attachments/assets/f07bfa47-dbe6-4d85-9781-87ad1cf24df5)
