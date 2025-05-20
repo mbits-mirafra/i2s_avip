@@ -34,7 +34,7 @@ function void I2sWriteOperationWith16bitdataRxMasterTxSlaveWith48khzTest::setupT
   super.setupTransmitterAgentConfig();
   
      i2sEnvConfig.i2sTransmitterAgentConfig.mode  = modeTypeEnum'(TX_SLAVE);
-     i2sEnvConfig.i2sTransmitterAgentConfig.numOfChannels  = numOfChannelsEnum'(STEREO);
+     i2sEnvConfig.i2sTransmitterAgentConfig.numOfChannels  = numOfChannelsEnum'(MONO);
      i2sEnvConfig.i2sTransmitterAgentConfig.wordSelectPeriod  = wordSelectPeriodEnum'(WS_PERIOD_4_BYTE);
 
 endfunction:setupTransmitterAgentConfig

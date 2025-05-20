@@ -59,22 +59,22 @@ task I2sTransmitterMonitorProxy::run_phase(uvm_phase phase);
 
   forever begin
      i2sTransferPacketStruct packetStruct;
-    i2sTransferCfgStruct configStruct;
+     i2sTransferCfgStruct configStruct;
 
      I2sTransmitterSeqItemConverter::fromTransmitterClass(i2sTransmitterTransaction, packetStruct);
       `uvm_info(get_type_name(), $sformatf("IN TRANSMITTER MONITOR: Converted i2sTransmitterTransaction to struct\n%p",packetStruct), UVM_NONE)
 
 
-   I2sTransmitterConfigConverter::fromTransmitterClass(i2sTransmitterAgentConfig, configStruct);
+     I2sTransmitterConfigConverter::fromTransmitterClass(i2sTransmitterAgentConfig, configStruct);
 
-   `uvm_info(get_type_name(), $sformatf("IN TRANSMITTER MONITOR: Converted cfg struct\n%p",configStruct), UVM_NONE)
+      `uvm_info(get_type_name(), $sformatf("IN TRANSMITTER MONITOR: Converted cfg struct\n%p",configStruct), UVM_NONE)
    
      i2sTransmitterMonitorBFM.sampleData(packetStruct,configStruct);
 
      I2sTransmitterSeqItemConverter::toTransmitterClass(packetStruct,i2sTransmitterTransaction);
          
 
-    $cast(i2sTransmittertxn, i2sTransmitterTransaction.clone());
+     $cast(i2sTransmittertxn, i2sTransmitterTransaction.clone());
     `uvm_info(get_type_name(),$sformatf("IN TRANSMITTER MONITOR: Packet received from sample_data clone packet is \n %s",i2sTransmittertxn.sprint()),UVM_NONE)   
  
     i2sTransmitterAnalysisPort.write(i2sTransmittertxn); 

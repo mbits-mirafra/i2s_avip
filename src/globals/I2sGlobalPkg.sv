@@ -68,9 +68,7 @@ typedef struct {
     bit Sclk;
     int numOfChannels;
     bit dataTransferDirection;
-  //  int delayFortxSd;
-  //  int delayFortxWs;
-  } i2sTransferCfgStruct;  
+   } i2sTransferCfgStruct;  
 
   typedef struct {
     bit [DATA_WIDTH-1:0]sdLeftChannel[MAXIMUM_SIZE];
