@@ -163,6 +163,8 @@ task I2sScoreboard::dataComparison();
      end  
 
    end  
+  else
+    `uvm_info(get_type_name(),$sformatf("i2s transmitter and receiver Word Selects are not equal"),UVM_NONE);
 
   end
 endtask

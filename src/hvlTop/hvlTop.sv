@@ -3,7 +3,7 @@ module hvlTop;
  import uvm_pkg::*;
  
  initial begin
-  run_test("I2sTest");
+  run_test("I2sBaseTest");
  end
 
 endmodule : hvlTop
