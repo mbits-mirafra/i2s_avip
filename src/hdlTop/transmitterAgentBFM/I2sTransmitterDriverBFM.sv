@@ -12,13 +12,11 @@ interface I2sTransmitterDriverBFM(input clk,
                                   output reg sd);
 
   int sclkPeriod;
-  int timeoutSclk;
   int time1,time2;
   int clkPeriod;
   int clkFrequency;
   int sclkPeriodDivider;
   int numOfChannels;
-  int timeout_ws;
   int txNumOfBitsTransferLocal;
   
   import uvm_pkg::*;
