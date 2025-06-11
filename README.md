@@ -22,6 +22,54 @@ The idea of using Accelerated VIP is to push the synthesizable part of the testb
 ## Developers, Welcome
 We believe in growing together and if you'd like to contribute, please do check out the contributing guide below:
 https://github.com/mbits-mirafra/i2s_avip/blob/main/contribution_guidelines.md
+# Installation - Get the VIP collateral from the GitHub repository
+
+```
+# Checking for git software, open the terminal type the command
+git version
+
+# Get the VIP collateral
+git clone git@github.com:mbits-mirafra/axi4_avip.git
+```
+
+# Running the test
+
+### Using Mentor's Questasim simulator 
+
+```
+cd i2s_avip/sim/questasim
+
+# Compilation:  
+make compile
+
+# Simulation:
+make simulate test=<test_name> uvm_verbosity=<VERBOSITY_LEVEL>
+
+ex: make simulate test=I2sWriteOperationWith16bitdataTxMasterRxSlaveWith8khzTest uvm_verbosity=UVM_HIGH
+
+# Note: You can find all the test case names in the path given below   
+i2s_avip/src/hvlTop/testlist/I2s_standard_mode_regression.list
+
+# Wavefrom:  
+vsim -view <test_name>/waveform.wlf &
+
+ex: vsim -view I2sWriteOperationWith16bitdataTxMasterRxSlaveWith8khzTest/waveform.wlf &
+
+# Regression:
+make regression testlist_name=<regression_testlist_name.list>
+ex: make regression testlist_name=I2s_standard_mode_regression
+
+# Coverage: 
+ ## Individual test:
+ firefox <test_name>/html_cov_report/index.html &
+ ex: firefox I2sWriteOperationWith16bitdataTxMasterRxSlaveWith8khzTest/html_cov_report/index.html &
+
+ ## Regression:
+ firefox merged_cov_html_report/index.html &
+
+```
+## User Guide  
+https://github.com/mbits-mirafra/i2s_avip/blob/main/doc/i2s_Avip_Document.pdf
 
 ## Contact Mirafra Team
 You can reach out to us over mbits@mirafra.com
