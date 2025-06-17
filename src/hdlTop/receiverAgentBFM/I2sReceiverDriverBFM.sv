@@ -9,7 +9,7 @@ interface I2sReceiverDriverBFM(input clk,
                                output reg sclkOutput,
                                input wsInput,
                                output reg wsOutput,
-                               output reg sd);
+                               input reg sd);
 
 
 

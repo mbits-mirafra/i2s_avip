@@ -36,6 +36,11 @@ module hdlTop;
     #1300000 $finish;
   end 
 
+  initial begin
+    $dumpfile("waveform.vcd");
+    $dumpvars(0, hdlTop); 
+  end
+
 endmodule : hdlTop
 
 `endif

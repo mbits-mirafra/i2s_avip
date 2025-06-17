@@ -10,17 +10,15 @@ module I2sTransmitterAgentBFM(I2sInterface i2sInterface);
   I2sTransmitterDriverBFM i2sTransmitterDriverBFM(.clk(i2sInterface.clk),
                                                   .rst(i2sInterface.rst),
                                                   .wsInput(i2sInterface.ws),
-                                                  .wsOutput(i2sInterface.wsOutput),
+                                                  .wsOutput(i2sInterface.rxWsOutput),
                                                   .sclkInput(i2sInterface.sclk),
-                                                  .sclkOutput(i2sInterface.sclkOutput),
+                                                  .sclkOutput(i2sInterface.rxSclkOutput),
                                                   .sd(i2sInterface.sd));  
 
   I2sTransmitterMonitorBFM i2sTransmitterMonitorBFM(.clk(i2sInterface.clk),
                                                     .rst(i2sInterface.rst),
                                                     .ws(i2sInterface.ws),
-                                                    .wsOutput(i2sInterface.wsOutput),
                                                     .sclk(i2sInterface.sclk),
-                                                    .sclkOutput(i2sInterface.sclkOutput),
                                                     .sd(i2sInterface.sd));  
 
   initial begin

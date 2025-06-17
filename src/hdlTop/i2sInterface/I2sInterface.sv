@@ -8,10 +8,15 @@ interface I2sInterface(input bit clk,input bit rst);
   logic ws;
   logic sd;
   
-  logic wsInput;
-  logic wsOutput;
-  logic sclkInput;
-  logic sclkOutput;
+  logic txWsInput;
+  logic txWsOutput;
+  logic txSclkInput;
+  logic txSclkOutput;
+ 
+  logic rxWsInput;
+  logic rxWsOutput;
+  logic rxSclkInput;
+  logic rxSclkOutput;
  
   import uvm_pkg::*;
   `include "uvm_macros.svh";
@@ -32,12 +37,12 @@ interface I2sInterface(input bit clk,input bit rst);
 
     forever begin
       if(i2sTransmitterAgentConfig.mode == TX_MASTER) begin
-        sclk <= sclkOutput;
-        ws <= wsOutput;
+        sclk <= txSclkOutput;
+        ws <= txWsOutput;
       end
       else begin
-        sclkInput <= sclk;
-        wsInput <= ws;
+        txSclkInput <= sclk;
+        txWsInput <= ws;
       end
       @(posedge clk);
     end
@@ -52,12 +57,12 @@ interface I2sInterface(input bit clk,input bit rst);
 
     forever begin
       if(i2sReceiverAgentConfig.mode == RX_MASTER) begin
-        sclk <= sclkOutput;
-        ws <= wsOutput;
+        sclk <= rxSclkOutput;
+        ws <= rxWsOutput;
       end
       else begin
-        sclkInput <= sclk;
-        wsInput <= ws;
+        rxSclkInput <= sclk;
+        rxWsInput <= ws;
       end
       @(posedge clk);
     end

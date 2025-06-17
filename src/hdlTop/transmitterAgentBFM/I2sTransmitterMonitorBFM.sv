@@ -6,9 +6,7 @@ import I2sGlobalPkg::*;
 interface I2sTransmitterMonitorBFM(input clk, 
                                    input rst,
                                    input sclk,
-                                   input sclkOutput,
                                    input ws,
-                                   input wsOutput,
                                    input sd);
 
 
