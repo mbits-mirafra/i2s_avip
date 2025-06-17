@@ -6,6 +6,7 @@ class I2sVirtual8bitWriteOperationRxMasterTxSlaveSeq extends I2sVirtualBaseSeq;
 
   I2sReceiverWrite8bitTransferSeq i2sReceiverWrite8bitTransferSeq;
   I2sTransmitterWrite8bitTransferSeq i2sTransmitterWrite8bitTransferSeq;
+  int wordSelectPeriodVseq;
 
   extern function new(string name = "I2sVirtual8bitWriteOperationRxMasterTxSlaveSeq");
   extern task body();
@@ -16,48 +17,38 @@ function I2sVirtual8bitWriteOperationRxMasterTxSlaveSeq::new(string name = "I2sV
 endfunction : new
 
 task I2sVirtual8bitWriteOperationRxMasterTxSlaveSeq::body();
-
-repeat(2) 
- begin
-
-  i2sReceiverWrite8bitTransferSeq = I2sReceiverWrite8bitTransferSeq::type_id::create("i2sReceiverWrite8bitTransferSeq");
-  i2sTransmitterWrite8bitTransferSeq = I2sTransmitterWrite8bitTransferSeq::type_id::create("i2sTransmitterWrite8bitTransferSeq");
-
-  `uvm_info(get_type_name(), $sformatf("Inside Body Seq Start: I2sVirtual8bitWriteOperationRxMasterTxSlaveSeq"), UVM_NONE);
-
-
-
-if(!i2sReceiverWrite8bitTransferSeq.randomize() with {rxWsSeq==1;
-                                                      }) begin
-       `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite8bitTransferSeq")
-  end
-
- 
-
- if (!i2sTransmitterWrite8bitTransferSeq.randomize() with {txNumOfBitsTransferSeq == (p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2);                                                             }) begin
-    `uvm_error(get_type_name(), "Randomization failed: Inside I2sTransmitterWrite8bitTransferSeq")
-  end
-
+  repeat(2) begin
+    i2sReceiverWrite8bitTransferSeq = I2sReceiverWrite8bitTransferSeq::type_id::create("i2sReceiverWrite8bitTransferSeq");
+    i2sTransmitterWrite8bitTransferSeq = I2sTransmitterWrite8bitTransferSeq::type_id::create("i2sTransmitterWrite8bitTransferSeq");
   
-
-//end
-
- 
-  fork
-    begin
-  `uvm_info(get_type_name(), "Starting Receiver Sequence", UVM_LOW);
-     
-      i2sReceiverWrite8bitTransferSeq.start(p_sequencer.i2sReceiverSequencer);
-  end
-    begin
+    `uvm_info(get_type_name(), $sformatf("Inside Body Seq Start: I2sVirtual8bitWriteOperationRxMasterTxSlaveSeq"), UVM_NONE);
+  
+    if(!i2sReceiverWrite8bitTransferSeq.randomize() with {rxWsSeq==1;
+                                                        }) begin
+      `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite8bitTransferSeq")
+    end
+  
+    wordSelectPeriodVseq = p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2;
+    
+    if(!i2sTransmitterWrite8bitTransferSeq.randomize() with {txNumOfBitsTransferSeq == wordSelectPeriodVseq;
+                                                           }) begin
+      `uvm_error(get_type_name(), "Randomization failed: Inside I2sTransmitterWrite8bitTransferSeq")
+    end
+  
+    fork
+      begin
+        `uvm_info(get_type_name(), "Starting Receiver Sequence", UVM_LOW);
+        i2sReceiverWrite8bitTransferSeq.start(p_sequencer.i2sReceiverSequencer);
+      end
+      
+      begin
         `uvm_info(get_type_name(), "Starting Transmitter Sequence", UVM_LOW);
-      i2sTransmitterWrite8bitTransferSeq.start(p_sequencer.i2sTransmitterSequencer);
+        i2sTransmitterWrite8bitTransferSeq.start(p_sequencer.i2sTransmitterSequencer);
+      end
+    join
+  
+    `uvm_info(get_type_name(), "Fork_join Completed",UVM_NONE);
   end
-  join
-
-  `uvm_info(get_type_name(), "Fork_join Completed",UVM_NONE);
-end
-
 endtask : body
 
 `endif
