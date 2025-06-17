@@ -9,10 +9,10 @@ module I2sReceiverAgentBFM(I2sInterface i2sInterface);
 
   I2sReceiverDriverBFM i2sReceiverDriverBFM(.clk(i2sInterface.clk),
                                             .rst(i2sInterface.rst),
-                                            .wsInput(i2sInterface.txWsInput),
-                                            .wsOutput(i2sInterface.txWsOutput),
-                                            .sclkInput(i2sInterface.txSclkInput),
-                                            .sclkOutput(i2sInterface.txSclkOutput),
+                                            .wsInput(i2sInterface.rxWsInput),
+                                            .wsOutput(i2sInterface.rxWsOutput),
+                                            .sclkInput(i2sInterface.rxSclkInput),
+                                            .sclkOutput(i2sInterface.rxSclkOutput),
                                             .sd(i2sInterface.sd));  
 
   I2sReceiverMonitorBFM i2sReceiverMonitorBFM(.clk(i2sInterface.clk),

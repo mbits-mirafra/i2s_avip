@@ -10,9 +10,9 @@ module I2sTransmitterAgentBFM(I2sInterface i2sInterface);
   I2sTransmitterDriverBFM i2sTransmitterDriverBFM(.clk(i2sInterface.clk),
                                                   .rst(i2sInterface.rst),
                                                   .wsInput(i2sInterface.ws),
-                                                  .wsOutput(i2sInterface.rxWsOutput),
+                                                  .wsOutput(i2sInterface.txWsOutput),
                                                   .sclkInput(i2sInterface.sclk),
-                                                  .sclkOutput(i2sInterface.rxSclkOutput),
+                                                  .sclkOutput(i2sInterface.txSclkOutput),
                                                   .sd(i2sInterface.sd));  
 
   I2sTransmitterMonitorBFM i2sTransmitterMonitorBFM(.clk(i2sInterface.clk),
