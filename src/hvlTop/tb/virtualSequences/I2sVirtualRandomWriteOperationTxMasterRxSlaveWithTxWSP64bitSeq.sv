@@ -5,6 +5,7 @@ class I2sVirtualRandomWriteOperationTxMasterRxSlaveWithTxWSP64bitSeq extends I2s
   `uvm_object_utils(I2sVirtualRandomWriteOperationTxMasterRxSlaveWithTxWSP64bitSeq)
 
   I2sTransmitterWriteRandomTransferSeq i2sTransmitterWriteRandomTransferSeq;
+  int wordSelectPeriodVseq;
  
   extern function new(string name = "I2sVirtualRandomWriteOperationTxMasterRxSlaveWithTxWSP64bitSeq");
   extern task body();
@@ -17,22 +18,22 @@ endfunction : new
 task I2sVirtualRandomWriteOperationTxMasterRxSlaveWithTxWSP64bitSeq::body();
 
 repeat(5)
- begin
- i2sTransmitterWriteRandomTransferSeq = I2sTransmitterWriteRandomTransferSeq::type_id::create("i2sTransmitterWriteRandomTransferSeq");
-  `uvm_info(get_type_name(), $sformatf("Inside Body Seq start I2sVirtualRandomWriteOperationTxMasterRxSlaveWithTxWSP64bitSeq"), UVM_NONE);    
+  begin
+    i2sTransmitterWriteRandomTransferSeq = I2sTransmitterWriteRandomTransferSeq::type_id::create("i2sTransmitterWriteRandomTransferSeq");
+    `uvm_info(get_type_name(), $sformatf("Inside Body Seq start I2sVirtualRandomWriteOperationTxMasterRxSlaveWithTxWSP64bitSeq"), UVM_NONE);    
 
-   if(!i2sTransmitterWriteRandomTransferSeq.randomize() with {txNumOfBitsTransferSeq <= (p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2);
-	                                                    }) begin  
+     wordSelectPeriodVseq = p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2;
+     if(!i2sTransmitterWriteRandomTransferSeq.randomize() with {txNumOfBitsTransferSeq <= wordSelectPeriodVseq; 
+	                                                             }) begin  
 
-       `uvm_error(get_type_name(), "Randomization failed : Inside I2sTransmitterWriteRandomTransferSeq")
+     `uvm_error(get_type_name(), "Randomization failed : Inside I2sTransmitterWriteRandomTransferSeq")
+      end
+
+     `uvm_info(get_type_name(), "Attempting to start the virtual sequence", UVM_NONE);
+      i2sTransmitterWriteRandomTransferSeq.start(p_sequencer.i2sTransmitterSequencer);
+
   end
-
-
-`uvm_info(get_type_name(), "Attempting to start the virtual sequence", UVM_NONE);
-i2sTransmitterWriteRandomTransferSeq.start(p_sequencer.i2sTransmitterSequencer);
-
- end
- endtask : body
+endtask : body
 
 `endif
 

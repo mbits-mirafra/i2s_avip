@@ -6,6 +6,7 @@ class I2sVirtual16bitWriteOperationRxMasterTxSlaveWithRxWSP16bitTxWSP32bitSeq ex
 
   I2sReceiverWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq i2sReceiverWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq;
   I2sTransmitterWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq i2sTransmitterWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq;  
+  int wordSelectPeriodVseq;
 
   extern function new(string name = "I2sVirtual16bitWriteOperationRxMasterTxSlaveWithRxWSP16bitTxWSP32bitSeq");
   extern task body();
@@ -25,28 +26,28 @@ task I2sVirtual16bitWriteOperationRxMasterTxSlaveWithRxWSP16bitTxWSP32bitSeq::bo
 
 
    if(!i2sReceiverWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq.randomize() with{rxWsSeq==1;
-							                          }) begin
-       `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq")
+							                                                                  }) begin
+    `uvm_error(get_type_name(), "Randomization failed : Inside I2sReceiverWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq")
   end
 
- if (!i2sTransmitterWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq.randomize() with {txNumOfBitsTransferSeq == (p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2); 
-                                                             }) begin
+    wordSelectPeriodVseq = p_sequencer.i2sTransmitterSequencer.i2sTransmitterAgentConfig.wordSelectPeriod/2;
+    if (!i2sTransmitterWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq.randomize() with {txNumOfBitsTransferSeq == wordSelectPeriodVseq; 
+                                                                                      }) begin
     `uvm_error(get_type_name(), "Randomization failed: Inside I2sTransmitterWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq")
   end
 
   fork
     begin
-  `uvm_info(get_type_name(), "Starting Receiver Sequence", UVM_LOW);
-      i2sReceiverWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq.start(p_sequencer.i2sReceiverSequencer);
-  end
+      `uvm_info(get_type_name(), "Starting Receiver Sequence", UVM_LOW);
+       i2sReceiverWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq.start(p_sequencer.i2sReceiverSequencer);
+    end
     begin
-        `uvm_info(get_type_name(), "Starting Transmitter Sequence", UVM_LOW);
+      `uvm_info(get_type_name(), "Starting Transmitter Sequence", UVM_LOW);
       i2sTransmitterWrite16bitTransferWithRxWSP16bitTxWSP32bitSeq.start(p_sequencer.i2sTransmitterSequencer);
-  end
+    end
   join
 
   `uvm_info(get_type_name(), "Fork_join Completed",UVM_NONE);
-
   end
 
 endtask : body
